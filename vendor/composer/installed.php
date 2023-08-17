@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v8.6.12',
-        'version' => '8.6.12.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'c677c492d45eb2388c9b898f39362004fbf05cd9',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -394,10 +394,19 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'laravel/helpers' => array(
+            'pretty_version' => 'v1.6.0',
+            'version' => '1.6.0.0',
+            'reference' => '4dd0f9436d3911611622a6ced8329a1710576f60',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/helpers',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v8.6.12',
-            'version' => '8.6.12.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c677c492d45eb2388c9b898f39362004fbf05cd9',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -436,6 +445,15 @@
             'reference' => '04a2d3bd0d650c0764f70bf49d1ee39393e4eb10',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/tinker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laravel/ui' => array(
+            'pretty_version' => 'v3.4.6',
+            'version' => '3.4.6.0',
+            'reference' => '65ec5c03f7fee2c8ecae785795b829a15be48c2c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/ui',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -745,8 +763,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
