@@ -17,4 +17,6 @@ use App\Http\Controllers\authorization\InterfaceController;
 
 Route::get('/', [InterfaceController::class, 'show']);
 
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index'])->name('get.user');
+
+Route::post('/users/edit', [UserController::class, 'edit'])->name('post.userEdit');
