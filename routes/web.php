@@ -17,6 +17,10 @@ use App\Http\Controllers\authorization\InterfaceController;
 
 Route::get('/', [InterfaceController::class, 'show']);
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/user', [UserController::class, 'index'])->name('get.user');
 
 Route::post('/users/edit', [UserController::class, 'edit'])->name('post.userEdit');
