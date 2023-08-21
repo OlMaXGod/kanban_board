@@ -4,49 +4,71 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use App\Models\User;
+use App\Models\projects;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class UserController extends Controller
-{
-    public function index(){
+{    
+    public function __construct(){
+        
+        $this->middleware('auth');
 
-        $data = request()->validate([
-            'id' => 'int',
-        ]);
+    }
 
-        $result = DB::table('users')
-            ->select('id','name','email')
-            ->where('id', '=', $data['id'])
-            ->get();
+    public function index($id){
 
-        $result = json_decode($result, true)[0];
+        $user = User::find($id);
+        //$projects = projects::find($id);
+
+        $projects = projects::where('who_changed', '=', $id);
 
         $userData = [
-            'name' => $result['name'],
-            'number' => "89998887766",
-            'email' => $result['email'],
+            'name' => $user['name'],
+            'phone' => $user['phone'],
+            'email' => $user['email'],
         ];
-        return view('profile/main', compact('userData'));
+        
+        $projectsData = [];
+
+        foreach($projects as $project){
+            $projectsData[$projects['id']] = [
+                'name' => $projects['name'],
+                'comment' => $projects['comment'],
+            ];
+        }
+        
+        dd($projects);
+
+        //return view('profile/main', compact('userData', 'projectsData'));
+
     }
           
-    public function edit(){
+    public function edit(Request $request){
 
-        $data = request()->validate([
-            'id' => 'int',
-            'number' => 'string',
+        $data = $request->validate([
+            'name' => 'string',
+            'phone' => 'string',
             'email' => 'string',
-        ]);
+            'phoneOld' => 'string',
+            'emailOld' => 'string'
+          ]);
 
-        return 1;
+        $user = User::where('phone', '=', $data['phoneOld'])
+                    ->where('email', '=', $data['emailOld']);
+
         //'password' => password_hash($data['pass'], PASSWORD_BCRYPT, $options)
-        DB::table('users')
-              ->where('id', '=', $data['id'])
-              ->update(['name' => $data['name'],'email' => $data['email']]
+        $user->update([
+            'name' => $data['name'],
+            'phone' => $data['phone'],
+            'email' => $data['email']
+            ]        
         );
 
         $data = [
             'message' => "Все вроде нормально",
         ];
         return $data;
+
     }
 }

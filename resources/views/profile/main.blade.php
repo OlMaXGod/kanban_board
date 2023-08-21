@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../resources/js/bootstrap.min.js"></script>
-    <script src="../resources/js/jquery.js"></script>
-    <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <script src="/kanban_board/resources/js/bootstrap.min.js"></script>
+    <script src="/kanban_board/resources/js/jquery.js"></script>
+    <link rel="stylesheet" href="/kanban_board/resources/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="/kanban_board/logo.png" type="image/x-icon">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Profile</title>
 </head>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-lg-3 p-1">
                             <div class="w-50 my-5 mx-auto">
-                                <img src="../default_profile_image.jpg" style="max-height: 300px; max-weight: 300px"
+                                <img src="/kanban_board/default_profile_image.jpg" style="max-height: 300px; max-weight: 300px"
                                     class="img-fluid" alt="default_profile_image.jpg">
                             </div>
                         </div>
@@ -32,8 +32,8 @@
 								<input type="text" class="form-control border-3" id="exampleInputName" value={{ $userData['name'] }}>
 								<label for="exampleInputEmail" class="form-label pt-1">Email</label>
 								<input type="email" class="form-control border-3" id="exampleInputEmail" value={{ $userData['email'] }}>
-								<label for="exampleInputNumber" class="form-label pt-1">Телефон</label>
-								<input type="test" class="form-control border-3" id="exampleInputNumber" value={{ $userData['number'] }}>
+								<label for="exampleInputPhone" class="form-label pt-1">Телефон</label>
+								<input type="test" class="form-control border-3" id="exampleInputPhone" value={{ $userData['phone'] }}>
                                 <button type="button" id="saveButton" class="btn btn-success mt-2 mx-auto disabled">Сохранить изменения</button>
                                 <button type="button" class="btn btn-primary mt-2 mx-auto">Изменить пароль</button>
                             </div>
@@ -43,10 +43,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 bd-example p-1" data-spy="scroll">
-                    <div class="card card-body bg-body-secondary" style="height:500px">
+                    <div class="card card-body bg-body-secondary" style="height:350px">
                         <div class="row">
                             <div class="col-4">
-                                <div class="list-group" id="list-tab" role="tablist" style="height:200px">
+                                <div class="list-group" id="list-tab" role="tablist" style="height:300px; overflow-y: scroll;">
                                     <a class="list-group-item list-group-item-action active" id="proect-0001-list"
                                         data-bs-toggle="list" href="#proect-0001" role="tab"
                                         aria-controls="proect-0001">Проект 1</a>
@@ -125,7 +125,9 @@
 
 			let nameDefault = '{{$userData['name']}}';
 			let emailDefault = '{{$userData['email']}}';
-			let numberDefault = '{{$userData['number']}}';
+			let phoneDefault = '{{$userData['phone']}}';
+
+            let qwe = '{{$projectsData['id']}}';
 
 			$(document).ready(function(){
 				$("#saveButton").on('click', function(){
@@ -138,11 +140,14 @@
 						method: 'post',
 						data: {      
 							name: $('#exampleInputName').val(),
-							number: $('#exampleInputEmail').val(),
-							email: $('#exampleInputNumber').val(),
+							phone: $('#exampleInputPhone').val(),
+							email: $('#exampleInputEmail').val(),
+							phoneOld: phoneDefault,
+							emailOld: emailDefault,
 							},
 						success: function(data){
 							alert("Успешно!\n" + data.message);
+                            console.log(data);
 						},
 						error: function(jqXHR, exception){
 
@@ -169,7 +174,7 @@
 
 					nameDefault = $("#exampleInputName").val();
 					emailDefault = $("#exampleInputEmail").val();
-					numberDefault = $("#exampleInputNumber").val();
+					phoneDefault = $("#exampleInputPhone").val();
 
 					$(".border-primary").removeClass('border-primary').addClass('border-success');
 					$("#saveButton").addClass('disabled');
@@ -198,8 +203,8 @@
 
 					}				
 				});
-				$("#exampleInputNumber").on('input keyup', function() {
-					if($("#exampleInputNumber").val() == numberDefault){
+				$("#exampleInputPhone").on('input keyup', function() {
+					if($("#exampleInputPhone").val() == phoneDefault){
 						$("#saveButton").addClass('disabled');
 						$(this).removeClass('border-primary');
 					} else{
