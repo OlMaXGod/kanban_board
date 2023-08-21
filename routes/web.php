@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authorization\InterfaceController;
+use App\Http\Controllers\Main_page;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ Route::get('/', [InterfaceController::class, 'show']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/main_page/{id}', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home');
 
 Route::get('/user/{id}', [UserController::class, 'index'])->name('get.user');
 

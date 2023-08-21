@@ -21,6 +21,7 @@ class ProjectsSeeder extends Seeder
             'updated_at' => date('Y-m-d h:i:s'),
             'name' => str_random(10),
             'comment' => str_random(10),
+            'role_id' => 1,
             'type_id' => 1,
             'who_changed' => 1,
         ]);
