@@ -1,6 +1,6 @@
 @section("footer")
 
-<div class="container-xxl" style="background-color:#FFE4C4; padding: 10px; margin-top:100%;">
+<div class="container-xxl" style="background-color:#FFE4C4; padding: 10px; min-top:100%;">
     
 <ul class="nav justify-content-end" >
 

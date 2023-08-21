@@ -3,7 +3,7 @@
 
 <div class="container" style="margin-top:10%; border: 2px solid black;  padding: 0.5%; max-width: 600px">
 
-<form method="POST" action="http://localhost/kanban_board/public/register">
+<form method="POST" action="{{ route('register') }}">
 @csrf
 
      <div class="mb-3">
@@ -32,7 +32,7 @@
          <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">   
     </div>
 
-  <button type="submit" class="btn btn-outline-primary" style="margin-left:37%;">Создать аккаунта</button>
+  <button type="sumbit" class="btn btn-outline-primary" style="margin-left:37%;">Создать аккаунта</button>
   
 </form>
 <a href="{{explode('?', $_SERVER['REQUEST_URI'])[0]}}"><button class="btn btn-light" style="margin-left:33%; margin-top:1%">У меня уже есть аккаунт</button></a>
