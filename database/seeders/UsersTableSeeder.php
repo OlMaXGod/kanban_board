@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,8 +19,9 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'admin',
+            'phone' => '89047953505',
             'email' => 'admin@mail.com',
-            'password' => bcrypt('admin'),
+            'password' => Hash::make('admin'),
         ]);
     }
 }
