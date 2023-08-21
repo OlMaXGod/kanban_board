@@ -22,6 +22,8 @@ Auth::routes();
 
 Route::get('/main_page/{id}', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home');
 
-Route::get('/user/{id}', [UserController::class, 'index'])->name('get.user');
+Route::get('/user', [UserController::class, 'index'])->name('get.user');
 
 Route::post('/users/edit', [UserController::class, 'edit'])->name('post.userEdit');
+
+Route::post('/users/edit/password', [UserController::class, 'editPassword'])->name('post.userEditPassword');

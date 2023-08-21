@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\projects;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class UserController extends Controller
@@ -16,12 +18,12 @@ class UserController extends Controller
 
     }
 
-    public function index($id){
+    public function index(){
 
+        $id = auth()->user()->id;
         $user = User::find($id);
-        //$projects = projects::find($id);
-
-        $projects = projects::where('who_changed', '=', $id);
+        
+        $projects = projects::where('who_changed', '=', $id)->get();
 
         $userData = [
             'name' => $user['name'],
@@ -32,15 +34,15 @@ class UserController extends Controller
         $projectsData = [];
 
         foreach($projects as $project){
-            $projectsData[$projects['id']] = [
-                'name' => $projects['name'],
-                'comment' => $projects['comment'],
+            $projectsData[$project['id']] = [
+                'name' => $project['name'],
+                'comment' => $project['comment'],
             ];
         }
         
-        dd($projects);
+        //dd($userData, $projectsData);
 
-        //return view('profile/main', compact('userData', 'projectsData'));
+        return view('profile/main', compact('userData', 'projectsData'));
 
     }
           
@@ -57,7 +59,6 @@ class UserController extends Controller
         $user = User::where('phone', '=', $data['phoneOld'])
                     ->where('email', '=', $data['emailOld']);
 
-        //'password' => password_hash($data['pass'], PASSWORD_BCRYPT, $options)
         $user->update([
             'name' => $data['name'],
             'phone' => $data['phone'],
@@ -68,6 +69,31 @@ class UserController extends Controller
         $data = [
             'message' => "Все вроде нормально",
         ];
+        return $data;
+
+    }
+          
+    public function editPassword(Request $request){
+
+        $data = $request->validate([
+            'phone' => 'string',
+            'email' => 'string',
+            'newPassword' => 'string'
+          ]
+        );
+
+        $user = User::where('phone', '=', $data['phone'])
+                    ->where('email', '=', $data['email']);
+
+        $user->update([
+            'password' => Hash::make($data['newPassword'])
+            ]        
+        );
+
+        $data = [
+            'message' => "Все вроде нормально",
+        ];
+
         return $data;
 
     }
