@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="/kanban_board/resources/css/bootstrap.min.css">
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('header')
+    @include('footer')
     <title>Profile</title>
 </head>
 
-<body>
-	
+<body style="background-color: #FFFACD">
+    @yield('header', 'Не удалось получить список операторов') 
+    <div class="container-xxl">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -43,7 +46,7 @@
 
     <div class="container-fluid">
         <div class="row p-1">
-            <div class="card card-body bg-body-secondary">
+            <div class="card card-body" style="background-color:#66cdab1c">
                 <div class="row">
 
                     <div class="col-lg-3 p-1">
@@ -73,7 +76,7 @@
 
         <div class="row">
             <div class="col-lg-6 bd-example p-1" data-spy="scroll">
-                <div class="card card-body bg-body-secondary" style="height:350px">
+                <div class="card card-body" style="background-color:#66cdab1c; height:350px">
                     <div class="row">
 
                         <div class="col-4">
@@ -114,6 +117,8 @@
             
         </div>
     </div>
+    </div>
+    @yield('footer', 'Не удалось получить список операторов') 
     <script>
 
         let nameDefault = '{{$userData['name']}}';
