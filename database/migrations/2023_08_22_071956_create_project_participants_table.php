@@ -16,6 +16,9 @@ class CreateProjectParticipantsTable extends Migration
         Schema::create('project_participants', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->bigInteger("project_id")->comment('Проект');
+            $table->bigInteger("participant_id")->comment('Участник проекта');
+            $table->bigInteger("role_id")->comment('Роль участника');
         });
     }
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\projects;
+use App\Models\project_participants;
+use App\Models\roles;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
@@ -21,18 +23,16 @@ class UserController extends Controller
     public function index(){
 
         $id = auth()->user()->id;
-        $user = User::find($id);
-        
-        $projects = projects::where('who_changed', '=', $id)->get();
 
+        $user = User::find($id);
         $userData = [
             'name' => $user['name'],
             'phone' => $user['phone'],
             'email' => $user['email'],
-        ];
+        ];        
         
+        $projects = projects::where('who_changed', '=', $id)->get();
         $projectsData = [];
-
         foreach($projects as $project){
             $projectsData[$project['id']] = [
                 'name' => $project['name'],
@@ -40,9 +40,23 @@ class UserController extends Controller
             ];
         }
         
-        //dd($userData, $projectsData);
+        $idProjects = array_keys($projectsData);
+        $participants = project_participants::whereIn('project_id', $idProjects)
+            ->join('users', 'users.id', '=', 'project_participants.participant_id')
+            ->join('roles', 'roles.id', '=', 'project_participants.role_id')
+            ->select('project_participants.project_id', 'project_participants.id', 'users.name', 'roles.role')
+            ->get();
+        $participantsData = [];
+        foreach($participants as $participant){
+            $participantsData[$participant['project_id']][$participant['id']] = [
+                'name' => $participant['name'],
+                'role' => $participant['role'],
+            ];
+        }
+        
+        dd($userData, $projectsData, $participantsData);
 
-        return view('profile/main', compact('userData', 'projectsData'));
+        //return view('profile/main', compact('userData', 'projectsData'));
 
     }
           

@@ -9,10 +9,25 @@
     <link rel="stylesheet" href="/kanban_board/resources/css/bootstrap.min.css">
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        /* Стили для скролла */
+        ::-webkit-scrollbar {
+            width: 6px;
+        } 
+        ::-webkit-scrollbar-track {
+            background-color:gainsboro;
+            border-radius: 3px;
+        } 
+        ::-webkit-scrollbar-thumb {
+            background-color:darkgrey;
+            border-radius: 3px;
+        }
+    </style>
     @include('header')
     @include('profile.modal_dialog')
     @include('profile.body_profile')
     @include('profile.projects')
+    @include('profile.participants')
     @include('footer')
     <title>Profile</title>
 </head>
@@ -28,8 +43,14 @@
         <div class="container-fluid">
             
             @yield('body_profile', 'Не удалось получить список операторов')
+            
+            <div class="row">
 
-            @yield('projects', 'Не удалось получить список операторов')
+                @yield('projects', 'Не удалось получить список операторов')
+
+                @yield('participants', 'Не удалось получить список операторов')
+
+            </div>
             
         </div>
 
