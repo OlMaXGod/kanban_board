@@ -32,4 +32,3 @@ Route::post('/users/edit/password', [UserController::class, 'editPassword'])->na
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
-Route::post('/users/edit/password', [UserController::class, 'editPassword'])->name('post.userEditPassword');
