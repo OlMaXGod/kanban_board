@@ -1,5 +1,42 @@
 $(document).ready(function(){
 	
+	$(".group-item-project").click(function(){
+		$("#list-tab-participant").empty();
+		$("#nav-tabContent-participant").empty();
+
+		let idProjectStr = $(this).attr("id");		
+		let idProject = parseInt(idProjectStr.match(/\d+/));
+		let firstStep = true;
+
+		if (Object.keys(participants).find((i) => i == idProject) != null){
+			Object.keys(participants[idProject]).forEach((Id) => {
+				if (firstStep){
+					$("#list-tab-participant").append(
+						"<a class='list-group-item list-group-item-action active' id='participant-"+Id+"-list'" +
+							"data-bs-toggle='list' href='#participant-"+Id+"' role='tab'" +
+							"aria-controls='participant-"+Id+"'>"+participants[idProject][Id]['name']+"</a>"
+						);
+					$("#nav-tabContent-participant").append(				
+						"<div class='tab-pane fade show active' id='participant-"+Id+"' role='tabpanel'"+
+						"aria-labelledby='participant-"+Id+"-list'>Роль: "+participants[idProject][Id]['role']+". Комментарий: </div>"
+					);
+
+					firstStep = false;
+				} else {
+					$("#list-tab-participant").append(
+						"<a class='list-group-item list-group-item-action' id='participant-"+Id+"-list'" +
+							"data-bs-toggle='list' href='#participant-"+Id+"' role='tab'" +
+							"aria-controls='participant-"+Id+"'>"+participants[idProject][Id]['name']+"</a>"
+						);
+					$("#nav-tabContent-participant").append(				
+						"<div class='tab-pane fade show' id='participant-"+Id+"' role='tabpanel'"+
+						"aria-labelledby='participant-"+Id+"-list'>Роль: "+participants[idProject][Id]['role']+". Комментарий: </div>"
+					);
+				}
+			});
+		}
+	});
+
 	$("#saveButtonPass").on('click', function(){
 			
 		if (!$('#alertErrorPassword').hasClass('invisible')) {
@@ -137,6 +174,47 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("#deleteModalButton").on('click', function(){
+
+		let idProjectStr = $(".group-item-project.active").attr("id");
+		let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url: urlProjectDelete,
+			method: 'delete',
+			data: {      
+				idProject: urlDeleteProject,
+			},
+			success: function(data){
+				alert("Успешно!\n" + data.message);            
+			},
+			error: function(jqXHR, exception){
+
+				var msg = '';
+				if (jqXHR.status === 0) {
+					msg = 'Not connect.\n Verify Network.';
+				} else if (jqXHR.status == 404) {
+					msg = 'Requested page not found. [404]';
+				} else if (jqXHR.status == 500) {
+					msg = 'Internal Server Error [500].';
+				} else if (exception === 'parsererror') {
+					msg = 'Requested JSON parse failed.';
+				} else if (exception === 'timeout') {
+					msg = 'Time out error.';
+				} else if (exception === 'abort') {
+					msg = 'Ajax request aborted.';
+				} else {
+					msg = 'Uncaught Error.\n' + jqXHR.responseText;
+				};
+
+				alert(msg);
+			}
+		});
+	});
+
 	$("#exampleInputName").on('input keyup', function() {
 		if($("#exampleInputName").val() == nameDefault){
 			$("#saveButton").addClass('disabled');

@@ -29,6 +29,9 @@ Route::get('/user', [UserController::class, 'index'])->name('get.user');
 Route::post('/users/edit', [UserController::class, 'edit'])->name('post.userEdit');
 Route::post('/users/edit/password', [UserController::class, 'editPassword'])->name('post.userEditPassword');
 
+Route::delete('/project/delete', [UserController::class, 'deleteProject'])->name('delete.project');
+Route::delete('/project/delete/user', [UserController::class, 'deleteUserFromProject'])->name('delete.userFromProject');
+
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');

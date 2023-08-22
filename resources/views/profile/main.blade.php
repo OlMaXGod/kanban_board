@@ -24,7 +24,8 @@
         }
     </style>
     @include('header')
-    @include('profile.modal_dialog')
+    @include('profile.modal_dialog_change')
+    @include('profile.modal_dialog_del')
     @include('profile.body_profile')
     @include('profile.projects')
     @include('profile.participants')
@@ -38,7 +39,8 @@
 
         @yield('header', 'Не удалось получить список операторов')
 
-        @yield('modal_dialog', 'Не удалось получить список операторов') 
+        @yield('modal_dialog_change', 'Не удалось получить список операторов') 
+        @yield('modal_dialog_del', 'Не удалось получить список операторов') 
         
         <div class="container-fluid">
             
@@ -62,8 +64,13 @@
         let nameDefault = '{{$userData['name']}}';
         let emailDefault = '{{$userData['email']}}';
         let phoneDefault = '{{$userData['phone']}}';
+
         let urlEditPassword = "{!! route('post.userEditPassword') !!}";
         let urlUserEdit = "{!! route('post.userEdit') !!}";
+        
+        let urlProjectDelete = "{!! route('delete.project') !!}";
+        
+        let participants = JSON.parse('<?php echo json_encode($participantsData); ?>');
     </script>
     <script src="/kanban_board/resources/js/profile_scripts.js"></script>
 </body>
