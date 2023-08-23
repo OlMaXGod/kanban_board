@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
-	let idProjectStr = $(".group-item-project.active").attr("id");		
-	let idProject = parseInt(idProjectStr.match(/\d+/));
-	
-	loadingParticipants(idProject);
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	if (idProjectStr != null){
+		let idProject = parseInt(idProjectStr.match(/\d+/));		
+		loadingParticipants(idProject);
+	}
 
 	$(".group-item-project").click(function(){
-		let idProjectStr = $(this).attr("id");		
+		let idProjectStr = $(this).attr("id");
 		let idProject = parseInt(idProjectStr.match(/\d+/));
 
 		loadingParticipants(idProject);
@@ -14,19 +15,19 @@ $(document).ready(function(){
 
 	$("#saveButtonPass").click(saveNewPassword);
 
-	$("#saveButton").click(refreshUserInfo);
+	$("#saveButton").click(saveUserInfo);
 
 	$("#deleteModalButtonProject").click(function(){
 		let idProjectStr = $(".group-item-project.active").attr("id");
 		let idSelectProject = parseInt(idProjectStr.match(/\d+/));
 
-		clickButtonModalDelete(urlProjectDelete, idSelectProject)
+		clickButtonModalDelete(urlProjectDelete, idSelectProject, 'project')
 	});
 	$("#deleteModalButtonParticipant").click(function(){
 		let idParticipantStr = $(".group-item-participant.active").attr("id");
 		let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-		clickButtonModalDelete(urlParticipantDelete, idSelectParticipant)
+		clickButtonModalDelete(urlParticipantDelete, idSelectParticipant, 'participant')
 	});
 
 	$("#exampleInputName").on('input keyup', function() {
@@ -212,7 +213,71 @@ function saveNewPassword(){
 	}
 }
 
-function refreshUserInfo(){
+function refreshProjects(){
+	$("#list-tab-project").empty();
+	$("#nav-tabContent-project").empty();
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlProjectsGet,
+		method: 'get',
+		success: function(data){
+			let firstStep = true;			
+			let projects = data;
+
+			Object.keys(projects).forEach((Id) => {
+				if (firstStep){
+					$("#list-tab-project").append(
+						"<a class='list-group-item list-group-item-action group-item-project active' id='project-"+Id+"-list'" +
+							"data-bs-toggle='list' href='#project-"+Id+"' role='tab'" +
+							"aria-controls='project-"+Id+"'>"+projects[Id]['name']+"</a>"
+						);
+					$("#nav-tabContent-project").append(				
+						"<div class='tab-pane fade show active' id='project-"+Id+"' role='tabpanel'"+
+						"aria-labelledby='project-"+Id+"-list'>Роль: "+projects[Id]['role']+". Комментарий: </div>"
+					);
+		
+					firstStep = false;
+				} else {
+					$("#list-tab-project").append(
+						"<a class='list-group-item list-group-item-action group-item-project' id='project-"+Id+"-list'" +
+							"data-bs-toggle='list' href='#project-"+Id+"' role='tab'" +
+							"aria-controls='project-"+Id+"'>"+projects[Id]['name']+"</a>"
+						);
+					$("#nav-tabContent-project").append(				
+						"<div class='tab-pane fade show' id='project-"+Id+"' role='tabpanel'"+
+						"aria-labelledby='project-"+Id+"-list'>Роль: "+projects[Id]['role']+". Комментарий: </div>"
+					);
+				}
+			});
+		},
+		error: function(jqXHR, exception){
+
+			var msg = '';
+			if (jqXHR.status === 0) {
+				msg = 'Not connect.\n Verify Network.';
+			} else if (jqXHR.status == 404) {
+				msg = 'Requested page not found. [404]';
+			} else if (jqXHR.status == 500) {
+				msg = 'Internal Server Error [500].';
+			} else if (exception === 'parsererror') {
+				msg = 'Requested JSON parse failed.';
+			} else if (exception === 'timeout') {
+				msg = 'Time out error.';
+			} else if (exception === 'abort') {
+				msg = 'Ajax request aborted.';
+			} else {
+				msg = 'Uncaught Error.\n' + jqXHR.responseText;
+			};
+
+			alert(msg);
+		}
+	});	
+}
+	
+function saveUserInfo(){
 
 	$.ajax({
 		headers: {
@@ -228,8 +293,6 @@ function refreshUserInfo(){
 			emailOld: emailDefault,
 		},
 		success: function(data){
-			//alert("Успешно!\n" + data.message);
-			//console.log(data);
 			nameDefault = $("#exampleInputName").val();
 			emailDefault = $("#exampleInputEmail").val();
 			phoneDefault = $("#exampleInputPhone").val();
@@ -265,7 +328,7 @@ function refreshUserInfo(){
 	});
 }
 
-function clickButtonModalDelete(url, id){
+function clickButtonModalDelete(url, id, action){
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -276,7 +339,7 @@ function clickButtonModalDelete(url, id){
 			id: id,
 		},
 		success: function(data){
-			alert("Успешно!\n" + data.message);            
+			refreshProjects();  
 		},
 		error: function(jqXHR, exception){
 
@@ -287,7 +350,6 @@ function clickButtonModalDelete(url, id){
 				msg = 'Requested page not found. [404]';
 			} else if (jqXHR.status == 500) {
 				msg = 'Internal Server Error [500].';
-				console.log(jqXHR.responseText);
 			} else if (exception === 'parsererror') {
 				msg = 'Requested JSON parse failed.';
 			} else if (exception === 'timeout') {
