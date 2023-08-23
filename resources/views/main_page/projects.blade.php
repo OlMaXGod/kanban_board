@@ -26,11 +26,12 @@
                                             <td>{{$project->name}}</td>
                                             <td>{{$project->type_id === 1 ? "Открытый" : "Закрытый"}}</td>
                                             <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>
-                                            @if($project->who_changed === Auth::user()->id)
+                                            @if(@$projectParticipants->where('project_id', $project->id)->where('participant_id', Auth::user()->id)->first()->participant_id)
                                                 <td><button type="button" class="btn btn-outline-danger">Покинуть проект</button></td>
                                             @else
                                                 <td><button type="button" class="btn btn-outline-primary">Присоединиться к проекту</button></td>
                                             @endif
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
