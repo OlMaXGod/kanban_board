@@ -69,7 +69,8 @@
 
         let urlEditPassword = "{!! route('post.userEditPassword') !!}";
         let urlUserEdit = "{!! route('post.userEdit') !!}";
-        
+
+        let urlProjectsGet = "{!! route('get.projects') !!}";
         let urlProjectDelete = "{!! route('delete.project') !!}";
         
         let urlParticipantsGet = "{!! route('get.participants') !!}";
