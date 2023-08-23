@@ -5,32 +5,15 @@
 			<div class="row">
 
 				<div class="col-4">
-					<div class="list-group" id="list-tab" role="tablist" style="background-color:#a8ccc05d; height:300px; overflow-y: scroll;">
-						@foreach ($projectsData as $id => $project)
-							@if ($loop->first)
-							<a class="list-group-item list-group-item-action active" id="proect-{{$id}}-list"
-								data-bs-toggle="list" href="#proect-{{$id}}" role="tab"
-								aria-controls="proect-{{$id}}">{{ $project['name'] }}</a>
-							@else
-							<a class="list-group-item list-group-item-action" id="proect-{{$id}}-list"
-								data-bs-toggle="list" href="#proect-{{$id}}" role="tab"
-								aria-controls="proect-{{$id}}">{{ $project['name'] }}</a>
-							@endif
-						@endforeach
+					<div class="list-group" id="list-tab-participant" role="tablist" style="background-color:#a8ccc05d; height:300px; overflow-y: scroll;">
 					</div>
 				</div>
 				<div class="col-8">
-					<div class="tab-content" id="nav-tabContent" style="background-color:#a8ccc05d; height:300px; border-radius:var(--bs-border-radius); padding:10px;">
-						@foreach ($projectsData as $id => $project)
-							@if ($loop->first)
-							<div class="tab-pane fade show active" id="proect-{{$id}}" role="tabpanel"
-								aria-labelledby="proect-{{$id}}-list">{{ $project['comment'] }}</div>
-							@else
-							<div class="tab-pane fade show" id="proect-{{$id}}" role="tabpanel"
-								aria-labelledby="proect-{{$id}}-list">{{ $project['comment'] }}</div>
-							@endif
-						@endforeach
+					<div class="tab-content" id="nav-tabContent-participant" style="background-color:#a8ccc05d; height:257px; border-radius:var(--bs-border-radius); padding:10px;">
 					</div>
+					<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
+						Удалить
+					</button>
 				</div>
 
 			</div>
