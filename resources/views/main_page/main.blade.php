@@ -9,15 +9,16 @@
     @include('header')
     @include('footer')
     @include('main_page.projects')
+    @include('main_page.projectMenu.main')
     <title>Главная страница</title>
 </head>
-<body>
+<body style="background-color: #FFFACD;">
 
-     @yield('header', 'Не удалось получить список операторов') 
+     @yield('header', 'Не удалось получить список шапку') 
 
-     @yield('projects', 'Не удалось получить список операторов') 
+     @yield('projects', 'Не удалось получить список проектов') 
 
-     @yield('footer', 'Не удалось получить список операторов') 
+     @yield('footer', 'Не удалось получить список подвал') 
 
 </body>
 </html>
