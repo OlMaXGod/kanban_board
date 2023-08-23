@@ -19,7 +19,7 @@
 					<label for="exampleInputPhone" class="form-label pt-1">Телефон</label>
 					<input type="test" class="form-control border-3" id="exampleInputPhone" value={{ $userData['phone'] }}>
 					<button type="button" id="saveButton" class="btn btn-success mt-2 mx-auto disabled">Сохранить изменения</button>                            
-					<button type="button" class="btn btn-primary mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					<button type="button" class="btn btn-primary mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalChange">
 						Изменить пароль
 					</button>
 				</div>

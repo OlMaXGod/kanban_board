@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -54,9 +54,9 @@ class UserController extends Controller
             ];
         }
         
-        dd($userData, $projectsData, $participantsData);
+        //dd($userData, $projectsData, $participantsData);
 
-        //return view('profile/main', compact('userData', 'projectsData'));
+        return view('profile/main', compact('userData', 'projectsData', 'participantsData'));
 
     }
           
@@ -103,6 +103,23 @@ class UserController extends Controller
             'password' => Hash::make($data['newPassword'])
             ]        
         );
+
+        $data = [
+            'message' => "Все вроде нормально",
+        ];
+
+        return $data;
+
+    }
+          
+    public function deleteUserFromProject(Request $request){
+
+        $data = $request->validate([
+            'id' => 'string'
+          ]
+        );
+
+        $deleted = projects::where('participant_id', '=', $data['id'])->delete();
 
         $data = [
             'message' => "Все вроде нормально",
