@@ -34,7 +34,7 @@
 				<button type="button" id="changeNameProjectButton" class="btn btn-secondary mt-2 mx-auto">
 					Настройки
 				</button>
-				<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDelete">
+				<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">
 					Удалить
 				</button>
 			</div>

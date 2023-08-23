@@ -25,7 +25,8 @@
     </style>
     @include('header')
     @include('profile.modal_dialog_change')
-    @include('profile.modal_dialog_del')
+    @include('profile.modal_dialog_del_participant')
+    @include('profile.modal_dialog_del_project')
     @include('profile.body_profile')
     @include('profile.projects')
     @include('profile.participants')
@@ -37,20 +38,21 @@
 
     <div class="container-xxl">
 
-        @yield('header', 'Не удалось получить список операторов')
+        @yield('header', 'Не удалось получить шапку')
 
-        @yield('modal_dialog_change', 'Не удалось получить список операторов') 
-        @yield('modal_dialog_del', 'Не удалось получить список операторов') 
+        @yield('modal_dialog_change', 'Не удалось получить модальное окно профиля') 
+        @yield('modal_dialog_del_participant', 'Не удалось получить модальное окно удаления участника') 
+        @yield('modal_dialog_del_project', 'Не удалось получить модальное окно удаления проекта') 
         
         <div class="container-fluid">
             
-            @yield('body_profile', 'Не удалось получить список операторов')
+            @yield('body_profile', 'Не удалось получить блок профиля')
             
             <div class="row">
 
-                @yield('projects', 'Не удалось получить список операторов')
+                @yield('projects', 'Не удалось получить блок проектов')
 
-                @yield('participants', 'Не удалось получить список операторов')
+                @yield('participants', 'Не удалось получить блок участников')
 
             </div>
             
@@ -70,7 +72,8 @@
         
         let urlProjectDelete = "{!! route('delete.project') !!}";
         
-        let participants = JSON.parse('<?php echo json_encode($participantsData); ?>');
+        let urlParticipantsGet = "{!! route('get.participants') !!}";
+        let urlParticipantDelete = "{!! route('delete.participant') !!}";
     </script>
     <script src="/kanban_board/resources/js/profile_scripts.js"></script>
 </body>

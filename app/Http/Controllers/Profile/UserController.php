@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -103,23 +103,6 @@ class UserController extends Controller
             'password' => Hash::make($data['newPassword'])
             ]        
         );
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-
-        return $data;
-
-    }
-          
-    public function deleteProject(Request $request){
-
-        $data = $request->validate([
-            'id' => 'string'
-          ]
-        );
-
-        $deleted = projects::find($data['id'])->delete();
 
         $data = [
             'message' => "Все вроде нормально",
