@@ -1,6 +1,6 @@
 @section("projectsMenu")
 
-    <div class="container" style = 'border: thick double #32a1ce;margin-left:71%; margin-top:-40%; max-width:30%; height:280px'>
+    <div class="container" style = 'border: thick double #32a1ce;margin-left:71%; margin-top:-40%; max-width:30%; height:328px'>
         <div class="container" >
             <div class="container" id="search-body" style = 'border-bottom:  thick double #32a1ce;'>
                 <form>
@@ -20,6 +20,9 @@
                     <button type="button" class="btn btn-outline-primary">Создатель</button>
                 </div>
             </div> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top:2%;margin-left:22%">
+                 Сбросить фильтры
+            </button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top:2%;margin-left:26%">
                  Создать проект
             </button>
