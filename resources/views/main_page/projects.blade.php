@@ -26,12 +26,11 @@
                                             <td>{{$project->name}}</td>
                                             <td>{{$project->type_id === 1 ? "Открытый" : "Закрытый"}}</td>
                                             <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>
-                                            @if(@$projectParticipants->where('project_id', $project->id)->where('participant_id', Auth::user()->id)->first()->participant_id)
-                                                <td><button type="button" class="btn btn-outline-danger">Покинуть проект</button></td>
+                                            @if($project->who_changed === Auth::user()->id)
+                                                <td><button type="button" class="btn btn-outline-danger" id="leaveProject" value="{{$project->id}}">Покинуть проект</button></td>
                                             @else
                                                 <td><button type="button" class="btn btn-outline-primary">Присоединиться к проекту</button></td>
                                             @endif
-                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -49,5 +48,23 @@
          </div>
 
     </div>
+@csrf
+    <script>
+
+$('#leaveProject').click(function(event){
+    $.ajax({
+    url: '{{route('leaveProject')}}',         
+    method: 'post',          
+    dataType: 'html',      
+    data: {"_token": "{{ csrf_token() }}",
+        projectId: $('#leaveProject').val(),
+        userId: {{auth()->user()->id}},
+    },    
+    success: function(data){  
+	     alert(data); 
+    }
+});
+})
+  </script>
 
 @endsection
