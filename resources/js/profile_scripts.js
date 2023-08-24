@@ -1,3 +1,5 @@
+let participants = [];
+
 $(document).ready(function(){
 
 	let idProjectStr = $(".group-item-project.active").attr("id");
@@ -5,6 +7,9 @@ $(document).ready(function(){
 		let idProject = parseInt(idProjectStr.match(/\d+/));		
 		loadingParticipants(idProject);
 	}
+
+	let roleDefault = 3;
+	loadingRoles(roleDefault);
 
 	$(".group-item-project").click(function(){
 		let idProjectStr = $(this).attr("id");
@@ -21,13 +26,13 @@ $(document).ready(function(){
 		let idProjectStr = $(".group-item-project.active").attr("id");
 		let idSelectProject = parseInt(idProjectStr.match(/\d+/));
 
-		clickButtonModalDelete(urlProjectDelete, idSelectProject, 'project')
+		clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
 	});
 	$("#deleteModalButtonParticipant").click(function(){
 		let idParticipantStr = $(".group-item-participant.active").attr("id");
 		let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-		clickButtonModalDelete(urlParticipantDelete, idSelectParticipant, 'participant')
+		clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
 	});
 
 	$("#exampleInputName").on('input keyup', function() {
@@ -61,6 +66,52 @@ $(document).ready(function(){
 	});
 });
 
+function loadingRoles(roleId) {
+
+	$(".opt").attr('selected', 'false');
+	$(".opt-inv").attr('selected', 'false');
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetRoles,
+		method: 'get',
+		success: function(data){		
+			let roles = data;
+
+			//selected
+			console.log(roles);
+			Object.keys(roles).forEach((id) => {
+				$("#selectRoleParticipant").append("<option class='opt' value="+id+" id='opt-"+id+"'>"+roles[id]['name']+"</option>");
+				$("#selectRoleParticipantInvited").append("<option class='opt-inv' value="+id+" id='opt-inv-"+id+"'>"+roles[id]['name']+"</option>");
+			});
+			$("#opt-inv-"+roleId).attr('selected', 'true');
+		},
+		error: function(jqXHR, exception){
+
+			var msg = '';
+			if (jqXHR.status === 0) {
+				msg = 'Not connect.\n Verify Network.';
+			} else if (jqXHR.status == 404) {
+				msg = 'Requested page not found. [404]';
+			} else if (jqXHR.status == 500) {
+				msg = 'Internal Server Error [500].';
+			} else if (exception === 'parsererror') {
+				msg = 'Requested JSON parse failed.';
+			} else if (exception === 'timeout') {
+				msg = 'Time out error.';
+			} else if (exception === 'abort') {
+				msg = 'Ajax request aborted.';
+			} else {
+				msg = 'Uncaught Error.\n' + jqXHR.responseText;
+			};
+
+			alert(msg);
+		}
+	});	
+}
+
 function loadingParticipants(idProject) {
 
 	$("#list-tab-participant").empty();
@@ -70,14 +121,14 @@ function loadingParticipants(idProject) {
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: urlParticipantsGet,
+		url: urlGetParticipants,
 		method: 'get',
 		data: {      
 			id: idProject
 		},
 		success: function(data){
-			let firstStep = true;			
-			let participants = data;
+			let firstStep = true;		
+			participants = data;
 
 			Object.keys(participants).forEach((Id) => {
 				if (firstStep){
@@ -221,7 +272,7 @@ function refreshProjects(){
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: urlProjectsGet,
+		url: urlGetProjects,
 		method: 'get',
 		success: function(data){
 			let firstStep = true;			
@@ -234,7 +285,7 @@ function refreshProjects(){
 							"data-bs-toggle='list' href='#project-"+Id+"' role='tab'" +
 							"aria-controls='project-"+Id+"'>"+projects[Id]['name']+"</a>"
 						);
-					$("#nav-tabContent-project").append(				
+					$("#nav-tabContent-project").append(
 						"<div class='tab-pane fade show active' id='project-"+Id+"' role='tabpanel'"+
 						"aria-labelledby='project-"+Id+"-list'>Роль: "+projects[Id]['role']+". Комментарий: </div>"
 					);
