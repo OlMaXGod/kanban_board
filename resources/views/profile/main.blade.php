@@ -70,11 +70,13 @@
         let urlEditPassword = "{!! route('post.userEditPassword') !!}";
         let urlUserEdit = "{!! route('post.userEdit') !!}";
 
-        let urlProjectsGet = "{!! route('get.projects') !!}";
-        let urlProjectDelete = "{!! route('delete.project') !!}";
+        let urlGetProjects = "{!! route('get.projects') !!}";
+        let urlDeleteProject = "{!! route('delete.project') !!}";
+
+        let urlGetRoles = "{!! route('get.roles') !!}";
         
-        let urlParticipantsGet = "{!! route('get.participants') !!}";
-        let urlParticipantDelete = "{!! route('delete.participant') !!}";
+        let urlGetParticipants = "{!! route('get.participants') !!}";
+        let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>
     <script src="/kanban_board/resources/js/profile_scripts.js"></script>
 </body>

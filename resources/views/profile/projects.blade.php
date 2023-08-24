@@ -5,7 +5,7 @@
 		<div class="row">
 
 			<div class="col-4">
-				<div class="list-group" id="list-tab" role="tablist" style="background-color:#a8ccc05d; height:300px; overflow-y: scroll;">
+				<div class="list-group overflow-auto" id="list-tab" role="tablist" style="background-color:#a8ccc05d; height:300px;">
 					@foreach ($projectsData as $id => $project)
 						@if ($loop->first)
 						<a class="list-group-item list-group-item-action group-item-project active" id="proect-{{$id}}-list"
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-8">
-				<div class="tab-content" id="nav-tabContent" style="background-color:#a8ccc05d; height:257px; border-radius:var(--bs-border-radius); padding:10px;">
+				<div class="tab-content" id="nav-tabContent" style="background-color:#a8ccc05d; height:250px; border-radius:var(--bs-border-radius); padding:10px;">
 					@foreach ($projectsData as $id => $project)
 						@if ($loop->first)
 						<div class="tab-pane fade show active" id="proect-{{$id}}" role="tabpanel"
