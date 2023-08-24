@@ -24,38 +24,9 @@ class UserController extends Controller
 
         $id = auth()->user()->id;
 
-        $user = User::find($id);
-        $userData = [
-            'name' => $user['name'],
-            'phone' => $user['phone'],
-            'email' => $user['email'],
-        ];        
-        
-        $projects = projects::where('who_changed', '=', $id)->get();
-        $projectsData = [];
-        foreach($projects as $project){
-            $projectsData[$project['id']] = [
-                'name' => $project['name'],
-                'comment' => $project['comment'],
-            ];
-        }
-        
-        $idProjects = array_keys($projectsData);
-        $participants = project_participants::whereIn('project_id', $idProjects)
-            ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->select('project_participants.project_id', 'project_participants.id', 'users.name', 'project_participants.role_id')
-            ->get();
-        $participantsData = [];
-        foreach($participants as $participant){
-            $participantsData[$participant['project_id']][$participant['id']] = [
-                'name' => $participant['name'],
-                'role' => $participant['role_id'],
-            ];
-        }
-        
-        //dd($userData, $projectsData, $participantsData);
+        $userData = User::find($id);
 
-        return view('profile/main', compact('userData', 'projectsData', 'participantsData'));
+        return view('profile/main', compact('userData'));
 
     }
           

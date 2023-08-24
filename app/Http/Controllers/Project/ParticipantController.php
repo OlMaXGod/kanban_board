@@ -21,21 +21,23 @@ class ParticipantController extends Controller
           ]
         );
 
-        $participants = project_participants::where('project_id', '=', $data['id'])
+        $responce['result'] = project_participants::where("id", "=", $data['id'])->get();
+        $responce['date'] = $data['id'];
+
+        return $responce;
+    }
+
+    public function getParticipants(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'int'
+          ]
+        );
+
+        return project_participants::where('project_id', '=', $data['id'])
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->join('roles', 'roles.id', '=', 'project_participants.role_id')
-            ->select('project_participants.id', 'users.name', 'roles.role')
+            ->select('project_participants.id', 'users.name')
             ->get();
-
-        $participantsData = [];
-        foreach($participants as $participant){
-            $participantsData[$participant['id']] = [
-                'name' => $participant['name'],
-                'role' => $participant['role'],
-            ];
-        }
-
-        return $participantsData;
     }
 
     public function delete(Request $request)

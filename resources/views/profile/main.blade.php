@@ -75,6 +75,7 @@
 
         let urlGetRoles = "{!! route('get.roles') !!}";
         
+        let urlGetParticipant = "{!! route('get.participant') !!}";
         let urlGetParticipants = "{!! route('get.participants') !!}";
         let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>

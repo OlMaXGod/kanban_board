@@ -33,10 +33,12 @@ Route::get('/user', [UserController::class, 'index'])->name('get.user');
 Route::post('/users/edit', [App\Http\Controllers\Profile\UserController::class, 'edit'])->name('post.userEdit');
 Route::post('/users/edit/password', [App\Http\Controllers\Profile\UserController::class, 'editPassword'])->name('post.userEditPassword');
 
-Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 'index'])->name('get.projects');
+Route::get('/project', [App\Http\Controllers\Project\ProjectController::class, 'index'])->name('get.project');
+Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 'getProjects'])->name('get.projects');
 Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectController::class, 'delete'])->name('delete.project');
 
-Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participants');
+Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
+Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
 
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');

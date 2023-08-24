@@ -35,9 +35,7 @@
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipant" aria-label=".form-select-sm пример">
 								</select>
-								<div class="tab-content mt-2" id="nav-tabContent-participant" style="background-color:#a8ccc05d; height:160px; border-radius:var(--bs-border-radius); padding:10px;">
-								</div>
-								<textarea class="form-control mt-2" id="comment" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
+								<textarea class="form-control mt-2" id="commentParticipant" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
 								<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
 									Удалить
 								</button>
@@ -53,7 +51,7 @@
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipantInvited" aria-label=".form-select-sm пример">
 								</select>
-								<textarea class="form-control mt-2" id="comment" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
+								<textarea class="form-control mt-2" id="commentParticipantInvited" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
 								<button type="button" id="deleteProjectButton" class="btn btn-success mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
 									Принять в проект
 								</button>

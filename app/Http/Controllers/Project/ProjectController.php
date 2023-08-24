@@ -14,20 +14,22 @@ class ProjectController extends Controller
 
     }
 
-    public function index(){
+    public function index(Request $request){
 
-        $id = auth()->user()->id;    
-        
-        $projects = projects::where('who_changed', '=', $id)->get();
-        $projectsData = [];
-        foreach($projects as $project){
-            $projectsData[$project['id']] = [
-                'name' => $project['name'],
-                'comment' => $project['comment'],
-            ];
-        }
+        $data = $request->validate([
+            'id' => 'int'
+          ]
+        );
 
-        return $projectsData;
+        return projects::find($data['id'])->get();
+
+    }
+
+    public function getProjects(){
+
+        $id = auth()->user()->id;
+
+        return projects::where('who_changed', '=', $id)->get();
 
     }
 
