@@ -43,14 +43,13 @@ class UserController extends Controller
         $idProjects = array_keys($projectsData);
         $participants = project_participants::whereIn('project_id', $idProjects)
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->join('roles', 'roles.id', '=', 'project_participants.role_id')
-            ->select('project_participants.project_id', 'project_participants.id', 'users.name', 'roles.role')
+            ->select('project_participants.project_id', 'project_participants.id', 'users.name', 'project_participants.role_id')
             ->get();
         $participantsData = [];
         foreach($participants as $participant){
             $participantsData[$participant['project_id']][$participant['id']] = [
                 'name' => $participant['name'],
-                'role' => $participant['role'],
+                'role' => $participant['role_id'],
             ];
         }
         

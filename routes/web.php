@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Profile\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\authorization\InterfaceController;
 use App\Http\Controllers\authorization\AuthorizationController;
@@ -9,6 +8,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthController;
 
+use App\Http\Controllers\Profile\UserController;
+use App\Http\Controllers\Profile\RoleController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ParticipantController;
 /*
@@ -37,6 +38,8 @@ Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectControlle
 
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participants');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
+
+Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
