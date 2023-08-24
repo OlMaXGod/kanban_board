@@ -21,8 +21,7 @@ class ParticipantController extends Controller
           ]
         );
 
-        $responce['result'] = project_participants::where("id", "=", $data['id'])->get();
-        $responce['date'] = $data['id'];
+        $responce = project_participants::where("id", "=", $data['id'])->get()->first();;
 
         return $responce;
     }

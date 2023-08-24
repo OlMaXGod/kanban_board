@@ -69,7 +69,6 @@ $("#exampleInputPhone").on('input keyup', function() {
 });
 
 function loadingRoles(roleId) {
-
 	$(".opt").attr('selected', 'false');
 	$(".opt-inv").attr('selected', 'false');
 
@@ -215,6 +214,12 @@ function loadingParticipants(idProject) {
 						);
 				}
 			});
+			
+			let idParticipantStr = $(".group-item-participant.active").attr("id");
+			if (idParticipantStr != null){
+				let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+				loadingParticipantsDate(idParticipant);
+			}
 		},
 		error: function(jqXHR, exception){
 
@@ -243,6 +248,8 @@ function loadingParticipants(idProject) {
 function loadingParticipantsDate(idParticipant){
 	$("#commentParticipant").empty();
 
+	console.log('loadingParticipantsDate()');//////
+
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -254,12 +261,11 @@ function loadingParticipantsDate(idParticipant){
 		},
 		success: function(data){
 
-			console.log(data);
-
+			console.log("#opt-"+data.role_id);
 			$(".opt").attr('selected', 'false');
-			$("#opt-"+data['result'].role_id).attr('selected', 'true');
+			$("#opt-3").attr('selected', 'true');
 			
-			$("#commentParticipant").text(data['result'].comment);
+			$("#commentParticipant").text(data.comment);
 
 		},
 		error: function(jqXHR, exception){
@@ -420,6 +426,7 @@ function saveUserInfo(){
 }
 
 function clickButtonModalDelete(url, id, action){
+
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
