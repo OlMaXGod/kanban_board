@@ -30,7 +30,7 @@
                                             @if($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
                                                 <td><button type="button" class="btn btn-outline-danger" id="leaveProject" onclick='leaveProject(this)' value="{{$project->id}}">Покинуть проект</button></td>
                                             @else
-                                                <td><button type="button" class="btn btn-outline-primary">Присоединиться к проекту</button></td>
+                                                <td><button type="button" class="btn btn-outline-primary" id="joinProject" onclick='joinProject(this)' value="{{$project->id}}">Присоединиться к проекту</button></td>
                                             @endif
                                         </tr>
                                     @endforeach
@@ -52,17 +52,35 @@
 @csrf
     <script>
 
-function leaveProject(){
+function leaveProject(projectId){
+    
     $.ajax({
     url: '{{route('leaveProject')}}',         
     method: 'post',          
     dataType: 'html',      
     data: {"_token": "{{ csrf_token() }}",
-        projectId: $('#leaveProject').val(),
+        projectId: projectId.value,
         userId: {{auth()->user()->id}},
     },    
     success: function(data){  
-	     alert(data); 
+	    
+         location.reload();
+    }
+});
+}
+
+function joinProject(projectId){
+    $.ajax({
+    url: '{{route('joinProject')}}',         
+    method: 'post',          
+    dataType: 'html',      
+    data: {"_token": "{{ csrf_token() }}",
+        projectId: projectId.value,
+        userId: {{auth()->user()->id}},
+    },    
+    success: function(data){  
+        location.reload();
+         
     }
 });
 }

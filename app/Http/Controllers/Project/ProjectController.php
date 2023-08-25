@@ -66,4 +66,23 @@ class ProjectController extends Controller
 
     }
 
+    public function joinProject(Request $request)
+    {
+
+        $projectId = $response['id_project'] = $request->input('projectId');
+        $userId = $response['id_user'] = $request->input('userId');
+       
+        
+        $response['resultat'] = project_participants::insert(
+            [
+                'project_id' => $projectId, 
+                'participant_id' => $userId,
+                'role_id' => 3,
+            ]
+        );
+
+        return $response;
+
+    }
+
 }
