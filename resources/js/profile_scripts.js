@@ -78,6 +78,7 @@ function loadingRoles(roleId) {
 		},
 		url: urlGetRoles,
 		method: 'get',
+		timeout: 0,
 		success: function(data){		
 			let roles = data;
 
@@ -87,27 +88,7 @@ function loadingRoles(roleId) {
 			});
 			$("#opt-inv-"+roleId).attr('selected', 'true');
 		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
+		error: errorHandling
 	});	
 }
 
@@ -157,27 +138,7 @@ function loadingProjects(){
 				loadingParticipants(idProject);
 			}
 		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
+		error: errorHandling
 	});	
 }
 
@@ -215,33 +176,28 @@ function loadingParticipants(idProject) {
 				}
 			});
 			
-			let idParticipantStr = $(".group-item-participant.active").attr("id");
-			if (idParticipantStr != null){
-				let idParticipant = parseInt(idParticipantStr.match(/\d+/));
-				loadingParticipantsDate(idParticipant);
-			}
-		},
-		error: function(jqXHR, exception){
+			if (participants.length != 0){
+				let idParticipantStr = $(".group-item-participant.active").attr("id");
+				if (idParticipantStr != null){
+					$("#selectRoleParticipant").prop('disabled', false);
+					$("#commentParticipant").prop('disabled', false);
+					$("#deleteParticipantButton").prop('disabled', false);
 
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
+					let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+					loadingParticipantsDate(idParticipant);
+				}
 			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
+				$("#selectRoleParticipant").prop('disabled', true);
+				$("#commentParticipant").text('');
+				$("#commentParticipant").prop('disabled', true);
+				$("#deleteParticipantButton").prop('disabled', true);
 
-			alert(msg);
-		}
+				$(".opt").prop('selected',false)
+			}
+
+			
+		},
+		error: errorHandling
 	});	
 }
 
@@ -261,36 +217,37 @@ function loadingParticipantsDate(idParticipant){
 		},
 		success: function(data){
 
-			console.log("#opt-"+data.role_id);
-			$(".opt").attr('selected', 'false');
-			$("#opt-3").attr('selected', 'true');
-			
+			$("#opt-"+data.role_id).prop('selected', true)
 			$("#commentParticipant").text(data.comment);
 
 		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
+		error: errorHandling
 	});	
 } 
+
+function errorHandling(jqXHR, exception){
+
+	//console.log(jqXHR.responseText);
+	var msg = '';
+	if (jqXHR.status === 0) {
+		msg = 'Not connect.\n Verify Network.';
+	} else if (jqXHR.status == 404) {
+		msg = 'Requested page not found. [404]';
+	} else if (jqXHR.status == 500) {
+		msg = 'Internal Server Error [500].';
+	} else if (exception === 'parsererror') {
+		msg = 'Requested JSON parse failed.';
+	} else if (exception === 'timeout') {
+		msg = 'Time out error.';
+	} else if (exception === 'abort') {
+		msg = 'Ajax request aborted.';
+	} else {
+		msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	};
+
+	alert(msg);
+
+}
 
 function saveNewPassword(){
 		
