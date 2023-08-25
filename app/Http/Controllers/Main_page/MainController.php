@@ -18,9 +18,6 @@ class MainController extends Controller
 
     public function show($id){
 
-        
-        
-
         return view('main_page.main',["projects" => projects::all(),"users" =>User::all()]);
 
     }
