@@ -48,3 +48,6 @@ Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::cl
 //роуты ролей
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');
 
+//роуты фильтров
+Route::post('/main_page/{id}', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('filterByName');
+

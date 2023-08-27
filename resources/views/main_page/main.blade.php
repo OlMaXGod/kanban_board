@@ -13,6 +13,7 @@
     @include('footer')
     @include('main_page.projects')
     @include('main_page.projectMenu.main')
+
     <title>Главная страница</title>
 </head>
 <body style="background-color: #FFFACD;">
