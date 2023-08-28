@@ -15,67 +15,48 @@ class ParticipantController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $data = $request->validate([
-            'id' => 'int'
-          ]
-        );
+    {        
 
-        $responce = project_participants::where("id", "=", $data['id'])->get()->first();;
+        $id_participant = $response['id_participant'] = $request->input('id');
+
+        //$response['resultat'] = projects::find($projectId)->get();
+        $responce['resultat']  = project_participants::where("id", "=", $id_participant)->get()->first();
 
         return $responce;
     }
 
     public function update(Request $request)
     {
-        $data = $request->validate([
-            'id' => 'int',
-            'role' => 'string',
-            'comment' => 'string'
-          ]
-        );
+        $participant_id = $response['id_participant'] = $request->input('id');
+        $role_id = $response['id_role'] = $request->input('role');
+        $comment = $response['comment'] = $request->input('comment');
+        
+        $response['resultat'] = project_participants::where("id", "=", $participant_id)
+            ->update(['role_id' => $role_id, 'comment' => $comment]);
 
-        $user = project_participants::where("id", "=", $data['id'])
-            ->update([
-                'role_id' => $data['role'],
-                'comment' => $data['comment']
-                ]
-            );
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-        return $data;
+        return $response;
     }
 
     public function getParticipants(Request $request)
     {
-        $data = $request->validate([
-            'id' => 'int'
-          ]
-        );
-
-        return project_participants::where('project_id', '=', $data['id'])
+        $projectId = $response['id_project'] = $request->input('id');
+        
+        $response['resultat'] = project_participants::where('project_id', '=', $projectId)
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
             ->select('project_participants.id', 'users.name')
             ->get();
+
+        return $response;
     }
 
     public function delete(Request $request)
     {
 
-        $data = $request->validate([
-            'id' => 'int'
-          ]
-        );
+        $participantId = $response['id_participant'] = $request->input('id');
+        
+        $response['resultat'] = project_participants::find($participantId)->delete();
 
-        $deleted = project_participants::find($data['id'])->delete();
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-
-        return $data;
+        return $response;
 
     }
 }

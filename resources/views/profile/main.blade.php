@@ -67,8 +67,8 @@
         let emailDefault = '{{$userData['email']}}';
         let phoneDefault = '{{$userData['phone']}}';
 
-        let urlEditPassword = "{!! route('post.userEditPassword') !!}";
-        let urlUserEdit = "{!! route('post.userEdit') !!}";
+        let urlUpdatePassword = "{!! route('post.userPasswordUpdate') !!}";
+        let urlUpdateUser = "{!! route('post.userUpdate') !!}";
 
         let urlGetProjects = "{!! route('get.projects') !!}";
         let urlDeleteProject = "{!! route('delete.project') !!}";
@@ -77,7 +77,7 @@
         
         let urlGetParticipant = "{!! route('get.participant') !!}";
         let urlGetParticipants = "{!! route('get.participants') !!}";
-        let urlParticipantEdit = "{!! route('post.participantEdit') !!}";
+        let urlUpdateParticipant = "{!! route('post.participantUpdate') !!}";
         let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>
     <script src="/kanban_board/resources/js/profile_scripts.js"></script>

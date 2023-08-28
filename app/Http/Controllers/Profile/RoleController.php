@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function index(){
 
-        return roles::all();
+        return ['resultat' => roles::all()];
 
     }
 }

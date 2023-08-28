@@ -20,6 +20,7 @@ class CreateProjectParticipantsTable extends Migration
             $table->bigInteger("participant_id")->comment('Участник проекта');
             $table->bigInteger("role_id")->comment('Роль участника');
             $table->text("comment")->comment('Комментарий');
+            $table->boolean("entry_request")->comment('Запрос на вход');
             $table->softDeletes();
         });
     }

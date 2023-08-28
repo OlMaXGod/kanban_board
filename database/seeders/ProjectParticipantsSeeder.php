@@ -21,6 +21,7 @@ class ProjectParticipantsSeeder extends Seeder
             'participant_id' => 2,
             'role_id' => 3,
             'comment' => str_random(10),
+            'entry_request' => false,
         ]);
 
         DB::table('project_participants')->insert([
@@ -30,6 +31,7 @@ class ProjectParticipantsSeeder extends Seeder
             'participant_id' => 1,
             'role_id' => 1,
             'comment' => str_random(10),
+            'entry_request' => false,
         ]);
     }
 }

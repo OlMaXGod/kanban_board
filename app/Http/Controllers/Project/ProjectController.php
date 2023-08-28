@@ -17,38 +17,32 @@ class ProjectController extends Controller
 
     public function index(Request $request){
 
-        $data = $request->validate([
-            'id' => 'int'
-          ]
-        );
+        $projectId = $response['id_project'] = $request->input('id');
 
-        return projects::find($data['id'])->get();
+        $response['resultat'] = projects::find($projectId)->get();
+
+        return $response;
 
     }
 
     public function getProjects(){
 
-        $id = auth()->user()->id;
+        $id = $response['id_user'] = auth()->user()->id;
 
-        return projects::where('who_changed', '=', $id)->get();
+        $response['resultat'] = projects::where('who_changed', '=', $id)->get();
+
+        return $response;
 
     }
 
     public function delete(Request $request)
     {
 
-        $data = $request->validate([
-            'id' => 'int'
-          ]
-        );
+        $projectId = $response['id_project'] = $request->input('id');
+        
+        $response['resultat'] = projects::find($projectId)->delete();
 
-        $deleted = projects::find($data['id'])->delete();
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-
-        return $data;
+        return $response;
 
     }
 

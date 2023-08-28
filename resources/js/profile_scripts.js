@@ -19,19 +19,12 @@ $("body").on("click", ".group-item-participant", function(event){
 	let idParticipantStr = $(event.target).attr("id");
 	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-	loadingParticipantsDate(idParticipant);
+	loadingParticipantsData(idParticipant);
 });
 
-$("#saveButtonPass").click(saveNewPassword);
-$("#saveButton").click(saveUserInfo);
-$("#saveParticipantButton").click(function(){
-	let idParticipantStr = $(".group-item-participant.active").attr("id");
-	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
-	let roleId = $("#selectRoleParticipant").children("option:selected").val();
-	let comment = $("#commentParticipant").val();
-
-	saveParticipantInfo(idSelectParticipant, roleId, comment);
-});
+$("#savePasswordButton").click(saveNewPassword);
+$("#saveUserButton").click(saveUserInfo);
+$("#saveParticipantButton").click(saveParticipantInfo);
 
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
@@ -48,29 +41,29 @@ $("#deleteModalButtonParticipant").click(function(){
 
 $("#exampleInputName").on('input keyup', function() {
 	if($("#exampleInputName").val() == nameDefault){
-		$("#saveButton").addClass('disabled');
+		$("#saveUserButton").addClass('disabled');
 		$(this).removeClass('border-primary');
 	} else{
-		$("#saveButton").removeClass('disabled');
+		$("#saveUserButton").removeClass('disabled');
 		$(this).addClass('border-primary');
 	}
 });
 $("#exampleInputEmail").on('input keyup', function() {
 	if($("#exampleInputEmail").val() == emailDefault){
-		$("#saveButton").addClass('disabled');
+		$("#saveUserButton").addClass('disabled');
 		$(this).removeClass('border-primary');
 	} else{
-		$("#saveButton").removeClass('disabled');
+		$("#saveUserButton").removeClass('disabled');
 		$(this).addClass('border-primary');
 
 	}				
 });
 $("#exampleInputPhone").on('input keyup', function() {
 	if($("#exampleInputPhone").val() == phoneDefault){
-		$("#saveButton").addClass('disabled');
+		$("#saveUserButton").addClass('disabled');
 		$(this).removeClass('border-primary');
 	} else{
-		$("#saveButton").removeClass('disabled');
+		$("#saveUserButton").removeClass('disabled');
 		$(this).addClass('border-primary');
 
 	}				
@@ -88,7 +81,7 @@ function loadingRoles(roleId) {
 		method: 'get',
 		timeout: 0,
 		success: function(data){		
-			let roles = data;
+			let roles = data['resultat'];
 
 			roles.forEach((role) => {
 				$("#selectRoleParticipant").append("<option class='opt' value="+role.id+" id='opt-"+role.id+"'>"+role.role+"</option>");
@@ -112,7 +105,7 @@ function loadingProjects(){
 		method: 'get',
 		success: function(data){
 			let firstStep = true;			
-			let projects = data;
+			let projects = data['resultat'];
 
 			projects.forEach((project) => {
 				if (firstStep){
@@ -165,7 +158,7 @@ function loadingParticipants(idProject) {
 		},
 		success: function(data){
 			let firstStep = true;		
-			participants = data;
+			let participants = data['resultat'];
 
 			participants.forEach((participant) => {
 				if (firstStep){
@@ -192,7 +185,7 @@ function loadingParticipants(idProject) {
 					$("#deleteParticipantButton").prop('disabled', false);
 
 					let idParticipant = parseInt(idParticipantStr.match(/\d+/));
-					loadingParticipantsDate(idParticipant);
+					loadingParticipantsData(idParticipant);
 				}
 			} else {
 				$("#selectRoleParticipant").prop('disabled', true);
@@ -209,10 +202,8 @@ function loadingParticipants(idProject) {
 	});	
 }
 
-function loadingParticipantsDate(idParticipant){
+function loadingParticipantsData(idParticipant){
 	$("#commentParticipant").empty();
-
-	console.log('loadingParticipantsDate()');//////
 
 	$.ajax({
 		headers: {
@@ -224,9 +215,10 @@ function loadingParticipantsDate(idParticipant){
 			id: idParticipant
 		},
 		success: function(data){
+			let participantData = data['resultat'];
 
-			$("#opt-"+data.role_id).prop('selected', true)
-			$("#commentParticipant").text(data.comment);
+			$("#opt-"+participantData.role_id).prop('selected', true)
+			$("#commentParticipant").text(participantData.comment);
 
 		},
 		error: errorHandling
@@ -298,7 +290,7 @@ function saveNewPassword(){
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: urlEditPassword,
+			url: urlUpdatePassword,
 			method: 'post',
 			data: {      
 				phone: $('#exampleInputPhone').val(),
@@ -325,14 +317,14 @@ function saveUserInfo(){
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: urlUserEdit,
+		url: urlUpdateUser,
 		method: 'post',
 		data: {      
 			name: $('#exampleInputName').val(),
 			phone: $('#exampleInputPhone').val(),
 			email: $('#exampleInputEmail').val(),
-			phoneOld: phoneDefault,
-			emailOld: emailDefault,
+			phone_old: phoneDefault,
+			email_old: emailDefault,
 		},
 		success: function(data){
 			nameDefault = $("#exampleInputName").val();
@@ -350,16 +342,20 @@ function saveUserInfo(){
 	});
 }
 
-function saveParticipantInfo(id, roleId, comment){
+function saveParticipantInfo(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+	let roleId = $("#selectRoleParticipant").children("option:selected").val();
+	let comment = $("#commentParticipant").val();
 
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: urlParticipantEdit,
+		url: urlUpdateParticipant,
 		method: 'post',
 		data: {      
-			id: id,
+			id: idParticipant,
 			role: roleId,
 			comment: comment,
 		},
