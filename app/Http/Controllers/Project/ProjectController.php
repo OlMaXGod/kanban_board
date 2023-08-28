@@ -122,8 +122,10 @@ class ProjectController extends Controller
         $projectAccess = $response['projectAccess'] = $request->input('access');
        
         
-        $response['resultat'] = projects::insert(
+        $response['resultat'] = projects::create(
             [
+                'name' => $projectName, 
+                'comment' => $projectComment,
                 'name' => $projectName, 
                 'comment' => $projectComment,
                 'type' => $projectType,

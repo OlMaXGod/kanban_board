@@ -43,9 +43,9 @@ Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 
 Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectController::class, 'delete'])->name('delete.project');
 Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::class, 'leaveProject'])->name('leaveProject');
 Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
-<<<<<<< HEAD
+
 Route::post('/create-project', [App\Http\Controllers\Project\ProjectController::class, 'createProject'])->name('newProject');
-=======
+
 Route::get('/project/create_invitation', [App\Http\Controllers\Project\ProjectController::class, 'createInvitationUrl'])->name('createInvitationUrl');
 Route::get('/project/add_user_url/{id_user}/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'addUserInProjectUrl'])->name('addUserInProjectUrl');
 
@@ -54,7 +54,7 @@ Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
 Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
->>>>>>> 8f9c636dea90b7d2d56424440b6b8399d9db8c80
+
 
 //роуты ролей
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');
