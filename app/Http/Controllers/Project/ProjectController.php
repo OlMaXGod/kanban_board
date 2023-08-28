@@ -74,6 +74,37 @@ class ProjectController extends Controller
                 'project_id' => $projectId, 
                 'participant_id' => $userId,
                 'role_id' => 3,
+                'comment' => 'Новый участник',
+                'entry_request' => false,
+            ]
+        );
+
+        return $response;
+
+    }
+
+    public function createInvitationUrl(Request $request){
+
+        $id_project = $response['id_project'] = $request->input('id');
+
+        $response['resultat'] = "http://localhost/kanban_board/public/project/add_user_url/"+$id_project;
+        
+        return $response;
+
+    }
+
+    public function addUserInProjectUrl($id_user, $id_project, Request $request){
+
+        $id_project = $response['id_project'] = $id_project;
+        $id_user = $response['id_user'] = $id_user;
+       
+        $response['resultat'] = project_participants::insert(
+            [
+                'project_id' => $id_project, 
+                'participant_id' => $id_user,
+                'role_id' => 3,
+                'comment' => 'Новый участник по ссылке',
+                'entry_request' => false,
             ]
         );
 

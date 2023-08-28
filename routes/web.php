@@ -43,6 +43,8 @@ Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 
 Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectController::class, 'delete'])->name('delete.project');
 Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::class, 'leaveProject'])->name('leaveProject');
 Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
+Route::get('/project/create_invitation', [App\Http\Controllers\Project\ProjectController::class, 'createInvitationUrl'])->name('createInvitationUrl');
+Route::get('/project/add_user_url/{id_user}/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'addUserInProjectUrl'])->name('addUserInProjectUrl');
 
 //роуты участников проектов
 Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
