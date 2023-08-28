@@ -9,23 +9,11 @@
     
     <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
-    @include('header')
-    @include('footer')
-    @include('main_page.projects')
-    @include('main_page.projectMenu.main')
-    @include('modal_windows.create_project')
+
 
     <title>Главная страница</title>
 </head>
 <body style="background-color: #FFFACD;">
-
-     @yield('header', 'Не удалось получить список шапку') 
-
-     @yield('projects', 'Не удалось получить список проектов') 
-
-     @yield('footer', 'Не удалось получить список подвал') 
-     
-     @yield('modal_create_project', 'Не удалось получить окно создания проектов') 
-
+{{dd($projectParticipants)}}
 </body>
 </html>

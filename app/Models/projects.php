@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class projects extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name','comment','type','access','who_changed'];
+
 }
