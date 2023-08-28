@@ -26,6 +26,28 @@ class ParticipantController extends Controller
         return $responce;
     }
 
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'int',
+            'role' => 'string',
+            'comment' => 'string'
+          ]
+        );
+
+        $user = project_participants::where("id", "=", $data['id'])
+            ->update([
+                'role_id' => $data['role'],
+                'comment' => $data['comment']
+                ]
+            );
+
+        $data = [
+            'message' => "Все вроде нормально",
+        ];
+        return $data;
+    }
+
     public function getParticipants(Request $request)
     {
         $data = $request->validate([

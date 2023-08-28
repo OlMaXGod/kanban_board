@@ -31,7 +31,7 @@
     @include('profile.projects')
     @include('profile.participants')
     @include('footer')
-    <title>Profile</title>
+    <title>Профиль</title>
 </head>
 
 <body style="background-color: #FFFACD">
@@ -60,7 +60,7 @@
 
     </div>
 
-    @yield('footer', 'Не удалось получить список операторов') 
+    @yield('footer', 'Не удалось получить подвал') 
 
     <script>
         let nameDefault = '{{$userData['name']}}';
@@ -77,6 +77,7 @@
         
         let urlGetParticipant = "{!! route('get.participant') !!}";
         let urlGetParticipants = "{!! route('get.participants') !!}";
+        let urlParticipantEdit = "{!! route('post.participantEdit') !!}";
         let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>
     <script src="/kanban_board/resources/js/profile_scripts.js"></script>

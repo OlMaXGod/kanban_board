@@ -27,7 +27,7 @@ Route::get('/', [InterfaceController::class, 'show'])->name('loginInterface');
 
 Auth::routes();
 
-Route::get('/main_page/{id}', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home')->middleware('auth');
+Route::get('/main_page', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home')->middleware('auth');
 
 Route::get('/user', [UserController::class, 'index'])->name('get.user');
 Route::post('/users/edit', [App\Http\Controllers\Profile\UserController::class, 'edit'])->name('post.userEdit');
@@ -39,6 +39,7 @@ Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectControlle
 
 Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
+Route::post('/participant/edit', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantEdit');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
 
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');

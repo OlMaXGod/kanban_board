@@ -24,6 +24,14 @@ $("body").on("click", ".group-item-participant", function(event){
 
 $("#saveButtonPass").click(saveNewPassword);
 $("#saveButton").click(saveUserInfo);
+$("#saveParticipantButton").click(function(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
+	let roleId = $("#selectRoleParticipant").children("option:selected").val();
+	let comment = $("#commentParticipant").val();
+
+	saveParticipantInfo(idSelectParticipant, roleId, comment);
+});
 
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
@@ -227,7 +235,7 @@ function loadingParticipantsDate(idParticipant){
 
 function errorHandling(jqXHR, exception){
 
-	//console.log(jqXHR.responseText);
+	console.log(jqXHR.responseText);
 	var msg = '';
 	if (jqXHR.status === 0) {
 		msg = 'Not connect.\n Verify Network.';
@@ -306,27 +314,7 @@ function saveNewPassword(){
 					$('#secondEnterPass').removeClass('border-success');
 				}, 5000);
 			},
-			error: function(jqXHR, exception){
-
-				var msg = '';
-				if (jqXHR.status === 0) {
-					msg = 'Not connect.\n Verify Network.';
-				} else if (jqXHR.status == 404) {
-					msg = 'Requested page not found. [404]';
-				} else if (jqXHR.status == 500) {
-					msg = 'Internal Server Error [500].';
-				} else if (exception === 'parsererror') {
-					msg = 'Requested JSON parse failed.';
-				} else if (exception === 'timeout') {
-					msg = 'Time out error.';
-				} else if (exception === 'abort') {
-					msg = 'Ajax request aborted.';
-				} else {
-					msg = 'Uncaught Error.\n' + jqXHR.responseText;
-				};
-
-				alert(msg);
-			}
+			error: errorHandling
 		});
 	}
 }
@@ -358,27 +346,27 @@ function saveUserInfo(){
 				$(".border-success").removeClass('border-success');
 			}, 5000);                        
 		},
-		error: function(jqXHR, exception){
+		error: errorHandling
+	});
+}
 
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
+function saveParticipantInfo(id, roleId, comment){
 
-			alert(msg);
-		}
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlParticipantEdit,
+		method: 'post',
+		data: {      
+			id: id,
+			role: roleId,
+			comment: comment,
+		},
+		success: function(data){
+			alert("Изменения сохранены");      
+		},
+		error: errorHandling
 	});
 }
 
@@ -396,26 +384,6 @@ function clickButtonModalDelete(url, id, action){
 		success: function(data){
 			loadingProjects();  
 		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
+		error: errorHandling
 	});
 }
