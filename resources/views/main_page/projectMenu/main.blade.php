@@ -23,7 +23,7 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick='resetFilter()' style="margin-top:2%;margin-left:22%">
                  Сбросить фильтры
             </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top:2%;margin-left:26%">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#creat-project" style="margin-top:2%;margin-left:26%">
                  Создать проект
             </button>
         </div> 
