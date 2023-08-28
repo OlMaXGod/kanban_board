@@ -44,6 +44,7 @@ Route::get('/participants', [App\Http\Controllers\Project\ParticipantController:
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
 Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::class, 'leaveProject'])->name('leaveProject');
 Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
+Route::post('/create-project', [App\Http\Controllers\Project\ProjectController::class, 'createProject'])->name('newProject');
 
 //роуты ролей
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');

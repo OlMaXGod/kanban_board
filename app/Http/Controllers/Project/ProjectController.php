@@ -6,6 +6,7 @@ use App\Models\projects;
 use App\Models\project_participants;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -78,6 +79,29 @@ class ProjectController extends Controller
                 'project_id' => $projectId, 
                 'participant_id' => $userId,
                 'role_id' => 3,
+            ]
+        );
+
+        return $response;
+
+    }
+
+    public function createProject(Request $request)
+    {
+
+        $projectName = $response['projectName'] = $request->input('name');
+        $projectComment = $response['projectComment'] = $request->input('comment');
+        $projectType = $response['projectType'] = $request->input('type');
+        $projectAccess = $response['projectAccess'] = $request->input('access');
+       
+        
+        $response['resultat'] = projects::insert(
+            [
+                'name' => $projectName, 
+                'comment' => $projectComment,
+                'type' => $projectType,
+                'access' => $projectAccess,
+                'who_changed' => auth()->user()->id,
             ]
         );
 

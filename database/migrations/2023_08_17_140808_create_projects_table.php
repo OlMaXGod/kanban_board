@@ -18,8 +18,8 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
             $table->text("name")->comment('Имя проекта');
             $table->text("comment")->nullable()->comment('Описание проекта');
-            $table->bigInteger("type_id")->comment('Открытый проект/закрытый проект(по приглашению)');
-            $table->bigInteger("role_id")->comment('Роль в проекте');
+            $table->boolean("type")->comment('1 - Открытый проект/ 0 -закрытый проект(по приглашению)');
+            $table->text("access")->comment('Доступ к проекту');
             $table->bigInteger("who_changed")->comment('Кто совершил последнее изменение');
             $table->softDeletes();
         });
