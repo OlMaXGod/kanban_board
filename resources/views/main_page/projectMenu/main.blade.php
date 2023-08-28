@@ -12,12 +12,12 @@
                 </form>
             </div> 
             <div class="container" id="filter-body" style='margin-top:5px;border-bottom:  thick double #32a1ce;' >
-                 <label for="exampleInputEmail1" class="form-label" style="margin-left:35%">Фильтры</label>
+                 <label for="exampleInputEmail1" class="form-label" style="margin-left:32%">Сортировка</label>
                 <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-left:-8%;margin-bottom:2%">
-                    <button type="button" class="btn btn-outline-primary" onclick='filterByDate()'>Дата</button>
-                    <button type="button" class="btn btn-outline-primary" onclick='filterByName()'>Название</button>
-                    <button type="button" class="btn btn-outline-primary" onclick='filterByPrivate()'>Доступ</button>
-                    <button type="button" class="btn btn-outline-primary" onclick='filterBycreator()'>Создатель</button>
+                    <button type="button" class="btn btn-outline-primary" onclick='sort(this)' value="created_at">Дата</button>
+                    <button type="button" class="btn btn-outline-primary" onclick='sort(this)' value="name">Название</button>
+                    <button type="button" class="btn btn-outline-primary" onclick='sort(this)' value="type_id">Доступ</button>
+                    <button type="button" class="btn btn-outline-primary" onclick='sort(this)' value="who_changed">Создатель</button>
                 </div>
             </div> 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick='resetFilter()' style="margin-top:2%;margin-left:22%">

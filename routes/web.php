@@ -27,7 +27,7 @@ Route::get('/', [InterfaceController::class, 'show'])->name('loginInterface');
 
 Auth::routes();
 
-Route::get('/main_page/{id}', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home')->middleware('auth');
+Route::get('/main_page', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home')->middleware('auth');
 
 //роуты пользователей
 Route::get('/user', [UserController::class, 'index'])->name('get.user');

@@ -26,8 +26,8 @@
                                         @if(!empty($_GET["filter"]) && $_GET["filter"] === 'search_by_name')
                                             @yield('search_by_name', 'Не удалось получить проекты') 
                                         @endif
-                                        @if(!empty($_GET["filter"]) && $_GET["filter"] === 'filter_by_name')
-                                            @yield('search_by_name', 'Не удалось получить проекты') 
+                                        @if(!empty($_GET["filter"]) && $_GET["filter"] === 'filter')
+                                            @yield('sort', 'Не удалось получить проекты') 
                                         @endif
                                 </tbody>
                             </table>
@@ -90,6 +90,10 @@ function resetFilter(){
 
 window.location.href = '{{url()->current();}}';
 
+}
+
+function sort(filter){
+window.location.href = '{{url()->current();}}'+'?&filter_name='+filter.value+'&filter=filter';
 }
   </script>
 

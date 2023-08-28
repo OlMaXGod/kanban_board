@@ -38,8 +38,8 @@
 
 @endsection
 
-@section("filters")
-                                        $projects = $projects->sortBy(@$_GET["filter"]); 
+@section("sort")
+                                        <?php $projects = $projects->sortBy(@$_GET["filter_name"]); ?>
                                         @foreach($projects as $key => $project)
                                                 <tr>
                                                     <th scope="row">{{++$key}}</th>
