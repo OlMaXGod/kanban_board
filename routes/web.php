@@ -29,9 +29,13 @@ Auth::routes();
 
 Route::get('/main_page', [App\Http\Controllers\main_page\MainController::class, 'show'])->name('home')->middleware('auth');
 
+//роуты пользователей
 Route::get('/user', [UserController::class, 'index'])->name('get.user');
 Route::post('/users/edit', [App\Http\Controllers\Profile\UserController::class, 'edit'])->name('post.userEdit');
 Route::post('/users/edit/password', [App\Http\Controllers\Profile\UserController::class, 'editPassword'])->name('post.userEditPassword');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 
 Route::get('/project', [App\Http\Controllers\Project\ProjectController::class, 'index'])->name('get.project');
 Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 'getProjects'])->name('get.projects');
@@ -41,9 +45,12 @@ Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
 Route::post('/participant/edit', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantEdit');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
+Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::class, 'leaveProject'])->name('leaveProject');
+Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
 
+//роуты ролей
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');
 
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
-Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+//роуты фильтров
+Route::post('/main_page/{id}', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('filterByName');
+
