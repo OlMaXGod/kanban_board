@@ -77,6 +77,8 @@
         
         let urlGetParticipant = "{!! route('get.participant') !!}";
         let urlGetParticipants = "{!! route('get.participants') !!}";
+        let urlGetParticipantsInvited = "{!! route('get.participantsInvited') !!}";
+        let urlAddParticipant = "{!! route('addParticipant') !!}";
         let urlUpdateParticipant = "{!! route('post.participantUpdate') !!}";
         let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>

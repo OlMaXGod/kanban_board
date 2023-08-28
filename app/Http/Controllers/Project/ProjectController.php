@@ -104,7 +104,7 @@ class ProjectController extends Controller
                 'participant_id' => $id_user,
                 'role_id' => 3,
                 'comment' => 'Новый участник по ссылке',
-                'entry_request' => false,
+                'entry_request' => true,
             ]
         );
 
