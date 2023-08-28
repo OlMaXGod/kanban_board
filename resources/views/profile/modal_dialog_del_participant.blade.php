@@ -9,7 +9,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-danger" id="deleteModalButtonParticipant" >Удалить</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteModalButtonParticipant" >Удалить</button>
         </div>
     </div>
     </div>
