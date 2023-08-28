@@ -19,16 +19,7 @@ class RoleController extends Controller
 
     public function index(){
 
-        $roles = roles::all();
-
-        $rolesData = [];
-        foreach($roles as $role){
-            $rolesData[$role['id']] = [
-                'name' => $role['role'],
-            ];
-        }        
-
-        return $rolesData;
+        return ['resultat' => roles::all()];
 
     }
 }

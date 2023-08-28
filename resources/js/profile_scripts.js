@@ -2,72 +2,74 @@ let participants = [];
 
 $(document).ready(function(){
 
-	let idProjectStr = $(".group-item-project.active").attr("id");
-	if (idProjectStr != null){
-		let idProject = parseInt(idProjectStr.match(/\d+/));		
-		loadingParticipants(idProject);
-	}
-
 	let roleDefault = 3;
+	
+	loadingProjects();
 	loadingRoles(roleDefault);
+	
+});
 
-	$(".group-item-project").click(function(){
-		let idProjectStr = $(this).attr("id");
-		let idProject = parseInt(idProjectStr.match(/\d+/));
+$("body").on("click", ".group-item-project", function(event){
+	let idProjectStr = $(event.target).attr("id");
+	let idProject = parseInt(idProjectStr.match(/\d+/));
 
-		loadingParticipants(idProject);
-	});
+	loadingParticipants(idProject);
+});
+$("body").on("click", ".group-item-participant", function(event){
+	let idParticipantStr = $(event.target).attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-	$("#saveButtonPass").click(saveNewPassword);
+	loadingParticipantsData(idParticipant);
+});
 
-	$("#saveButton").click(saveUserInfo);
+$("#savePasswordButton").click(saveNewPassword);
+$("#saveUserButton").click(saveUserInfo);
+$("#saveParticipantButton").click(saveParticipantInfo);
 
-	$("#deleteModalButtonProject").click(function(){
-		let idProjectStr = $(".group-item-project.active").attr("id");
-		let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+$("#deleteModalButtonProject").click(function(){
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
 
-		clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
-	});
-	$("#deleteModalButtonParticipant").click(function(){
-		let idParticipantStr = $(".group-item-participant.active").attr("id");
-		let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
+	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
+});
+$("#deleteModalButtonParticipant").click(function(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-		clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
-	});
+	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
+});
 
-	$("#exampleInputName").on('input keyup', function() {
-		if($("#exampleInputName").val() == nameDefault){
-			$("#saveButton").addClass('disabled');
-			$(this).removeClass('border-primary');
-		} else{
-			$("#saveButton").removeClass('disabled');
-			$(this).addClass('border-primary');
-		}
-	});
-	$("#exampleInputEmail").on('input keyup', function() {
-		if($("#exampleInputEmail").val() == emailDefault){
-			$("#saveButton").addClass('disabled');
-			$(this).removeClass('border-primary');
-		} else{
-			$("#saveButton").removeClass('disabled');
-			$(this).addClass('border-primary');
+$("#exampleInputName").on('input keyup', function() {
+	if($("#exampleInputName").val() == nameDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
+	}
+});
+$("#exampleInputEmail").on('input keyup', function() {
+	if($("#exampleInputEmail").val() == emailDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
 
-		}				
-	});
-	$("#exampleInputPhone").on('input keyup', function() {
-		if($("#exampleInputPhone").val() == phoneDefault){
-			$("#saveButton").addClass('disabled');
-			$(this).removeClass('border-primary');
-		} else{
-			$("#saveButton").removeClass('disabled');
-			$(this).addClass('border-primary');
+	}				
+});
+$("#exampleInputPhone").on('input keyup', function() {
+	if($("#exampleInputPhone").val() == phoneDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
 
-		}				
-	});
+	}				
 });
 
 function loadingRoles(roleId) {
-
 	$(".opt").attr('selected', 'false');
 	$(".opt-inv").attr('selected', 'false');
 
@@ -77,45 +79,73 @@ function loadingRoles(roleId) {
 		},
 		url: urlGetRoles,
 		method: 'get',
+		timeout: 0,
 		success: function(data){		
-			let roles = data;
+			let roles = data['resultat'];
 
-			//selected
-			console.log(roles);
-			Object.keys(roles).forEach((id) => {
-				$("#selectRoleParticipant").append("<option class='opt' value="+id+" id='opt-"+id+"'>"+roles[id]['name']+"</option>");
-				$("#selectRoleParticipantInvited").append("<option class='opt-inv' value="+id+" id='opt-inv-"+id+"'>"+roles[id]['name']+"</option>");
+			roles.forEach((role) => {
+				$("#selectRoleParticipant").append("<option class='opt' value="+role.id+" id='opt-"+role.id+"'>"+role.role+"</option>");
+				$("#selectRoleParticipantInvited").append("<option class='opt-inv' value="+role.id+" id='opt-inv-"+role.id+"'>"+role.role+"</option>");
 			});
 			$("#opt-inv-"+roleId).attr('selected', 'true');
 		},
-		error: function(jqXHR, exception){
+		error: errorHandling
+	});	
+}
 
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
+function loadingProjects(){
+	$("#list-tab-project").empty();
+	$("#nav-tabContent-project").empty();
 
-			alert(msg);
-		}
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetProjects,
+		method: 'get',
+		success: function(data){
+			let firstStep = true;			
+			let projects = data['resultat'];
+
+			projects.forEach((project) => {
+				if (firstStep){
+					$("#list-tab-project").append(
+						"<a class='list-group-item list-group-item-action group-item-project active' id='project-"+project.id+"-list'" +
+							"data-bs-toggle='list' href='#project-"+project.id+"' role='tab'" +
+							"aria-controls='project-"+project.id+"'>"+project.name+"</a>"
+						);
+					$("#nav-tabContent-project").append(
+						"<div class='tab-pane fade show active' id='project-"+project.id+"' role='tabpanel'"+
+						"aria-labelledby='project-"+project.id+"-list'>"+project.comment+"</div>"
+					);
+		
+					firstStep = false;
+				} else {
+					$("#list-tab-project").append(
+						"<a class='list-group-item list-group-item-action group-item-project' id='project-"+project.id+"-list'" +
+							"data-bs-toggle='list' href='#project-"+project.id+"' role='tab'" +
+							"aria-controls='project-"+project.id+"'>"+project.name+"</a>"
+						);
+					$("#nav-tabContent-project").append(				
+						"<div class='tab-pane fade show' id='project-"+project.id+"' role='tabpanel'"+
+						"aria-labelledby='project-"+project.id+"-list'>"+project.comment+"</div>"
+					);
+				}
+			});
+			
+			let idProjectStr = $(".group-item-project.active").attr("id");
+			if (idProjectStr != null){
+				let idProject = parseInt(idProjectStr.match(/\d+/));		
+				loadingParticipants(idProject);
+			}
+		},
+		error: errorHandling
 	});	
 }
 
 function loadingParticipants(idProject) {
 
 	$("#list-tab-participant").empty();
-	$("#nav-tabContent-participant").empty();
 
 	$.ajax({
 		headers: {
@@ -128,56 +158,95 @@ function loadingParticipants(idProject) {
 		},
 		success: function(data){
 			let firstStep = true;		
-			participants = data;
+			let participants = data['resultat'];
 
-			Object.keys(participants).forEach((Id) => {
+			participants.forEach((participant) => {
 				if (firstStep){
 					$("#list-tab-participant").append(
-						"<a class='list-group-item list-group-item-action group-item-participant active' id='participant-"+Id+"-list'" +
-							"data-bs-toggle='list' href='#participant-"+Id+"' role='tab'" +
-							"aria-controls='participant-"+Id+"'>"+participants[Id]['name']+"</a>"
-						);
-					$("#nav-tabContent-participant").append(				
-						"<div class='tab-pane fade show active' id='participant-"+Id+"' role='tabpanel'"+
-						"aria-labelledby='participant-"+Id+"-list'>Роль: "+participants[Id]['role']+". Комментарий: </div>"
-					);
-		
+						"<a class='list-group-item list-group-item-action group-item-participant active' id='participant-"+participant.id+"-list'" +
+							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
+							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
+						);		
 					firstStep = false;
 				} else {
 					$("#list-tab-participant").append(
-						"<a class='list-group-item list-group-item-action group-item-participant' id='participant-"+Id+"-list'" +
-							"data-bs-toggle='list' href='#participant-"+Id+"' role='tab'" +
-							"aria-controls='participant-"+Id+"'>"+participants[Id]['name']+"</a>"
+						"<a class='list-group-item list-group-item-action group-item-participant' id='participant-"+participant.id+"-list'" +
+							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
+							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
 						);
-					$("#nav-tabContent-participant").append(				
-						"<div class='tab-pane fade show' id='participant-"+Id+"' role='tabpanel'"+
-						"aria-labelledby='participant-"+Id+"-list'>Роль: "+participants[Id]['role']+". Комментарий: </div>"
-					);
 				}
 			});
-		},
-		error: function(jqXHR, exception){
+			
+			if (participants.length != 0){
+				let idParticipantStr = $(".group-item-participant.active").attr("id");
+				if (idParticipantStr != null){
+					$("#selectRoleParticipant").prop('disabled', false);
+					$("#commentParticipant").prop('disabled', false);
+					$("#deleteParticipantButton").prop('disabled', false);
 
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
+					let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+					loadingParticipantsData(idParticipant);
+				}
 			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
+				$("#selectRoleParticipant").prop('disabled', true);
+				$("#commentParticipant").text('');
+				$("#commentParticipant").prop('disabled', true);
+				$("#deleteParticipantButton").prop('disabled', true);
 
-			alert(msg);
-		}
+				$(".opt").prop('selected',false)
+			}
+
+			
+		},
+		error: errorHandling
 	});	
+}
+
+function loadingParticipantsData(idParticipant){
+	$("#commentParticipant").empty();
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetParticipant,
+		method: 'get',
+		data: {      
+			id: idParticipant
+		},
+		success: function(data){
+			let participantData = data['resultat'];
+
+			$("#opt-"+participantData.role_id).prop('selected', true)
+			$("#commentParticipant").text(participantData.comment);
+
+		},
+		error: errorHandling
+	});	
+} 
+
+function errorHandling(jqXHR, exception){
+
+	console.log(jqXHR.responseText);
+	var msg = '';
+	if (jqXHR.status === 0) {
+		msg = 'Not connect.\n Verify Network.';
+	} else if (jqXHR.status == 404) {
+		msg = 'Requested page not found. [404]';
+	} else if (jqXHR.status == 500) {
+		msg = 'Internal Server Error [500].';
+	} else if (exception === 'parsererror') {
+		msg = 'Requested JSON parse failed.';
+	} else if (exception === 'timeout') {
+		msg = 'Time out error.';
+	} else if (exception === 'abort') {
+		msg = 'Ajax request aborted.';
+	} else {
+		msg = 'Uncaught Error.\n' + jqXHR.responseText;
+	};
+
+	alert(msg);
+
 }
 
 function saveNewPassword(){
@@ -221,7 +290,7 @@ function saveNewPassword(){
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
-			url: urlEditPassword,
+			url: urlUpdatePassword,
 			method: 'post',
 			data: {      
 				phone: $('#exampleInputPhone').val(),
@@ -229,8 +298,6 @@ function saveNewPassword(){
 				newPassword: $('#secondEnterPass').val(),
 			},
 			success: function(data){
-				//alert("Успешно!\n" + data.message);
-				//console.log(data);
 				$('#firstEnterPass').addClass('border-success');
 				$('#secondEnterPass').addClass('border-success');
 
@@ -239,93 +306,9 @@ function saveNewPassword(){
 					$('#secondEnterPass').removeClass('border-success');
 				}, 5000);
 			},
-			error: function(jqXHR, exception){
-
-				var msg = '';
-				if (jqXHR.status === 0) {
-					msg = 'Not connect.\n Verify Network.';
-				} else if (jqXHR.status == 404) {
-					msg = 'Requested page not found. [404]';
-				} else if (jqXHR.status == 500) {
-					msg = 'Internal Server Error [500].';
-				} else if (exception === 'parsererror') {
-					msg = 'Requested JSON parse failed.';
-				} else if (exception === 'timeout') {
-					msg = 'Time out error.';
-				} else if (exception === 'abort') {
-					msg = 'Ajax request aborted.';
-				} else {
-					msg = 'Uncaught Error.\n' + jqXHR.responseText;
-				};
-
-				alert(msg);
-			}
+			error: errorHandling
 		});
 	}
-}
-
-function refreshProjects(){
-	$("#list-tab-project").empty();
-	$("#nav-tabContent-project").empty();
-
-	$.ajax({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url: urlGetProjects,
-		method: 'get',
-		success: function(data){
-			let firstStep = true;			
-			let projects = data;
-
-			Object.keys(projects).forEach((Id) => {
-				if (firstStep){
-					$("#list-tab-project").append(
-						"<a class='list-group-item list-group-item-action group-item-project active' id='project-"+Id+"-list'" +
-							"data-bs-toggle='list' href='#project-"+Id+"' role='tab'" +
-							"aria-controls='project-"+Id+"'>"+projects[Id]['name']+"</a>"
-						);
-					$("#nav-tabContent-project").append(
-						"<div class='tab-pane fade show active' id='project-"+Id+"' role='tabpanel'"+
-						"aria-labelledby='project-"+Id+"-list'>Роль: "+projects[Id]['role']+". Комментарий: </div>"
-					);
-		
-					firstStep = false;
-				} else {
-					$("#list-tab-project").append(
-						"<a class='list-group-item list-group-item-action group-item-project' id='project-"+Id+"-list'" +
-							"data-bs-toggle='list' href='#project-"+Id+"' role='tab'" +
-							"aria-controls='project-"+Id+"'>"+projects[Id]['name']+"</a>"
-						);
-					$("#nav-tabContent-project").append(				
-						"<div class='tab-pane fade show' id='project-"+Id+"' role='tabpanel'"+
-						"aria-labelledby='project-"+Id+"-list'>Роль: "+projects[Id]['role']+". Комментарий: </div>"
-					);
-				}
-			});
-		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
-	});	
 }
 	
 function saveUserInfo(){
@@ -334,14 +317,14 @@ function saveUserInfo(){
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		},
-		url: urlUserEdit,
+		url: urlUpdateUser,
 		method: 'post',
 		data: {      
 			name: $('#exampleInputName').val(),
 			phone: $('#exampleInputPhone').val(),
 			email: $('#exampleInputEmail').val(),
-			phoneOld: phoneDefault,
-			emailOld: emailDefault,
+			phone_old: phoneDefault,
+			email_old: emailDefault,
 		},
 		success: function(data){
 			nameDefault = $("#exampleInputName").val();
@@ -355,31 +338,36 @@ function saveUserInfo(){
 				$(".border-success").removeClass('border-success');
 			}, 5000);                        
 		},
-		error: function(jqXHR, exception){
+		error: errorHandling
+	});
+}
 
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
+function saveParticipantInfo(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+	let roleId = $("#selectRoleParticipant").children("option:selected").val();
+	let comment = $("#commentParticipant").val();
 
-			alert(msg);
-		}
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlUpdateParticipant,
+		method: 'post',
+		data: {      
+			id: idParticipant,
+			role: roleId,
+			comment: comment,
+		},
+		success: function(data){
+			alert("Изменения сохранены");      
+		},
+		error: errorHandling
 	});
 }
 
 function clickButtonModalDelete(url, id, action){
+
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -390,28 +378,8 @@ function clickButtonModalDelete(url, id, action){
 			id: id,
 		},
 		success: function(data){
-			refreshProjects();  
+			loadingProjects();  
 		},
-		error: function(jqXHR, exception){
-
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			} else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			} else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			};
-
-			alert(msg);
-		}
+		error: errorHandling
 	});
 }
