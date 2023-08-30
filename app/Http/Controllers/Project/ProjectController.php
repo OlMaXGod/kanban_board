@@ -67,6 +67,7 @@ class ProjectController extends Controller
     public function joinProject(Request $request)
     {
 
+        $type = $response['type'] = $request->input('type');
         $projectId = $response['id_project'] = $request->input('projectId');
         $userId = $response['id_user'] = $request->input('userId');
        
@@ -77,7 +78,7 @@ class ProjectController extends Controller
                 'participant_id' => $userId,
                 'role_id' => 3,
                 'comment' => 'Новый участник',
-                'entry_request' => false,
+                'entry_request' => $type,
             ]
         );
 
@@ -92,34 +93,19 @@ class ProjectController extends Controller
        
         
         $result = projects::where('id', $id_project)
-                               ->select('projects.type')
+                               ->select('projects.type, projects.name')
                                ->first();
         
         if ($result['type'] == 1){
-            $response['resultat'] = 0;
+            // открытый
+            $response['status'] = 'open';
         } else if ($result['type'] == 0){
-            $response['resultat'] = 1;
+            // закрытый
+            $response['status'] = 'close';
         }
+        $response['name'] = $result['name'];
 
-        return $response;
-
-    }
-
-    public function inviteRequestProject($id_project, $type, Request $request){
-
-        $id_project = $response['id_project'] = $id_project;
-        $id_user = $response['id_user'] = auth()->user()->id;
-       
-        $response['resultat'] = project_participants::insert(
-            [
-                'project_id' => $id_project, 
-                'participant_id' => $id_user,
-                'role_id' => 3,
-                'comment' => 'Новый участник по ссылке',
-                'entry_request' => $type,
-            ]
-        );
-
+        //return view('project-page', compact('response')); ??? чтобы перейти в project-page ???
         return $response;
 
     }
