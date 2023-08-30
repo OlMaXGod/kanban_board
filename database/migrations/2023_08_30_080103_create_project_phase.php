@@ -18,6 +18,7 @@ class CreateProjectPhase extends Migration
             $table->timestamps();
             $table->text("name")->comment('Имя проекта');
             $table->text("comment")->comment('Комментарий');
+            $table->bigInteger("status")->comment('Статус проекта');
             $table->timestamp('time_frome')->nullable()->comment('Время начала');
             $table->timestamp('time_to')->nullable()->comment('Время завершения');
             $table->bigInteger("project_id")->comment('Проект');
