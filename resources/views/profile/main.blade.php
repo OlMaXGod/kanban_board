@@ -34,7 +34,6 @@
     @include('profile.participants')
     @include('modal_windows.update_project')
     @include('modal_windows.update_stage')
-    @include('modal_windows.invite_project')
     @include('footer')
     <title>Профиль</title>
 </head>
@@ -42,9 +41,6 @@
 <body style="background-color: #FFFACD">
     <button type="button" id="editStaqgeButton" data-bs-toggle="modal" data-bs-target="#update-stage" class="btn btn-secondary mt-2 mx-auto">
         Настройки этапа
-    </button>
-    <button type="button" id="inviteButton" data-bs-toggle="modal" data-bs-target="#invite-project" class="btn btn-secondary mt-2 mx-auto">
-        Приглашение
     </button>
 
     <div class="container-xxl">
@@ -56,7 +52,6 @@
         @yield('modal_dialog_del_project', 'Не удалось получить модальное окно удаления проекта')
         @yield('modal_update_project', 'Не удалось получить модальное окно настройки проекта') 
         @yield('modal_update_stage', 'Не удалось получить модальное окно настройки этапа') 
-        @yield('modal_invite_project', 'Не удалось получить модальное окно настройки этапа') 
         
         <div class="container-fluid">
             
