@@ -57,5 +57,5 @@ Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantCo
 //роуты ролей
 Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('get.roles');
 
-//роуты фильтров
-Route::post('/main_page/{id}', [App\Http\Controllers\Profile\RoleController::class, 'index'])->name('filterByName');
+//роуты страницы выбранного проекта 
+Route::get('/project-page', [App\Http\Controllers\Project\ProjectController::class, 'show'])->name('filterByName');

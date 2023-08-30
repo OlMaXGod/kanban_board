@@ -7,12 +7,24 @@ use App\Models\project_participants;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 class ProjectController extends Controller
 {
     public function __construct(){
         
         $this->middleware('auth');
+
+    }
+
+    public function show(Request $projectId){
+
+        return view('project_page.main',[
+            "projects" => projects::where('id',$projectId),
+            "users" =>User::all(),
+            "projectParticipants" =>project_participants::where('project_id',$projectId)
+        ]);
 
     }
 
