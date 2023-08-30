@@ -85,20 +85,30 @@ class ProjectController extends Controller
 
     }
 
-    public function createInvitationUrl(Request $request){
+    public function inviteProject($id_project, Request $request){
 
-        $id_project = $response['id_project'] = $request->input('id');
-
-        $response['resultat'] = "http://localhost/kanban_board/public/project/add_user_url/"+$id_project;
+        $id_project = $response['id_project'] = $id_project;
+        $id_user = $response['id_user'] = auth()->user()->id;
+       
         
+        $result = projects::where('id', $id_project)
+                               ->select('projects.type')
+                               ->first();
+        
+        if ($result['type'] == 1){
+            $response['resultat'] = 0;
+        } else if ($result['type'] == 0){
+            $response['resultat'] = 1;
+        }
+
         return $response;
 
     }
 
-    public function addUserInProjectUrl($id_user, $id_project, Request $request){
+    public function inviteRequestProject($id_project, $type, Request $request){
 
         $id_project = $response['id_project'] = $id_project;
-        $id_user = $response['id_user'] = $id_user;
+        $id_user = $response['id_user'] = auth()->user()->id;
        
         $response['resultat'] = project_participants::insert(
             [
@@ -106,7 +116,7 @@ class ProjectController extends Controller
                 'participant_id' => $id_user,
                 'role_id' => 3,
                 'comment' => 'Новый участник по ссылке',
-                'entry_request' => true,
+                'entry_request' => $type,
             ]
         );
 
