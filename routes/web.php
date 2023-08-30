@@ -45,6 +45,7 @@ Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::c
 Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
 
 Route::post('/create-project', [App\Http\Controllers\Project\ProjectController::class, 'createProject'])->name('newProject');
+Route::post('/update-project', [App\Http\Controllers\Project\ProjectController::class, 'updateProject'])->name('updateProject');
 
 Route::get('/project/create_invitation', [App\Http\Controllers\Project\ProjectController::class, 'createInvitationUrl'])->name('createInvitationUrl');
 Route::get('/project/add_user_url/{id_user}/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'addUserInProjectUrl'])->name('addUserInProjectUrl');
@@ -52,6 +53,8 @@ Route::get('/project/add_user_url/{id_user}/{id_project}', [App\Http\Controllers
 //роуты участников проектов
 Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
+Route::get('/participants/invited', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipantsInvited'])->name('get.participantsInvited');
+Route::post('/participant/add', [App\Http\Controllers\Project\ParticipantController::class, 'addParticipant'])->name('addParticipant');
 Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');
 Route::delete('/participant/delete', [App\Http\Controllers\Project\ParticipantController::class, 'delete'])->name('delete.participant');
 
