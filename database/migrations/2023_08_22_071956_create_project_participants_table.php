@@ -33,5 +33,8 @@ class CreateProjectParticipantsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('project_participants');
+        Schema::table('project_participants', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

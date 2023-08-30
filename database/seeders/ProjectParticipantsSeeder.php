@@ -3,10 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class ProjectParticipantsSeeder extends Seeder
 {
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     /**
      * Run the database seeds.
      *

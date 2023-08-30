@@ -17,7 +17,7 @@
 						data-bs-toggle="list" href="#ParticipantInvited-pane" role="tab"
 						aria-controls="ParticipantInvited-pane">
 							Запросы на вступление
-							<span class="badge text-bg-success" id="countRequest">12</span>
+							<span class="badge text-bg-secondary" id="countRequest">0</span>
 						</a>
 					</li>
 					</div>

@@ -1,7 +1,11 @@
 let participants = [];
 let roleDefault = 3;
 
-$(document).ready(function(){	
+$(document).ready(function(){
+
+	var datepickerFrom = new Datepicker('#datepickerfrom');
+	var datepickerTo = new Datepicker('#datepickerto');
+	
 	loadingProjects();
 	loadingRoles(roleDefault);
 });
@@ -24,6 +28,7 @@ $("#savePasswordButton").click(saveNewPassword);
 $("#saveUserButton").click(saveUserInfo);
 $("#saveParticipantButton").click(saveParticipantInfo);
 $("#addParticipantButton").click(addParticipantInProject);
+$("#changeNameProjectButton").click(loadingProjectData);
 
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
@@ -78,7 +83,6 @@ function loadingRoles(roleId) {
 		},
 		url: urlGetRoles,
 		method: 'get',
-		timeout: 0,
 		success: function(data){		
 			let roles = data['resultat'];
 
@@ -103,7 +107,7 @@ function loadingProjects(){
 		url: urlGetProjects,
 		method: 'get',
 		success: function(data){
-			let firstStep = true;			
+			let firstStep = true;		
 			let projects = data['resultat'];
 
 			projects.forEach((project) => {
@@ -138,6 +142,32 @@ function loadingProjects(){
 				loadingParticipants(idProject);
 				loadingParticipantsInvited(idProject, roleDefault);	
 			}
+		},
+		error: errorHandling
+	});	
+}
+
+function loadingProjectData(){
+	
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetProject,
+		method: 'get',
+		data: {
+			id: idSelectProject
+		},
+		success: function(data){
+			let projectData = data['resultat'];
+			
+			$("#exampleInputNameProject").val(projectData['name']);
+			$("#exampleInputText").val(projectData['comment']);
+			$("#opt-s1-"+projectData['type']).prop('selected', true);
+			$("#opt-s2-"+projectData['access']).prop('selected', true);
 		},
 		error: errorHandling
 	});	
@@ -190,7 +220,7 @@ function loadingParticipants(idProject) {
 				}
 			} else {
 				$("#selectRoleParticipant").prop('disabled', true);
-				$("#commentParticipant").text('');
+				$("#commentParticipant").val('');
 				$("#commentParticipant").prop('disabled', true);
 				$("#saveParticipantButton").prop('disabled', true);
 				$("#deleteParticipantButton").prop('disabled', true);
@@ -208,7 +238,7 @@ function loadingParticipantsInvited(idProject, roleDefault) {
 	$("#list-tab-ParticipantsInvited").empty();
 
 	$("#opt-inv-"+roleDefault).attr('selected', 'true');
-	$("#commentParticipantInvited").text('Новый участник');	
+	$("#commentParticipantInvited").val('Новый участник');	
 
 	$.ajax({
 		headers: {
@@ -274,7 +304,7 @@ function loadingParticipantsData(idParticipant){
 			let participantData = data['resultat'];
 
 			$("#opt-"+participantData.role_id).prop('selected', true)
-			$("#commentParticipant").text(participantData.comment);
+			$("#commentParticipant").val(participantData.comment);
 
 		},
 		error: errorHandling
@@ -441,7 +471,7 @@ function addParticipantInProject(){
 		},
 		success: function(data){
 			//$(".group-item-ParticipantInvited.active").remove();
-			alert("Пользователь " + $(".group-item-ParticipantInvited.active").text() + " добавлен в проект");      
+			alert("Пользователь " + $(".group-item-ParticipantInvited.active").val() + " добавлен в проект");      
 			loadingProjects();  
 		},
 		error: errorHandling
