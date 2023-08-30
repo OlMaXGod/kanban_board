@@ -10,10 +10,13 @@
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
     <title>Главная страница</title>
     @include('header')
-    @include('footer')
+    @include('footer')profile
+    @include('project_page.settings_menu.main')
+    
 </head>
 <body style="background-color: #FFFACD;">
-@yield('header', 'Не удалось получить список шапку') 
+    @yield('header', 'Не удалось получить список шапку') 
+    @yield('setting_menu', 'Не удалось получить список шапку') 
 
 </body>
 </html>
