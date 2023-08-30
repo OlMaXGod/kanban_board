@@ -18,12 +18,13 @@ class ProjectController extends Controller
 
     }
 
-    public function show(Request $projectId){
+    public function show($projectId){
+
 
         return view('project_page.main',[
-            "projects" => projects::where('id',$projectId),
+            "project" => projects::where('id',$projectId)->first(),
             "users" =>User::all(),
-            "projectParticipants" =>project_participants::where('project_id',$projectId)
+            "projectParticipants" =>project_participants::where('project_id',$projectId)->first()
         ]);
 
     }
