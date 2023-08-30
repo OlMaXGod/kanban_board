@@ -1,12 +1,13 @@
 let participants = [];
+let roleDefault = 3;
 
 $(document).ready(function(){
 
-	let roleDefault = 3;
+	var datepickerFrom = new Datepicker('#datepickerfrom');
+	var datepickerTo = new Datepicker('#datepickerto');
 	
 	loadingProjects();
 	loadingRoles(roleDefault);
-	
 });
 
 $("body").on("click", ".group-item-project", function(event){
@@ -14,6 +15,7 @@ $("body").on("click", ".group-item-project", function(event){
 	let idProject = parseInt(idProjectStr.match(/\d+/));
 
 	loadingParticipants(idProject);
+	loadingParticipantsInvited(idProject, roleDefault);	
 });
 $("body").on("click", ".group-item-participant", function(event){
 	let idParticipantStr = $(event.target).attr("id");
@@ -25,6 +27,8 @@ $("body").on("click", ".group-item-participant", function(event){
 $("#savePasswordButton").click(saveNewPassword);
 $("#saveUserButton").click(saveUserInfo);
 $("#saveParticipantButton").click(saveParticipantInfo);
+$("#addParticipantButton").click(addParticipantInProject);
+$("#changeNameProjectButton").click(loadingProjectData);
 
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
@@ -79,7 +83,6 @@ function loadingRoles(roleId) {
 		},
 		url: urlGetRoles,
 		method: 'get',
-		timeout: 0,
 		success: function(data){		
 			let roles = data['resultat'];
 
@@ -104,7 +107,7 @@ function loadingProjects(){
 		url: urlGetProjects,
 		method: 'get',
 		success: function(data){
-			let firstStep = true;			
+			let firstStep = true;		
 			let projects = data['resultat'];
 
 			projects.forEach((project) => {
@@ -137,7 +140,34 @@ function loadingProjects(){
 			if (idProjectStr != null){
 				let idProject = parseInt(idProjectStr.match(/\d+/));		
 				loadingParticipants(idProject);
+				loadingParticipantsInvited(idProject, roleDefault);	
 			}
+		},
+		error: errorHandling
+	});	
+}
+
+function loadingProjectData(){
+	
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetProject,
+		method: 'get',
+		data: {
+			id: idSelectProject
+		},
+		success: function(data){
+			let projectData = data['resultat'];
+			
+			$("#exampleInputNameProject").val(projectData['name']);
+			$("#exampleInputText").val(projectData['comment']);
+			$("#opt-s1-"+projectData['type']).prop('selected', true);
+			$("#opt-s2-"+projectData['access']).prop('selected', true);
 		},
 		error: errorHandling
 	});	
@@ -145,7 +175,7 @@ function loadingProjects(){
 
 function loadingParticipants(idProject) {
 
-	$("#list-tab-participant").empty();
+	$("#list-tab-participants").empty();
 
 	$.ajax({
 		headers: {
@@ -162,14 +192,14 @@ function loadingParticipants(idProject) {
 
 			participants.forEach((participant) => {
 				if (firstStep){
-					$("#list-tab-participant").append(
+					$("#list-tab-participants").append(
 						"<a class='list-group-item list-group-item-action group-item-participant active' id='participant-"+participant.id+"-list'" +
 							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
 							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
 						);		
 					firstStep = false;
 				} else {
-					$("#list-tab-participant").append(
+					$("#list-tab-participants").append(
 						"<a class='list-group-item list-group-item-action group-item-participant' id='participant-"+participant.id+"-list'" +
 							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
 							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
@@ -182,6 +212,7 @@ function loadingParticipants(idProject) {
 				if (idParticipantStr != null){
 					$("#selectRoleParticipant").prop('disabled', false);
 					$("#commentParticipant").prop('disabled', false);
+					$("#saveParticipantButton").prop('disabled', false);
 					$("#deleteParticipantButton").prop('disabled', false);
 
 					let idParticipant = parseInt(idParticipantStr.match(/\d+/));
@@ -189,14 +220,69 @@ function loadingParticipants(idProject) {
 				}
 			} else {
 				$("#selectRoleParticipant").prop('disabled', true);
-				$("#commentParticipant").text('');
+				$("#commentParticipant").val('');
 				$("#commentParticipant").prop('disabled', true);
+				$("#saveParticipantButton").prop('disabled', true);
 				$("#deleteParticipantButton").prop('disabled', true);
 
 				$(".opt").prop('selected',false)
 			}
-
 			
+		},
+		error: errorHandling
+	});	
+}
+
+function loadingParticipantsInvited(idProject, roleDefault) {
+
+	$("#list-tab-ParticipantsInvited").empty();
+
+	$("#opt-inv-"+roleDefault).attr('selected', 'true');
+	$("#commentParticipantInvited").val('Новый участник');	
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlGetParticipantsInvited,
+		method: 'get',
+		data: {
+			id: idProject
+		},
+		success: function(data){
+			let firstStep = true;		
+			let participants = data['resultat'];
+			let countInvited = participants.length;
+			
+			participants.forEach((participant) => {
+				if (firstStep){
+					$("#list-tab-ParticipantsInvited").append(
+						"<a class='list-group-item list-group-item-action group-item-ParticipantInvited active' id='ParticipantInvited-"+participant.id+"-list'" +
+							"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
+							"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
+						);		
+					firstStep = false;
+				} else {
+					$("#list-tab-ParticipantsInvited").append(
+						"<a class='list-group-item list-group-item-action group-item-ParticipantInvited' id='ParticipantInvited-"+participant.id+"-list'" +
+							"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
+							"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
+						);
+				}
+			});
+
+			if (countInvited > 0){
+				$("#countRequest").text(countInvited).removeClass('text-bg-secondary').addClass('text-bg-success');
+				$("#selectRoleParticipantInvited").prop('disabled', false);
+				$("#commentParticipantInvited").prop('disabled', false);
+				$("#addParticipantButton").prop('disabled', false);
+			} else {
+				$("#countRequest").text('0').removeClass('text-bg-success').addClass('text-bg-secondary');
+				$("#selectRoleParticipantInvited").prop('disabled', true);
+				$("#commentParticipantInvited").prop('disabled', true);
+				$("#addParticipantButton").prop('disabled', true);
+			}
+
 		},
 		error: errorHandling
 	});	
@@ -218,7 +304,7 @@ function loadingParticipantsData(idParticipant){
 			let participantData = data['resultat'];
 
 			$("#opt-"+participantData.role_id).prop('selected', true)
-			$("#commentParticipant").text(participantData.comment);
+			$("#commentParticipant").val(participantData.comment);
 
 		},
 		error: errorHandling
@@ -361,6 +447,32 @@ function saveParticipantInfo(){
 		},
 		success: function(data){
 			alert("Изменения сохранены");      
+		},
+		error: errorHandling
+	});
+}
+
+function addParticipantInProject(){
+	let idParticipantStr = $(".group-item-ParticipantInvited.active").attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+	let roleId = $("#selectRoleParticipantInvited").children("option:selected").val();
+	let comment = $("#commentParticipantInvited").val();
+
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlAddParticipant,
+		method: 'post',
+		data: {      
+			id: idParticipant,
+			role: roleId,
+			comment: comment,
+		},
+		success: function(data){
+			//$(".group-item-ParticipantInvited.active").remove();
+			alert("Пользователь " + $(".group-item-ParticipantInvited.active").val() + " добавлен в проект");      
+			loadingProjects();  
 		},
 		error: errorHandling
 	});

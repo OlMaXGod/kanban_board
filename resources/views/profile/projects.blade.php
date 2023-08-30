@@ -11,7 +11,7 @@
 			<div class="col-8">
 				<div class="tab-content" id="nav-tabContent-project" style="background-color:#a8ccc05d; height:250px; border-radius:var(--bs-border-radius); padding:10px;">
 				</div>
-				<button type="button" id="changeNameProjectButton" class="btn btn-secondary mt-2 mx-auto">
+				<button type="button" id="changeNameProjectButton" data-bs-toggle="modal" data-bs-target="#update-project" class="btn btn-secondary mt-2 mx-auto">
 					Настройки
 				</button>
 				<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">

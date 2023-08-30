@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectParticipantsTable extends Migration
+class CreateProjectPhase extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateProjectParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_participants', function (Blueprint $table) {
+        Schema::create('project_phase', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->text("name")->comment('Имя проекта');
+            $table->text("comment")->comment('Комментарий');
+            $table->timestamp('time_frome')->nullable()->comment('Время начала');
+            $table->timestamp('time_to')->nullable()->comment('Время завершения');
             $table->bigInteger("project_id")->comment('Проект');
             $table->bigInteger("participant_id")->comment('Участник проекта');
-            $table->bigInteger("role_id")->comment('Роль участника');
-            $table->text("comment")->comment('Комментарий');
-            $table->boolean("entry_request")->comment('Запрос на вход');
+            $table->bigInteger("who_changed")->comment('Кто совершил последнее изменение');
             $table->softDeletes();
         });
     }
@@ -32,9 +34,6 @@ class CreateProjectParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_participants');
-        Schema::table('project_participants', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('project_phase');
     }
 }

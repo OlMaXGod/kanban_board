@@ -34,6 +34,24 @@ class ProjectsSeeder extends Seeder
             'access' => 1,
             'who_changed' => 1,
         ]);
+        DB::table('projects')->insert([
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s'),
+            'name' => str_random(10),
+            'comment' => str_random(10),
+            'type' => 1,
+            'access' => 1,
+            'who_changed' => 1,
+        ]);
+        DB::table('projects')->insert([
+            'created_at' => date('Y-m-d h:i:s'),
+            'updated_at' => date('Y-m-d h:i:s'),
+            'name' => str_random(10),
+            'comment' => str_random(10),
+            'type' => 1,
+            'access' => 1,
+            'who_changed' => 1,
+        ]);
         
        
     }

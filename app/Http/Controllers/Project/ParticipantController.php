@@ -42,9 +42,35 @@ class ParticipantController extends Controller
         $projectId = $response['id_project'] = $request->input('id');
         
         $response['resultat'] = project_participants::where('project_id', '=', $projectId)
+            ->where('entry_request', '=', 0)
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
             ->select('project_participants.id', 'users.name')
             ->get();
+
+        return $response;
+    }
+
+    public function getParticipantsInvited(Request $request)
+    {
+        $projectId = $response['id_project'] = $request->input('id');
+        
+        $response['resultat'] = project_participants::where('project_id', '=', $projectId)
+            ->where('entry_request', '=', 1)
+            ->join('users', 'users.id', '=', 'project_participants.participant_id')
+            ->select('project_participants.id', 'users.name')
+            ->get();
+
+        return $response;
+    } //
+
+    public function addParticipant(Request $request)
+    {
+        $participant_id = $response['id_participant'] = $request->input('id');
+        $role_id = $response['id_role'] = $request->input('role');
+        $comment = $response['comment'] = $request->input('comment');
+        
+        $response['resultat'] = project_participants::where("id", "=", $participant_id)
+            ->update(['role_id' => $role_id, 'comment' => $comment, 'comment' => $comment, 'entry_request' => 0]);
 
         return $response;
     }
