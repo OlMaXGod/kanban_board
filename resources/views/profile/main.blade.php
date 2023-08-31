@@ -42,6 +42,7 @@
     <button type="button" id="editStaqgeButton" data-bs-toggle="modal" data-bs-target="#update-stage" class="btn btn-secondary mt-2 mx-auto">
         Настройки этапа
     </button>
+    <a type="button" class="btn btn-secondary mt-2 mx-auto" href="http://localhost/kanban_board/public/project-page/1?invite=true">Модальное окно</a>
 
     <div class="container-xxl">
         

@@ -93,7 +93,7 @@ class ProjectController extends Controller
        
         
         $result = projects::where('id', $id_project)
-                               ->select('projects.type, projects.name')
+                               ->select('type', 'name')
                                ->first();
         
         if ($result['type'] == 1){
@@ -105,8 +105,10 @@ class ProjectController extends Controller
         }
         $response['name'] = $result['name'];
 
-        //return view('project-page', compact('response')); ??? чтобы перейти в project-page ???
-        return $response;
+        //Добавить кнорпку для вывода модального окна
+        //dd($response);
+        return view('project-page', compact('response'));
+        //return $response;
 
     }
 
