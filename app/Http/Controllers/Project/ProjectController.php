@@ -146,8 +146,11 @@ class ProjectController extends Controller
                 'who_changed' => auth()->user()->id,
             ]
         );
+        
 
-        return $response;
+        return redirect('/project-page/'.$response['resultat']->id);
+
+
 
     }
 
