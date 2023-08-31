@@ -11,6 +11,7 @@
       <div class="modal-body">
             <form method="POST" action="{{ route('updateProject') }}">
             @csrf
+                <input type="hidden" class="form-control" id="exampleIdProject" aria-describedby="emailHelp" name='id'>
                 <div class="mb-3">
                     <label for="exampleInputNameProject" class="form-label">Название проекта</label>
                     <input type="text" class="form-control" id="exampleInputNameProject" aria-describedby="emailHelp" name='name'>

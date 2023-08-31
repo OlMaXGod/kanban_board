@@ -164,6 +164,7 @@ function loadingProjectData(){
 		success: function(data){
 			let projectData = data['resultat'];
 			
+			$("#exampleIdProject").val(projectData['id']);
 			$("#exampleInputNameProject").val(projectData['name']);
 			$("#exampleInputText").val(projectData['comment']);
 			$("#opt-s1-"+projectData['type']).prop('selected', true);
