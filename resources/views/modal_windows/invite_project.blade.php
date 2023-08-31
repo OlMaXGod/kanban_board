@@ -8,7 +8,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Приглашение</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       </div>
-      <div class="modal-body">        
+      <div class="modal-body">
         @if(!empty($response['status']) && $response['status'] == 'open')
           <label for="inviteInProject" class="form-label">Вас пригласили вступить в проект {{ $response['name'] }}</label>
         @endif
@@ -29,26 +29,27 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript">
+
+$(window).on('load',function(){
+    $('#invite-project').modal('show');
+});
 
 $(".joine-project-button").click(function(){
 	
-    let idProjectStr = $(".group-item-project.active").attr("id");
-    let idSelectProject = parseInt(idProjectStr.match(/\d+/));
-
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       url: '{{route('joinProject')}}',
-      method: 'get',
+      method: 'post',
       data: {
           type: $(this).val(),
           projectId: {{ $response['id_project'] }},
           userId: {{auth()->user()->id}},
       },
       success: function(data){
-        let projectData = data['resultat'];
+        $('#invite-project').modal('hide');
       },
       error: function(jqXHR, exception){
 
