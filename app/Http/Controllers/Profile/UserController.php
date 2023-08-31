@@ -24,107 +24,49 @@ class UserController extends Controller
 
         $id = auth()->user()->id;
 
-        $user = User::find($id);
-        $userData = [
-            'name' => $user['name'],
-            'phone' => $user['phone'],
-            'email' => $user['email'],
-        ];        
-        
-        $projects = projects::where('who_changed', '=', $id)->get();
-        $projectsData = [];
-        foreach($projects as $project){
-            $projectsData[$project['id']] = [
-                'name' => $project['name'],
-                'comment' => $project['comment'],
-            ];
-        }
-        
-        $idProjects = array_keys($projectsData);
-        $participants = project_participants::whereIn('project_id', $idProjects)
-            ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->select('project_participants.project_id', 'project_participants.id', 'users.name', 'project_participants.role_id')
-            ->get();
-        $participantsData = [];
-        foreach($participants as $participant){
-            $participantsData[$participant['project_id']][$participant['id']] = [
-                'name' => $participant['name'],
-                'role' => $participant['role_id'],
-            ];
-        }
-        
-        //dd($userData, $projectsData, $participantsData);
+        $userData = User::find($id);
 
-        return view('profile/main', compact('userData', 'projectsData', 'participantsData'));
+        return view('profile/main', compact('userData'));
 
     }
           
-    public function edit(Request $request){
+    public function update(Request $request){
 
-        $data = $request->validate([
-            'name' => 'string',
-            'phone' => 'string',
-            'email' => 'string',
-            'phoneOld' => 'string',
-            'emailOld' => 'string'
-          ]);
+        $name = $response['name'] = $request->input('name');
+        $phone = $response['phone'] = $request->input('phone');
+        $email = $response['email'] = $request->input('email');
+        $phone_old = $response['phone_old'] = $request->input('phone_old');
+        $email_old = $response['email_old'] = $request->input('email_old');
 
-        $user = User::where('phone', '=', $data['phoneOld'])
-                    ->where('email', '=', $data['emailOld']);
+        $response['resultat'] = User::where('phone', '=', $phone_old)
+                                    ->where('email', '=', $email_old)
+                                    ->update(['name' => $name, 'phone' => $phone, 'email' => $email]);
 
-        $user->update([
-            'name' => $data['name'],
-            'phone' => $data['phone'],
-            'email' => $data['email']
-            ]        
-        );
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-        return $data;
+        return $response;
 
     }
           
-    public function editPassword(Request $request){
+    public function updatePassword(Request $request){
+        
+        $phone = $response['phone'] = $request->input('phone');
+        $email = $response['email'] = $request->input('email');
+        $newPassword = $response['newPassword'] = $request->input('newPassword');
 
-        $data = $request->validate([
-            'phone' => 'string',
-            'email' => 'string',
-            'newPassword' => 'string'
-          ]
-        );
+        $response['resultat'] = User::where('phone', '=', $phone)
+                                    ->where('email', '=', $email)
+                                    ->update(['password' => Hash::make($newPassword)]);
 
-        $user = User::where('phone', '=', $data['phone'])
-                    ->where('email', '=', $data['email']);
-
-        $user->update([
-            'password' => Hash::make($data['newPassword'])
-            ]        
-        );
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-
-        return $data;
+        return $response;
 
     }
           
     public function deleteUserFromProject(Request $request){
+        
+        $userId = $response['id_user'] = $request->input('id');
+        
+        $response['resultat'] = projects::where('participant_id', '=', $userId)->delete();
 
-        $data = $request->validate([
-            'id' => 'string'
-          ]
-        );
-
-        $deleted = projects::where('participant_id', '=', $data['id'])->delete();
-
-        $data = [
-            'message' => "Все вроде нормально",
-        ];
-
-        return $data;
+        return $response;
 
     }
 }

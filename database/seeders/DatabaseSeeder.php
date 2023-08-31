@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             rolesSeeder::class,
             UsersTableSeeder::class,
             ProjectParticipantsSeeder::class,
+            ProjectPhaseSeeder::class,
+            PhaseParticipantsSeeder::class,
         ]);
     }
 }

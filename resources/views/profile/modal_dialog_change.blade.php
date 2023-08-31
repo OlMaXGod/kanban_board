@@ -21,7 +21,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-primary" id="saveButtonPass">Сохранить пароль</button>
+        <button type="button" class="btn btn-primary" id="savePasswordButton">Сохранить пароль</button>
         </div>
     </div>
     </div>

@@ -17,7 +17,7 @@
 						data-bs-toggle="list" href="#ParticipantInvited-pane" role="tab"
 						aria-controls="ParticipantInvited-pane">
 							Запросы на вступление
-							<span class="badge text-bg-success" id="countRequest">12</span>
+							<span class="badge text-bg-secondary" id="countRequest">0</span>
 						</a>
 					</li>
 					</div>
@@ -29,16 +29,17 @@
 					<div class='tab-pane fade show active' id='participant-pane' role='tabpanel' aria-labelledby='participant-list' style="height:30%">
 						<div class="row">			
 							<div class="col-4">
-								<div class="list-group overflow-auto" id="list-tab-participant" role="tablist" style="background-color:#a8ccc05d; height:250px;">
+								<div class="list-group overflow-auto" id="list-tab-participants" role="tablist" style="background-color:#a8ccc05d; height:250px;">
 								</div>
 							</div>
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipant" aria-label=".form-select-sm пример">
 								</select>
-								<div class="tab-content mt-2" id="nav-tabContent-participant" style="background-color:#a8ccc05d; height:160px; border-radius:var(--bs-border-radius); padding:10px;">
-								</div>
-								<textarea class="form-control mt-2" id="comment" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
-								<button type="button" id="deleteProjectButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
+								<textarea class="form-control mt-2" id="commentParticipant" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px; resize: none;"></textarea>
+								<button type="button" id="saveParticipantButton" class="btn btn-success mt-2 mx-auto">
+									Сохранить изменения
+								</button>
+								<button type="button" id="deleteParticipantButton" class="btn btn-danger mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
 									Удалить
 								</button>
 							</div>
@@ -47,14 +48,14 @@
 					<div class='tab-pane fade show' id='ParticipantInvited-pane' role='tabpanel' aria-labelledby='ParticipantInvited-list' style="height:30%">
 						<div class="row">
 							<div class="col-4">
-								<div class="list-group" id="list-tab-ParticipantInvited" role="tablist" style="background-color:#a8ccc05d; height:250px; overflow-y: scroll;">
+								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:250px;">
 								</div>
 							</div>
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipantInvited" aria-label=".form-select-sm пример">
 								</select>
-								<textarea class="form-control mt-2" id="comment" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px"></textarea>
-								<button type="button" id="deleteProjectButton" class="btn btn-success mt-2 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModalDeleteParticipant">
+								<textarea class="form-control mt-2" id="commentParticipantInvited" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px; resize: none;"></textarea>
+								<button type="button" id="addParticipantButton" class="btn btn-success mt-2 mx-auto">
 									Принять в проект
 								</button>
 							</div>

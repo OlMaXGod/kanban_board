@@ -19,6 +19,11 @@ class CreateProjectParticipantsTable extends Migration
             $table->bigInteger("project_id")->comment('Проект');
             $table->bigInteger("participant_id")->comment('Участник проекта');
             $table->bigInteger("role_id")->comment('Роль участника');
+
+
+            $table->text("comment")->comment('Комментарий');
+            $table->boolean("entry_request")->comment('Запрос на вход');
+
             $table->softDeletes();
         });
     }
@@ -31,5 +36,8 @@ class CreateProjectParticipantsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('project_participants');
+        Schema::table('project_participants', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }
