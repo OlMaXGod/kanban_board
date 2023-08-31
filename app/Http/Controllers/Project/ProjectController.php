@@ -93,7 +93,7 @@ class ProjectController extends Controller
        
         
         $result = projects::where('id', $id_project)
-                               ->select('projects.type, projects.name')
+                               ->select('type','name')
                                ->first();
         
         if ($result['type'] == 1){
