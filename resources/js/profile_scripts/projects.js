@@ -1,4 +1,4 @@
-import {loadingParticipants, loadingParticipantsInvited, loadingProjectData} from './functions/projects.js'
+import {loadingParticipants, loadingParticipantsInvited, loadingProjectData, saveProjectInfo} from './functions/projects.js'
 import clickButtonModalDelete from './functions/modal.js'
 
 let roleDefault = 3;
@@ -11,9 +11,10 @@ $("body").on("click", ".group-item-project", function(event){
 	loadingParticipantsInvited(idProject, roleDefault);	
 });
 $("#changeNameProjectButton").click(loadingProjectData);
+$("#saveProjectButton").click(saveProjectInfo);
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
 	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
 
-	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
+	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'Проект');
 });

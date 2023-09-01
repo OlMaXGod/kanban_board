@@ -1,9 +1,7 @@
 @section("body_profile")
-
 <div class="row p-1">
 	<div class="card card-body" style="background-color:#66cdab1c">
 		<div class="row">
-
 			<div class="col-lg-3 p-1">
 				<div class="w-50 my-5 mx-auto">
 					<img src="/kanban_board/default_profile_image.jpg" style="max-height: 300px; max-weight: 300px"
@@ -28,5 +26,4 @@
 		</div>
 	</div>
 </div>
-
 @endsection

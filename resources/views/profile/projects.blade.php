@@ -1,6 +1,4 @@
 @section("projects")
-
-<div class="col-lg-6 bd-example p-1" style="height:350px">
 	<div class="card card-body" style="background-color:#66cdab1c; height:100%">
 		<div class="row" style="height:100%;">
 
@@ -21,6 +19,4 @@
 
 		</div>
 	</div>
-</div>
-
 @endsection

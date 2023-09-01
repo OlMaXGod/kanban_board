@@ -1,5 +1,6 @@
-import { loadingProjects } from './main.js'
+import showToast from './toast.js'
 import errorHandling from './error_handling.js'
+import { loadingParticipants, loadingParticipantsInvited } from './projects.js';
 
 export function loadingParticipantsData(idParticipant){
 	$("#commentParticipant").empty();
@@ -36,13 +37,13 @@ export function saveParticipantInfo(){
 		},
 		url: urlUpdateParticipant,
 		method: 'post',
-		data: {      
+		data: {
 			id: idParticipant,
 			role: roleId,
 			comment: comment,
 		},
 		success: function(data){
-			alert("Изменения сохранены");      
+			showToast("Данные участника изменены");   
 		},
 		error: errorHandling
 	});
@@ -65,10 +66,15 @@ export function addParticipantInProject(){
 			role: roleId,
 			comment: comment,
 		},
-		success: function(data){
-			//$(".group-item-ParticipantInvited.active").remove();
-			alert("Пользователь " + $(".group-item-ParticipantInvited.active").val() + " добавлен в проект");      
-			loadingProjects();  
+		success: function(data){			
+			showToast("Пользователь " + $(".group-item-ParticipantInvited.active").html() + " добавлен в проект");
+
+			let idProjectStr = $(".group-item-project.active").attr("id");
+			if (idProjectStr != null){
+				let idProject = parseInt(idProjectStr.match(/\d+/));		
+				loadingParticipants(idProject);
+				loadingParticipantsInvited(idProject);	
+			}
 		},
 		error: errorHandling
 	});

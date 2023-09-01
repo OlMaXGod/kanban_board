@@ -1,4 +1,5 @@
 import errorHandling from './error_handling.js'
+import showToast from './toast.js'
 
 export function saveNewPassword(){
 		
@@ -56,6 +57,7 @@ export function saveNewPassword(){
 					$('#firstEnterPass').removeClass('border-success');
 					$('#secondEnterPass').removeClass('border-success');
 				}, 5000);
+				showToast("Пароль изменен");
 			},
 			error: errorHandling
 		});
@@ -87,7 +89,8 @@ export function saveUserInfo(){
 
 			setTimeout(() => {
 				$(".border-success").removeClass('border-success');
-			}, 5000);                        
+			}, 5000);  
+			showToast("Данные пользователя изменены");
 		},
 		error: errorHandling
 	});
