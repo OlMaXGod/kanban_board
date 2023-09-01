@@ -10,38 +10,6 @@ $(document).ready(function(){
 	loadingRoles(roleDefault);
 });
 
-$("body").on("click", ".group-item-project", function(event){
-	let idProjectStr = $(event.target).attr("id");
-	let idProject = parseInt(idProjectStr.match(/\d+/));
-
-	loadingParticipants(idProject);
-	loadingParticipantsInvited(idProject, roleDefault);	
-});
-$("body").on("click", ".group-item-participant", function(event){
-	let idParticipantStr = $(event.target).attr("id");
-	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
-
-	loadingParticipantsData(idParticipant);
-});
-
-$("#savePasswordButton").click(saveNewPassword);
-$("#saveUserButton").click(saveUserInfo);
-$("#saveParticipantButton").click(saveParticipantInfo);
-$("#addParticipantButton").click(addParticipantInProject);
-$("#changeNameProjectButton").click(loadingProjectData);
-
-$("#deleteModalButtonProject").click(function(){
-	let idProjectStr = $(".group-item-project.active").attr("id");
-	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
-
-	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
-});
-$("#deleteModalButtonParticipant").click(function(){
-	let idParticipantStr = $(".group-item-participant.active").attr("id");
-	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
-
-	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
-});
 
 $("#exampleInputName").on('input keyup', function() {
 	if($("#exampleInputName").val() == nameDefault){
@@ -71,6 +39,38 @@ $("#exampleInputPhone").on('input keyup', function() {
 		$(this).addClass('border-primary');
 
 	}				
+});
+$("#savePasswordButton").click(saveNewPassword);
+$("#saveUserButton").click(saveUserInfo);
+
+$("body").on("click", ".group-item-project", function(event){
+	let idProjectStr = $(event.target).attr("id");
+	let idProject = parseInt(idProjectStr.match(/\d+/));
+
+	loadingParticipants(idProject);
+	loadingParticipantsInvited(idProject, roleDefault);	
+});
+$("#changeNameProjectButton").click(loadingProjectData);
+$("#deleteModalButtonProject").click(function(){
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+
+	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
+});
+
+$("body").on("click", ".group-item-participant", function(event){
+	let idParticipantStr = $(event.target).attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+
+	loadingParticipantsData(idParticipant);
+});
+$("#saveParticipantButton").click(saveParticipantInfo);
+$("#addParticipantButton").click(addParticipantInProject);
+$("#deleteModalButtonParticipant").click(function(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
+
+	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
 });
 
 function loadingRoles(roleId) {
