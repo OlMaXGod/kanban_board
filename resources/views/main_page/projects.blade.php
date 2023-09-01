@@ -70,10 +70,6 @@ function joinProject(projectId){
     method: 'post',          
     dataType: 'html',      
     data: {"_token": "{{ csrf_token() }}",
-<<<<<<< HEAD
-=======
-        type: 0,
->>>>>>> main
         projectId: projectId.value,
         userId: {{auth()->user()->id}},
     },    
