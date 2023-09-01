@@ -48,7 +48,6 @@ Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::cl
 Route::post('/create-project', [App\Http\Controllers\Project\ProjectController::class, 'createProject'])->name('newProject');
 Route::post('/update-project', [App\Http\Controllers\Project\ProjectController::class, 'updateProject'])->name('updateProject');
 Route::get('/project-page/request/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'inviteRequestProject'])->name('inviteRequestProject');
-Route::get('/project-page/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'inviteProject'])->name('inviteProject');
 
 
 //роуты участников проектов
