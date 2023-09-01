@@ -41,16 +41,16 @@
 							</div>
 						</div>
 					</div>
-					<div class='tab-pane fade show' id='ParticipantInvited-pane' role='tabpanel' aria-labelledby='ParticipantInvited-list' style="height:30%">
+					<div class='tab-pane fade show' id='ParticipantInvited-pane' role='tabpanel' aria-labelledby='ParticipantInvited-list' style="height:100%">
 						<div class="row">
 							<div class="col-4">
-								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:80%;">
+								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:95%;">
 								</div>
 							</div>
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipantInvited" aria-label=".form-select-sm пример">
 								</select>
-								<textarea class="form-control mt-2" id="commentParticipantInvited" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px; resize: none;"></textarea>
+								<textarea class="form-control mt-2" id="commentParticipantInvited" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:62%; resize: none;"></textarea>
 								<button type="button" id="addParticipantButton" class="btn btn-success mt-2 mx-auto">
 									Принять в проект
 								</button>
