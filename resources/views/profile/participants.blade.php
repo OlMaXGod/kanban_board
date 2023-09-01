@@ -42,7 +42,7 @@
 						</div>
 					</div>
 					<div class='tab-pane fade show' id='ParticipantInvited-pane' role='tabpanel' aria-labelledby='ParticipantInvited-list' style="height:100%">
-						<div class="row">
+						<div class="row" style="height:100%;">
 							<div class="col-4">
 								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:95%;">
 								</div>
