@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\phase_participants;
+use App\Models\project_phase;
 
 
 class ProjectController extends Controller
@@ -19,12 +21,15 @@ class ProjectController extends Controller
     }
 
     public function show($projectId){
-
+     
+        
 
         return view('project_page.main',[
             "project" => projects::where('id',$projectId)->first(),
             "users" =>User::all(),
-            "projectParticipants" =>project_participants::where('project_id',$projectId)->first()
+            "projectParticipants" =>project_participants::where('project_id',$projectId)->get(),
+            "phase_participants" =>phase_participants::where('project_id',$projectId)->get(),
+            "project_phases" =>project_phase::where('project_id',$projectId)->get()
         ]);
 
     }
@@ -151,6 +156,32 @@ class ProjectController extends Controller
         return redirect('/project-page/'.$response['resultat']->id);
 
 
+
+    }
+
+    public function updateProject(Request $request)
+    {
+
+        $projectId = $response['projectId'] = $request->input('id');
+        $projectName = $response['projectName'] = $request->input('name');
+        $projectComment = $response['projectComment'] = $request->input('comment');
+        $projectType = $response['projectType'] = $request->input('type');
+        $projectAccess = $response['projectAccess'] = $request->input('access');
+       
+        
+        $response['resultat'] = projects::where("id", "=", $projectId)->update(
+            [
+                'name' => $projectName, 
+                'comment' => $projectComment,
+                'name' => $projectName, 
+                'comment' => $projectComment,
+                'type' => $projectType,
+                'access' => $projectAccess,
+                'who_changed' => auth()->user()->id,
+            ]
+        );
+
+        return $response;
 
     }
 

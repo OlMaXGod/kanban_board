@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\project_participants;
 use App\Models\projects;
 use App\Models\User;
-use App\Models\project_participants;
 
 class MainController extends Controller
 {
@@ -19,14 +18,8 @@ class MainController extends Controller
     }
 
     public function show(){
-<<<<<<< HEAD
-=======
-        
         $id = auth()->user()->id;        
->>>>>>> main
-
         return view('main_page.main',["projects" => projects::all(),"users" =>User::all(),"projectParticipants" =>project_participants::all()]);
-
     }
     
 }

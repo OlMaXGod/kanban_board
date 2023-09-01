@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class phase_participants extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'project_id';
 }
