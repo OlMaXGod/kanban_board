@@ -93,7 +93,10 @@
         let urlUpdateParticipant = "{!! route('post.participantUpdate') !!}";
         let urlDeleteParticipant = "{!! route('delete.participant') !!}";
     </script>
-    <script src="/kanban_board/resources/js/profile_scripts.js"></script>
+    <script type="module" src="/kanban_board/resources/js/profile_scripts/main.js"></script>
+    <script type="module" src="/kanban_board/resources/js/profile_scripts/body.js"></script>
+    <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
+    <script type="module" src="/kanban_board/resources/js/profile_scripts/projects.js"></script>
 </body>
 
 </html>
