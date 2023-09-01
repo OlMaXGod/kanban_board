@@ -1,4 +1,6 @@
 import { loadingParticipantsData } from './participants.js'
+import {loadingProjects} from './main.js'
+import showToast from './toast.js'
 import errorHandling from './error_handling.js'
 
 export function loadingProjectData(){
@@ -88,9 +90,11 @@ export function loadingParticipants(idProject) {
 	});	
 }
 
-export function loadingParticipantsInvited(idProject, roleDefault) {
+export function loadingParticipantsInvited(idProject) {
 
 	$("#list-tab-ParticipantsInvited").empty();
+
+	let roleDefault = 3;
 
 	$("#opt-inv-"+roleDefault).attr('selected', 'true');
 	$("#commentParticipantInvited").val('Новый участник');	
@@ -141,4 +145,28 @@ export function loadingParticipantsInvited(idProject, roleDefault) {
 		},
 		error: errorHandling
 	});	
+}
+
+export function saveProjectInfo(){
+		
+	$.ajax({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		},
+		url: urlUpdateProject,
+		method: 'post',
+		data: {
+			id: $('#exampleIdProject').val(),
+			name: $('#exampleInputNameProject').val(),
+			comment: $('#exampleInputText').val(),
+			type: $('#exampleInputSelect1').val(),
+			access: $('#exampleInputSelect2').val(),
+		},
+		success: function(data){
+			loadingProjects();
+			showToast("Данные проекта изменены");
+		},
+		error: errorHandling
+	});	
+
 }

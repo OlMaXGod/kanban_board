@@ -13,5 +13,5 @@ $("#deleteModalButtonParticipant").click(function(){
 	let idParticipantStr = $(".group-item-participant.active").attr("id");
 	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
+	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'Участник')
 });

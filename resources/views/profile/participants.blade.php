@@ -1,9 +1,6 @@
 @section("participants")
-
-	<div class="col-lg-6 bd-example p-1" style="min-height:350px">
-		
+	<div class="col-lg-6 bd-example p-1" style="min-height:350px">		
 		<div class="card" style="background-color:#66cdab1c; height:100%;">
-
 			<div class="card-header">
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item">
@@ -23,7 +20,6 @@
 					</div>
 				</ul>
 			</div>
-
 			<div class="card-body" style="background-color:#66cdab1c; height:85%;">
 				<div class="tab-content" id="nav-tabContent" style="height:100%;">
 					<div class='tab-pane fade show active' id='participant-pane' role='tabpanel' aria-labelledby='participant-list' style="height:100%;">
@@ -66,5 +62,4 @@
 
 		</div>
 	</div>
-
 @endsection

@@ -1,9 +1,11 @@
 import {loadingParticipants, loadingParticipantsInvited} from './projects.js'
 import errorHandling from './error_handling.js'
 
-export function loadingRoles(roleId) {
+export function loadingRoles() {
 	$(".opt").attr('selected', 'false');
 	$(".opt-inv").attr('selected', 'false');
+
+	let roleDefault = 3;
 
 	$.ajax({
 		headers: {
@@ -18,13 +20,13 @@ export function loadingRoles(roleId) {
 				$("#selectRoleParticipant").append("<option class='opt' value="+role.id+" id='opt-"+role.id+"'>"+role.role+"</option>");
 				$("#selectRoleParticipantInvited").append("<option class='opt-inv' value="+role.id+" id='opt-inv-"+role.id+"'>"+role.role+"</option>");
 			});
-			$("#opt-inv-"+roleId).attr('selected', 'true');
+			$("#opt-inv-"+roleDefault).attr('selected', 'true');
 		},
 		error: errorHandling
 	});	
 }
 
-export function loadingProjects(roleDefault){
+export function loadingProjects(){
 	$("#list-tab-project").empty();
 	$("#nav-tabContent-project").empty();
 
@@ -68,7 +70,7 @@ export function loadingProjects(roleDefault){
 			if (idProjectStr != null){
 				let idProject = parseInt(idProjectStr.match(/\d+/));		
 				loadingParticipants(idProject);
-				loadingParticipantsInvited(idProject, roleDefault);	
+				loadingParticipantsInvited(idProject);	
 			}
 		},
 		error: errorHandling

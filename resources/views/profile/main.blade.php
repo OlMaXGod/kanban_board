@@ -34,6 +34,7 @@
     @include('profile.participants')
     @include('modal_windows.update_project')
     @include('modal_windows.update_stage')
+    @include('toasts.success_change_data')
     @include('footer')
     <title>Профиль</title>
 </head>
@@ -44,16 +45,17 @@
     </button>
     <a type="button" class="btn btn-secondary mt-2 mx-auto" href="http://localhost/kanban_board/public/project-page/1?invite=true">Модальное окно</a>
 
-    <div class="container-xxl">
         
-        @yield('header', 'Не удалось получить шапку')
+    @yield('header', 'Не удалось получить шапку')
 
-        @yield('modal_dialog_change', 'Не удалось получить модальное окно профиля') 
-        @yield('modal_dialog_del_participant', 'Не удалось получить модальное окно удаления участника') 
-        @yield('modal_dialog_del_project', 'Не удалось получить модальное окно удаления проекта')
-        @yield('modal_update_project', 'Не удалось получить модальное окно настройки проекта') 
-        @yield('modal_update_stage', 'Не удалось получить модальное окно настройки этапа') 
-        
+    @yield('modal_dialog_change', 'Не удалось получить модальное окно профиля') 
+    @yield('modal_dialog_del_participant', 'Не удалось получить модальное окно удаления участника') 
+    @yield('modal_dialog_del_project', 'Не удалось получить модальное окно удаления проекта')
+    @yield('modal_update_project', 'Не удалось получить модальное окно настройки проекта') 
+    @yield('modal_update_stage', 'Не удалось получить модальное окно настройки этапа') 
+    @yield('toast_success_change_data', 'Не удалось получить оповещение')
+
+    <div class="container-xxl">        
         <div class="container-fluid">
             
             @yield('body_profile', 'Не удалось получить блок профиля')
@@ -82,8 +84,9 @@
 
         let urlGetProject = "{!! route('get.project') !!}";
         let urlGetProjects = "{!! route('get.projects') !!}";
+        let urlUpdateProject = "{!! route('updateProject') !!}";
         let urlDeleteProject = "{!! route('delete.project') !!}";
-
+        
         let urlGetRoles = "{!! route('get.roles') !!}";
         
         let urlGetParticipant = "{!! route('get.participant') !!}";

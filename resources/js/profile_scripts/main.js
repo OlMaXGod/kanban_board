@@ -7,6 +7,6 @@ $(document).ready(function(){
 	var datepickerFrom = new Datepicker('#datepickerfrom');
 	var datepickerTo = new Datepicker('#datepickerto');
 	
-	loadingProjects(roleDefault);
-	loadingRoles(roleDefault);
+	loadingProjects();
+	loadingRoles();
 });

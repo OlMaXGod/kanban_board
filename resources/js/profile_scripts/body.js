@@ -26,7 +26,6 @@ $("#exampleInputPhone").on('input keyup', function() {
 	} else{
 		$("#saveUserButton").removeClass('disabled');
 		$(this).addClass('border-primary');
-
 	}				
 });
 $("#savePasswordButton").click(saveNewPassword);

@@ -1,5 +1,4 @@
 @section("modal_dialog_del_participant")
-
 <div class="modal fade" id="exampleModalDeleteParticipant" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -14,5 +13,4 @@
     </div>
     </div>
 </div>
-
 @endsection
