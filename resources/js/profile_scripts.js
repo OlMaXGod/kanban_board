@@ -10,6 +10,69 @@ $(document).ready(function(){
 	loadingRoles(roleDefault);
 });
 
+<<<<<<< HEAD
+$("body").on("click", ".group-item-project", function(event){
+	let idProjectStr = $(event.target).attr("id");
+	let idProject = parseInt(idProjectStr.match(/\d+/));
+
+	loadingParticipants(idProject);
+	loadingParticipantsInvited(idProject, roleDefault);	
+});
+$("body").on("click", ".group-item-participant", function(event){
+	let idParticipantStr = $(event.target).attr("id");
+	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
+
+	loadingParticipantsData(idParticipant);
+});
+
+$("#savePasswordButton").click(saveNewPassword);
+$("#saveUserButton").click(saveUserInfo);
+$("#saveParticipantButton").click(saveParticipantInfo);
+$("#addParticipantButton").click(addParticipantInProject);
+$("#changeNameProjectButton").click(loadingProjectData);
+
+$("#deleteModalButtonProject").click(function(){
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idSelectProject = parseInt(idProjectStr.match(/\d+/));
+
+	clickButtonModalDelete(urlDeleteProject, idSelectProject, 'project')
+});
+$("#deleteModalButtonParticipant").click(function(){
+	let idParticipantStr = $(".group-item-participant.active").attr("id");
+	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
+
+	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
+});
+
+$("#exampleInputName").on('input keyup', function() {
+	if($("#exampleInputName").val() == nameDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
+	}
+});
+$("#exampleInputEmail").on('input keyup', function() {
+	if($("#exampleInputEmail").val() == emailDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
+
+	}				
+});
+$("#exampleInputPhone").on('input keyup', function() {
+	if($("#exampleInputPhone").val() == phoneDefault){
+		$("#saveUserButton").addClass('disabled');
+		$(this).removeClass('border-primary');
+	} else{
+		$("#saveUserButton").removeClass('disabled');
+		$(this).addClass('border-primary');
+
+	}				
+=======
 
 $("#exampleInputName").on('input keyup', function() {
 	if($("#exampleInputName").val() == nameDefault){
@@ -71,6 +134,7 @@ $("#deleteModalButtonParticipant").click(function(){
 	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
 	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'participant')
+>>>>>>> main
 });
 
 function loadingRoles(roleId) {
@@ -164,7 +228,10 @@ function loadingProjectData(){
 		success: function(data){
 			let projectData = data['resultat'];
 			
+<<<<<<< HEAD
+=======
 			$("#exampleIdProject").val(projectData['id']);
+>>>>>>> main
 			$("#exampleInputNameProject").val(projectData['name']);
 			$("#exampleInputText").val(projectData['comment']);
 			$("#opt-s1-"+projectData['type']).prop('selected', true);

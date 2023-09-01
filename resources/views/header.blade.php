@@ -1,5 +1,5 @@
 @section("header")
-<div class="container-xxl" style="background-color:#FFE4C4; padding: 10px">
+<div style="background-color:#FFE4C4; padding: 10px">
     
 <ul class="nav justify-content-end" >
    

@@ -7,7 +7,11 @@ use App\Models\project_participants;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Profile\UserController;
+use App\Models\User;
+use App\Models\phase_participants;
+use App\Models\project_phase;
+
+
 
 class ProjectController extends Controller
 {
@@ -17,11 +21,27 @@ class ProjectController extends Controller
 
     }
 
+
+    public function show($projectId){
+     
+        
+
+        return view('project_page.main',[
+            "project" => projects::where('id',$projectId)->first(),
+            "users" =>User::all(),
+            "projectParticipants" =>project_participants::where('project_id',$projectId)->get(),
+            "phase_participants" =>phase_participants::where('project_id',$projectId)->get(),
+            "project_phases" =>project_phase::where('project_id',$projectId)->get()
+        ]);
+
+    }
+
     public function index(Request $request){
 
         $projectId = $response['id_project'] = $request->input('id');
 
-        $response['resultat'] = projects::where('id', '=', $projectId)->get()->first();
+        $response['resultat'] = projects::find($projectId)->get();
+
 
         return $response;
 
@@ -67,7 +87,9 @@ class ProjectController extends Controller
     public function joinProject(Request $request)
     {
 
+
         $type = $response['type'] = $request->input('type');
+
         $projectId = $response['id_project'] = $request->input('projectId');
         $userId = $response['id_user'] = $request->input('userId');
        
@@ -85,6 +107,7 @@ class ProjectController extends Controller
         return $response;
 
     }
+
 
     public function inviteProject($id_project, Request $request){
 
@@ -106,6 +129,7 @@ class ProjectController extends Controller
         $response['name'] = $result['name'];
 
         //return view('project-page', compact('response')); ??? чтобы перейти в project-page ???
+
         return $response;
 
     }
@@ -131,7 +155,12 @@ class ProjectController extends Controller
             ]
         );
 
-        return $response;
+        
+
+        return redirect('/project-page/'.$response['resultat']->id);
+
+
+
 
     }
 
@@ -161,4 +190,6 @@ class ProjectController extends Controller
 
     }
 
+
 }
+

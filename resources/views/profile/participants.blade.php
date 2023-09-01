@@ -29,13 +29,21 @@
 					<div class='tab-pane fade show active' id='participant-pane' role='tabpanel' aria-labelledby='participant-list' style="height:100%;">
 						<div class="row" style="height:100%;">			
 							<div class="col-4">
+<<<<<<< HEAD
+								<div class="list-group overflow-auto" id="list-tab-participants" role="tablist" style="background-color:#a8ccc05d; height:250px;">
+=======
 								<div class="list-group overflow-auto" id="list-tab-participants" role="tablist" style="background-color:#a8ccc05d; height:95%;">
+>>>>>>> main
 								</div>
 							</div>
 							<div class="col-8">
 								<select class="form-select form-select-sm" id="selectRoleParticipant" aria-label=".form-select-sm пример">
 								</select>
+<<<<<<< HEAD
+								<textarea class="form-control mt-2" id="commentParticipant" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:160px; resize: none;"></textarea>
+=======
 								<textarea class="form-control mt-2" id="commentParticipant" aria-label="С текстовым полем"maxlength="88" style="background-color:#a8ccc05d; height:62%; resize: none;"></textarea>
+>>>>>>> main
 								<button type="button" id="saveParticipantButton" class="btn btn-success mt-2 mx-auto">
 									Сохранить изменения
 								</button>
@@ -48,7 +56,11 @@
 					<div class='tab-pane fade show' id='ParticipantInvited-pane' role='tabpanel' aria-labelledby='ParticipantInvited-list' style="height:30%">
 						<div class="row">
 							<div class="col-4">
+<<<<<<< HEAD
+								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:250px;">
+=======
 								<div class="list-group overflow-auto" id="list-tab-ParticipantsInvited" role="tablist" style="background-color:#a8ccc05d; height:80%;">
+>>>>>>> main
 								</div>
 							</div>
 							<div class="col-8">
