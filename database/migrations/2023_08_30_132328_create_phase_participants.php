@@ -16,6 +16,7 @@ class CreatePhaseParticipants extends Migration
         Schema::create('phase_participants', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+<<<<<<< HEAD
             $table->bigInteger("phase_id")->comment('фаза проекта');
             $table->bigInteger("project_id")->comment('Проект');
             $table->text("subtask")->comment('название подзадачи');

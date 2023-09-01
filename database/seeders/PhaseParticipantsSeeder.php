@@ -47,5 +47,6 @@ class PhaseParticipantsSeeder extends Seeder
             'project_id' => 1,
             'participant_id' => 3,
         ]);
+
     }
 }

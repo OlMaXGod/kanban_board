@@ -19,6 +19,10 @@
     @yield('header', 'Не удалось получить  шапку') 
     @yield('setting_menu', 'Не удалось получить настройки проекта') 
     @yield('project_milestone_table', 'Не удалось получить список этапов') 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> main
 </body>
 </html>

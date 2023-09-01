@@ -1,5 +1,6 @@
 @section("project_milestone_table")
     <div>
+<<<<<<< HEAD
     @foreach($project_phases as $key => $phase)
         <div class="border border-success p-2 mb-2 border-opacity-50" style="width:100%; height:150px; background-color:#f0f8ff; display: flex; padding: 10px;" >
             <div>
@@ -51,4 +52,14 @@
     </div>
     @include('modal_windows.subtask_information')
     @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
+=======
+        <div class="border border-success p-2 mb-2 border-opacity-50" style="width:100%; height:150px; background-color:#ffeded; display: flex; padding: 10px;" >
+            <div style="display: flex;" id="row">
+                <div style="width:10%; height:150px; background-color:#2656a3;">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> main
 @endsection

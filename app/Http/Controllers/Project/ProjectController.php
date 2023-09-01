@@ -12,6 +12,7 @@ use App\Models\phase_participants;
 use App\Models\project_phase;
 
 
+
 class ProjectController extends Controller
 {
     public function __construct(){
@@ -19,6 +20,7 @@ class ProjectController extends Controller
         $this->middleware('auth');
 
     }
+
 
     public function show($projectId){
      
@@ -39,6 +41,7 @@ class ProjectController extends Controller
         $projectId = $response['id_project'] = $request->input('id');
 
         $response['resultat'] = projects::find($projectId)->get();
+
 
         return $response;
 
@@ -84,6 +87,9 @@ class ProjectController extends Controller
     public function joinProject(Request $request)
     {
 
+
+        $type = $response['type'] = $request->input('type');
+
         $projectId = $response['id_project'] = $request->input('projectId');
         $userId = $response['id_user'] = $request->input('userId');
        
@@ -94,7 +100,7 @@ class ProjectController extends Controller
                 'participant_id' => $userId,
                 'role_id' => 3,
                 'comment' => 'Новый участник',
-                'entry_request' => false,
+                'entry_request' => $type,
             ]
         );
 
@@ -102,30 +108,27 @@ class ProjectController extends Controller
 
     }
 
-    public function createInvitationUrl(Request $request){
 
-        $id_project = $response['id_project'] = $request->input('id');
-
-        $response['resultat'] = "http://localhost/kanban_board/public/project/add_user_url/"+$id_project;
-        
-        return $response;
-
-    }
-
-    public function addUserInProjectUrl($id_user, $id_project, Request $request){
+    public function inviteProject($id_project, Request $request){
 
         $id_project = $response['id_project'] = $id_project;
-        $id_user = $response['id_user'] = $id_user;
+        $id_user = $response['id_user'] = auth()->user()->id;
        
-        $response['resultat'] = project_participants::insert(
-            [
-                'project_id' => $id_project, 
-                'participant_id' => $id_user,
-                'role_id' => 3,
-                'comment' => 'Новый участник по ссылке',
-                'entry_request' => false,
-            ]
-        );
+        
+        $result = projects::where('id', $id_project)
+                               ->select('type','name')
+                               ->first();
+        
+        if ($result['type'] == 1){
+            // открытый
+            $response['status'] = 'open';
+        } else if ($result['type'] == 0){
+            // закрытый
+            $response['status'] = 'close';
+        }
+        $response['name'] = $result['name'];
+
+        //return view('project-page', compact('response')); ??? чтобы перейти в project-page ???
 
         return $response;
 
@@ -151,9 +154,11 @@ class ProjectController extends Controller
                 'who_changed' => auth()->user()->id,
             ]
         );
+
         
 
         return redirect('/project-page/'.$response['resultat']->id);
+
 
 
 
@@ -185,4 +190,6 @@ class ProjectController extends Controller
 
     }
 
+
 }
+

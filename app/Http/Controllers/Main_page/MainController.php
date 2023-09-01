@@ -18,8 +18,10 @@ class MainController extends Controller
     }
 
     public function show(){
+
         $id = auth()->user()->id;        
         return view('main_page.main',["projects" => projects::all(),"users" =>User::all(),"projectParticipants" =>project_participants::all()]);
+
     }
     
 }
