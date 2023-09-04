@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use DB;
 
-class ProjectPhaseSeeder extends Seeder
+class ProjectPhasesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class ProjectPhaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('project_phase')->insert([
+        DB::table('project_phases')->insert([
             'name' => str_random(10),
             'comment' => str_random(10),
             'status' => 0,
@@ -26,7 +26,7 @@ class ProjectPhaseSeeder extends Seeder
             'participant_id' => 1,
             'who_changed' => 1,
         ]);
-        DB::table('project_phase')->insert([
+        DB::table('project_phases')->insert([
             'name' => str_random(10),
             'comment' => str_random(10),
             'status' => 1,
@@ -38,7 +38,7 @@ class ProjectPhaseSeeder extends Seeder
             'participant_id' => 1,
             'who_changed' => 1,
         ]);
-        DB::table('project_phase')->insert([
+        DB::table('project_phases')->insert([
             'name' => str_random(10),
             'comment' => str_random(10),
             'status' => 1,
@@ -50,7 +50,7 @@ class ProjectPhaseSeeder extends Seeder
             'participant_id' => 1,
             'who_changed' => 1,
         ]);
-        DB::table('project_phase')->insert([
+        DB::table('project_phases')->insert([
             'name' => str_random(10),
             'comment' => str_random(10),
             'status' => 2,

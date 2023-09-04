@@ -19,6 +19,28 @@
     @yield('header', 'Не удалось получить  шапку') 
     @yield('setting_menu', 'Не удалось получить настройки проекта') 
     @yield('project_milestone_table', 'Не удалось получить список этапов') 
-<
+
+    <script>
+        let urlGetRoles = "{!! route('get.roles') !!}";
+
+        let urlGetParticipant = "{!! route('get.participant') !!}";
+        let urlGetParticipants = "{!! route('get.participants') !!}";
+        let urlGetParticipantsInvited = "{!! route('get.participantsInvited') !!}";
+    </script>
+    <script type="module">
+        import {loadingParticipants, loadingParticipantsInvited} from '/kanban_board/resources/js/profile_scripts/functions/projects.js'
+        import {loadingRoles} from '/kanban_board/resources/js/profile_scripts/functions/main.js'
+
+        $(document).ready(function(){
+            let roleDefault = 3;
+
+            let idProject = '{{url()->current()}}'.split('/').pop();
+
+            loadingRoles();
+            loadingParticipants(idProject);
+            loadingParticipantsInvited(idProject, roleDefault);	            
+        });
+    </script>
+    <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
 </body>
 </html>
