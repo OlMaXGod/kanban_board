@@ -41,15 +41,20 @@
                                         {{$participant->time_to}}
                                     </div> 
                                 </div>
-                            </button>
                             </a>
                     </div>
                 @endif
             @endforeach
+            <a href='{{url()->current()."?&phase=".$phase->id}}' style='margin-left:4px;'>
+                <div class="p-0 bg-success bg-opacity-10 border border-primary border-start-0 rounded-end" style="overflow: hidden; margin-left:-9%; margin-top:-4%;width:200px; height:112%;  background-color:#00964b; ">
+                    <button type="button" class="btn btn-outline-primary" style="width: 100%; height:100%">Создать задачу</button>
+                </div>
+            </a>
         </div>
     @endforeach
     </div>
     @include('modal_windows.subtask_information')
     @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
+    @yield('create_subtask', 'Не удалось получить модальное окно создания этапа') 
 
 @endsection
