@@ -16,6 +16,7 @@
                                         <th scope="col">Доступность проекта</th>
                                         <th scope="col">Создатель</th>
                                         <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +73,7 @@ function joinProject(projectId){
     data: {"_token": "{{ csrf_token() }}",
         projectId: projectId.value,
         userId: {{auth()->user()->id}},
+        type: 0,
     },    
     success: function(data){  
         location.reload();
