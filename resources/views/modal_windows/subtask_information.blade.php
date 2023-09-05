@@ -122,7 +122,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">Описание задачи</span>
-                                <textarea class="form-control" name='comment' aria-label="С текстовым полем">{{$participant->where('phase_id', explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1])->first()->comment}}</textarea>
+                                <textarea class="form-control" name='comment' aria-label="С текстовым полем"></textarea>
                             </div>
                         </div>
                         <div class="mb-3">
