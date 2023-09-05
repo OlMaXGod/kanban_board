@@ -15,6 +15,7 @@
     @include('project_page.project_milestone_table.body')
     @include('modal_windows.update_stage')
     @include('modal_windows.create_stage')
+    @include('toasts.success_change_data')
     
     
 </head>
@@ -23,17 +24,22 @@
     @yield('setting_menu', 'Не удалось получить настройки проекта') 
     @yield('project_milestone_table', 'Не удалось получить список этапов') 
 
-    <script>
-        let urlGetRoles = "{!! route('get.roles') !!}";
-
-        let urlGetParticipant = "{!! route('get.participant') !!}";
-        let urlGetParticipants = "{!! route('get.participants') !!}";
-        let urlGetParticipantsInvited = "{!! route('get.participantsInvited') !!}";
-    </script>
-    <script urlPage="{{url()->current()}}" id="load_project_page" type="module" src="/kanban_board/resources/js/project_page_scripts/main.js"></script>
-    <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
     @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
     @yield('modal_update_stage', 'Не удалось получить модальное окно этапа') 
     @yield('modal_create_stage', 'Не удалось получить модальное окно этапа') 
+    @yield('toast_success_change_data', 'Не удалось получить оповещение')
+    
+    <script>
+        let urlGetRoles = "{!! route('get.roles') !!}";
+
+        let urlAddParticipant = "{!! route('addParticipant') !!}";
+        let urlGetParticipant = "{!! route('get.participant') !!}";
+        let urlGetParticipants = "{!! route('get.participants') !!}";
+        let urlGetParticipantsInvited = "{!! route('get.participantsInvited') !!}";
+        let urlUpdateParticipant = "{!! route('post.participantUpdate') !!}";
+        let urlDeleteParticipant = "{!! route('delete.participant') !!}";
+    </script>
+    <script urlPageWithId="{{url()->current()}}" id="load_project_page" type="module" src="/kanban_board/resources/js/project_page_scripts/main.js"></script>
+    <script urlPageWithId="{{url()->current()}}" id="participants_script" type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
 </body>
 </html>

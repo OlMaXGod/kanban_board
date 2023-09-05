@@ -11,19 +11,41 @@
     <link rel="stylesheet" href="/kanban_board/resources/css/bootstrap.min.css">
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-    <style>
+    <style type="text/css"> 
         /* Стили для скролла */
         ::-webkit-scrollbar {
             width: 6px;
         } 
+
         ::-webkit-scrollbar-track {
             background-color:gainsboro;
             border-radius: 3px;
         } 
+
         ::-webkit-scrollbar-thumb {
             background-color:darkgrey;
             border-radius: 3px;
         }
+
+        .LockOff { 
+            display: none; 
+            visibility: hidden; 
+        } 
+
+        .LockOn { 
+            display: block; 
+            visibility: visible; 
+            position: absolute; 
+            z-index: 999; 
+            top: 0px; 
+            left: 0px; 
+            width: 100%; 
+            height: 100%; 
+            text-align: center; 
+            padding-top: 20%; 
+            filter: alpha(opacity=75); 
+            opacity: 0.75; 
+        } 
     </style>
     @include('header')
     @include('profile.modal_dialog_change')
@@ -75,6 +97,8 @@
         </div>
 
     </div>
+    
+    <div id="lock-pane" class="LockOff"></div> 
 
     @yield('footer', 'Не удалось получить подвал') 
 
@@ -102,7 +126,7 @@
     </script>
     <script type="module" src="/kanban_board/resources/js/profile_scripts/main.js"></script>
     <script type="module" src="/kanban_board/resources/js/profile_scripts/body.js"></script>
-    <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
+    <script id="participants_script" type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
     <script type="module" src="/kanban_board/resources/js/profile_scripts/projects.js"></script>
 </body>
 

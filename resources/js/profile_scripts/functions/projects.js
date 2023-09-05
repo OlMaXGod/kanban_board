@@ -34,7 +34,7 @@ export function loadingProjectData(){
 export function loadingParticipants(idProject) {
 
 	$("#list-tab-participants").empty();
-
+	
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
