@@ -12,6 +12,7 @@ use App\Http\Controllers\Profile\UserController;
 use App\Http\Controllers\Profile\RoleController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\ParticipantController;
+use App\Http\Controllers\Project\PhaseParticipantsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,8 +44,6 @@ Route::get('/projects', [App\Http\Controllers\Project\ProjectController::class, 
 Route::delete('/project/delete/', [App\Http\Controllers\Project\ProjectController::class, 'delete'])->name('delete.project');
 Route::post('/leave-project', [App\Http\Controllers\Project\ProjectController::class, 'leaveProject'])->name('leaveProject');
 Route::post('/join-project', [App\Http\Controllers\Project\ProjectController::class, 'joinProject'])->name('joinProject');
-
-
 Route::post('/create-project', [App\Http\Controllers\Project\ProjectController::class, 'createProject'])->name('newProject');
 Route::post('/update-project', [App\Http\Controllers\Project\ProjectController::class, 'updateProject'])->name('updateProject');
 Route::get('/project-page/request/{id_project}', [App\Http\Controllers\Project\ProjectController::class, 'inviteRequestProject'])->name('inviteRequestProject');
@@ -53,9 +52,7 @@ Route::get('/project-page/request/{id_project}', [App\Http\Controllers\Project\P
 //роуты участников проектов
 Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
-
 Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');
-
 Route::get('/participants/invited', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipantsInvited'])->name('get.participantsInvited');
 Route::post('/participant/add', [App\Http\Controllers\Project\ParticipantController::class, 'addParticipant'])->name('addParticipant');
 Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');
@@ -69,3 +66,12 @@ Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index
 //роуты страницы выбранного проекта 
 Route::get('/project-page/{id}', [App\Http\Controllers\Project\ProjectController::class, 'show'])->name('project_page');
 
+//роуты таск
+Route::post('/participant/create-task', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'createTask'])->name('createTask');
+Route::post('/participant/update-task', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'updateTask'])->name('updateTask');
+Route::post('/participant/delete-task', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'deleteTask'])->name('deleteTask');
+
+//роуты позадач проекта
+Route::post('/participant/create-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'createSubtask'])->name('createSubtask');
+Route::post('/participant/update-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'updateSubtask'])->name('updateSubtask');
+Route::post('/participant/delete-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'deleteSubtask'])->name('deleteSubtask');
