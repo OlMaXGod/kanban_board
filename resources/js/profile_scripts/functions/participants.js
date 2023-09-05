@@ -25,7 +25,7 @@ export function loadingParticipantsData(idParticipant){
 	});	
 } 
 
-export function saveParticipantInfo(){
+export function saveParticipantInfo(idProject){
 	let idParticipantStr = $(".group-item-participant.active").attr("id");
 	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
 	let roleId = $("#selectRoleParticipant").children("option:selected").val();
@@ -49,7 +49,7 @@ export function saveParticipantInfo(){
 	});
 }
 
-export function addParticipantInProject(){
+export function addParticipantInProject(idProject){
 	let idParticipantStr = $(".group-item-ParticipantInvited.active").attr("id");
 	let idParticipant = parseInt(idParticipantStr.match(/\d+/));
 	let roleId = $("#selectRoleParticipantInvited").children("option:selected").val();
@@ -66,15 +66,11 @@ export function addParticipantInProject(){
 			role: roleId,
 			comment: comment,
 		},
-		success: function(data){			
+		success: function(data){	
 			showToast("Пользователь " + $(".group-item-ParticipantInvited.active").html() + " добавлен в проект");
-
-			let idProjectStr = $(".group-item-project.active").attr("id");
-			if (idProjectStr != null){
-				let idProject = parseInt(idProjectStr.match(/\d+/));		
-				loadingParticipants(idProject);
-				loadingParticipantsInvited(idProject);	
-			}
+				
+			loadingParticipants(idProject);
+			loadingParticipantsInvited(idProject);	
 		},
 		error: errorHandling
 	});

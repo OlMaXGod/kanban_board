@@ -52,7 +52,6 @@ Route::get('/project-page/request/{id_project}', [App\Http\Controllers\Project\P
 //роуты участников проектов
 Route::get('/participant', [App\Http\Controllers\Project\ParticipantController::class, 'index'])->name('get.participant');
 Route::get('/participants', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipants'])->name('get.participants');
-Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');
 Route::get('/participants/invited', [App\Http\Controllers\Project\ParticipantController::class, 'getParticipantsInvited'])->name('get.participantsInvited');
 Route::post('/participant/add', [App\Http\Controllers\Project\ParticipantController::class, 'addParticipant'])->name('addParticipant');
 Route::post('/participant/update', [App\Http\Controllers\Project\ParticipantController::class, 'update'])->name('post.participantUpdate');

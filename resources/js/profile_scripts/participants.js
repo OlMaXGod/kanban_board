@@ -8,7 +8,17 @@ $("body").on("click", ".group-item-participant", function(event){
 	loadingParticipantsData(idParticipant);
 });
 $("#saveParticipantButton").click(saveParticipantInfo);
-$("#addParticipantButton").click(addParticipantInProject);
+$("#addParticipantButton").click(function(){
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idProject;
+	if (idProjectStr != null){
+		idProject = parseInt(idProjectStr.match(/\d+/));	
+	} else {
+		idProject = $("#participants_script").attr("urlPageWithId").split('/').pop();
+	}
+
+	addParticipantInProject(idProject);
+});
 $("#deleteModalButtonParticipant").click(function(){
 	let idParticipantStr = $(".group-item-participant.active").attr("id");
 	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
