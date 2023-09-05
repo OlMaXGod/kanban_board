@@ -27,20 +27,7 @@
         let urlGetParticipants = "{!! route('get.participants') !!}";
         let urlGetParticipantsInvited = "{!! route('get.participantsInvited') !!}";
     </script>
-    <script type="module">
-        import {loadingParticipants, loadingParticipantsInvited} from '/kanban_board/resources/js/profile_scripts/functions/projects.js'
-        import {loadingRoles} from '/kanban_board/resources/js/profile_scripts/functions/main.js'
-
-        $(document).ready(function(){
-            let roleDefault = 3;
-
-            let idProject = '{{url()->current()}}'.split('/').pop();
-
-            loadingRoles();
-            loadingParticipants(idProject);
-            loadingParticipantsInvited(idProject, roleDefault);	            
-        });
-    </script>
+    <script urlPage="{{url()->current()}}" id="load_project_page" type="module" src="/kanban_board/resources/js/project_page_scripts/main.js"></script>
     <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
 </body>
 </html>
