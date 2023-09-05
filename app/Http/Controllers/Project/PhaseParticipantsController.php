@@ -77,4 +77,27 @@ class PhaseParticipantsController extends Controller
         return $response['resultat'];
 
     }
+
+    public function updateTask(Request $request){
+        
+        $phaseID = $response['phaseID'] = $request->input('phaseID');
+        $comment = $response['comment'] = $request->input('comment');
+        $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
+        $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
+        $name = $response['name'] = $request->input('name');
+     
+        $response['resultat'] = project_phase::where('id', $phaseID)
+                ->update([
+                
+                    'name' => $name,
+                    'comment' => $comment, 
+                    'time_frome' => $fromDate,
+                    'time_to' => $toDate,
+                
+                ]);
+
+            return back();
+
+    }
+
 }

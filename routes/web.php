@@ -66,6 +66,11 @@ Route::get('/roles', [App\Http\Controllers\Profile\RoleController::class, 'index
 //роуты страницы выбранного проекта 
 Route::get('/project-page/{id}', [App\Http\Controllers\Project\ProjectController::class, 'show'])->name('project_page');
 
+//роуты таск
+//Route::post('/participant/create-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'createSubtask'])->name('createTask');
+Route::post('/participant/update-task', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'updateTask'])->name('updateTask');
+//Route::post('/participant/delete-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'deleteSubtask'])->name('deleteTask');
+
 //роуты позадач проекта
 Route::post('/participant/create-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'createSubtask'])->name('createSubtask');
 Route::post('/participant/update-subtask', [App\Http\Controllers\Project\PhaseParticipantsController::class, 'updateSubtask'])->name('updateSubtask');

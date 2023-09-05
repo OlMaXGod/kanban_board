@@ -1,6 +1,7 @@
 @section("project_milestone_table")
     <div>
     @foreach($project_phases as $key => $phase)
+    <a href='{{url()->current()."?&phaseInfo=".$phase->id}}'>
         <div class="border border-success p-2 mb-2 border-opacity-50" style="width:100%; height:150px; background-color:#f0f8ff; display: flex; padding: 10px;" >
             <div>
                     <div style="margin-left:-9%; margin-top:-5.4%;width:150px; height:148px;  background-color:#505873; ">
@@ -51,6 +52,7 @@
                 </div>
             </a>
         </div>
+    </a>
     @endforeach
     </div>
     @include('modal_windows.subtask_information')
