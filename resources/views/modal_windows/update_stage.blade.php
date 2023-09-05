@@ -37,11 +37,15 @@
               </form>
         </div>
         <div class="modal-footer">
+          @if($projectParticipants->where('participant_id', Auth::user()->id)->where('role_id', 1)->first() != null)
+            <button type="button" class="btn btn-danger" onclick='deleteSubtask({{$_GET['phaseInfo']}})'>Удалить этап</button>
+          @endif
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick='closeModal()'>Закрыть</button>        
         </div>      
       </div>
     </div>
   </div>
+ 
     <button type="button" id="editStaqgeButton" data-bs-toggle="modal" style="visibility:hidden;" data-bs-target="#update-stage" class="btn btn-secondary mt-2 mx-auto">
         Настройки этапа
     </button>
@@ -55,15 +59,14 @@
 
                 function deleteSubtask(projectId){
                     $.ajax({
-                        url: '{{route('deleteSubtask')}}',         
+                        url: '{{route('deleteTask')}}',         
                         method: 'post',          
                         dataType: 'html',      
                         data: {"_token": "{{ csrf_token() }}",
-                            subtaskId: projectId,
-                            backURL: '{{explode('?', url()->current())[0]}}',
+                          taskId: projectId,
                         },    
                         success: function(data){  
-                            window.location.href = '{{explode('?', url()->current())[0]}}';
+                          window.location.href = '{{explode('?', url()->current())[0]}}';
                         }
                     });
                 }

@@ -22,7 +22,6 @@ class CreateProjectPhase extends Migration
             $table->timestamp('time_frome')->nullable()->comment('Время начала');
             $table->timestamp('time_to')->nullable()->comment('Время завершения');
             $table->bigInteger("project_id")->comment('Проект');
-            $table->bigInteger("participant_id")->comment('Участник проекта');
             $table->bigInteger("who_changed")->comment('Кто совершил последнее изменение');
             $table->softDeletes();
         });

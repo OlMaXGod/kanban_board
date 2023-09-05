@@ -18,6 +18,7 @@
                         </div> 
                     </div>
             </div>
+        </a>
             @foreach($phase_participants as $key => $participant)
                 @if($phase->id === $participant->phase_id)
                     <div style="margin-left: 5px;">
@@ -52,9 +53,16 @@
                 </div>
             </a>
         </div>
-    </a>
     @endforeach
-    </div>
+
+    <div>
+
+    <a style='text-decoration:none' href='{{url()->current()."?&createNewTask=".explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1]}}'>
+        <div class="border border-success p-2 mb-2 border-opacity-50" style="width:100%; height:150px; background-color:#f0f8ff; display: flex; padding: 10px;" >
+        <button type="button" class="btn btn-outline-primary" style="width: 100%; height:100%; color:#000; font-size:2.4vw; text-decoration:none">Создать задачу</button>
+    
+        </div>
+    </a>
     @include('modal_windows.subtask_information')
     @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
     @yield('create_subtask', 'Не удалось получить модальное окно создания этапа') 

@@ -73,7 +73,6 @@
                         dataType: 'html',      
                         data: {"_token": "{{ csrf_token() }}",
                             subtaskId: projectId,
-                            backURL: '{{explode('?', url()->current())[0]}}',
                         },    
                         success: function(data){  
                             window.location.href = '{{explode('?', url()->current())[0]}}';

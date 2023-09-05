@@ -23,7 +23,6 @@ class ProjectPhaseSeeder extends Seeder
             'time_frome' => date('Y-m-d h:i:s', strtotime("+1 day")),
             'time_to' => date('Y-m-d h:i:s', strtotime("+3 days")),
             'project_id' => 1,
-            'participant_id' => 1,
             'who_changed' => 1,
         ]);
         DB::table('project_phase')->insert([
@@ -35,7 +34,6 @@ class ProjectPhaseSeeder extends Seeder
             'time_frome' => date('Y-m-d h:i:s', strtotime("-1 day")),
             'time_to' => date('Y-m-d h:i:s', strtotime("+1 day")),
             'project_id' => 1,
-            'participant_id' => 1,
             'who_changed' => 1,
         ]);
         DB::table('project_phase')->insert([
@@ -47,7 +45,6 @@ class ProjectPhaseSeeder extends Seeder
             'time_frome' => date('Y-m-d h:i:s', strtotime("-3 day")),
             'time_to' => date('Y-m-d h:i:s', strtotime("-1 day")),
             'project_id' => 1,
-            'participant_id' => 1,
             'who_changed' => 1,
         ]);
         DB::table('project_phase')->insert([
@@ -59,7 +56,6 @@ class ProjectPhaseSeeder extends Seeder
             'time_frome' => date('Y-m-d h:i:s', strtotime("-3 day")),
             'time_to' => date('Y-m-d h:i:s', strtotime("-1 day")),
             'project_id' => 1,
-            'participant_id' => 1,
             'who_changed' => 1,
         ]);
     }

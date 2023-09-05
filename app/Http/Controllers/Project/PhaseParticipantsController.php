@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\phase_participants;
 use App\Models\project_phase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhaseParticipantsController extends Controller
 {
@@ -97,6 +98,42 @@ class PhaseParticipantsController extends Controller
                 ]);
 
             return back();
+
+    }
+
+    public function deleteTask(Request $request){
+        
+        $taskId = $response['taskId'] = $request->input('taskId');
+
+        $response['resultat'] = project_phase::where('id', $taskId)->delete();
+        
+
+        return $response['resultat'];
+
+    }
+
+    public function createTask(Request $request){
+        
+        $nameTask = $response['nametask'] = $request->input('name');
+        $comment = $response['comment'] = $request->input('comment');
+        $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
+        $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
+        $projectID = $response['projectID'] = $request->input('projectID');
+     
+        $response['resultat'] = project_phase::insert([
+                [
+                    'name' => $nameTask,
+                    'comment' => $comment, 
+                    'time_frome' => $fromDate,
+                    'time_to' => $toDate,
+                    'status' => 0,
+                    'project_id' => $projectID,
+                    'who_changed' => Auth::user()->id,
+                ]
+                ]);
+
+
+        return back();
 
     }
 
