@@ -13,6 +13,9 @@
     @include('footer')
     @include('project_page.settings_menu.main')
     @include('project_page.project_milestone_table.body')
+    @include('modal_windows.update_stage')
+    @include('modal_windows.create_stage')
+    
     
 </head>
 <body style="background-color: #FFFACD;">
@@ -42,5 +45,8 @@
         });
     </script>
     <script type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
+    @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
+    @yield('modal_update_stage', 'Не удалось получить модальное окно этапа') 
+    @yield('modal_create_stage', 'Не удалось получить модальное окно этапа') 
 </body>
 </html>
