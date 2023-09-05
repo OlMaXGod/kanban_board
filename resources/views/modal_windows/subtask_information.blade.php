@@ -28,20 +28,20 @@
                         </div>
                         <div class="mb-3">
                             <div class="input-group">
-                                <span class="input-group-text">Описание задачи</span>
+                                <span class="input-group-text">Описание подзадачи</span>
                                 <textarea class="form-control" name='comment' aria-label="С текстовым полем">{{$participant->where('id', $_GET['participant'])->first()->comment}}</textarea>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Дата начала задачи</label>
+                            <label for="exampleInputPassword1" class="form-label">Дата начала подзадачи</label>
                             <input type="date" class="form-control" name='fromDate' value='{{date('Y-m-d', strtotime($participant->time_frome))}}'>
-                            <label for="exampleInputPassword1" class="form-label">Время начала задачи</label>
+                            <label for="exampleInputPassword1" class="form-label">Время начала подзадачи</label>
                             <input type="time" class="form-control" name='fromTime' value='{{date('H:i:s', strtotime($participant->time_frome))}}'>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Дата закрытия задачи</label>
+                            <label for="exampleInputPassword1" class="form-label">Дата закрытия подзадачи</label>
                             <input type="date" class="form-control" name='toDate' value='{{date('Y-m-d', strtotime($participant->time_to))}}'>
-                            <label for="exampleInputPassword1" class="form-label">Время закрытия задачи</label>
+                            <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($participant->time_to))}}'>
                         </div>
                         <input type="text" name='participantsID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
@@ -99,7 +99,7 @@
                         @csrf
                         <div class="mb-3">
                             <div class="input-group">
-                                <span class="input-group-text">Название задачи</span>
+                                <span class="input-group-text">Название подзадачи</span>
                                 <input type="text" class="form-control" name='name'>
                             </div>
                         </div>
@@ -121,25 +121,25 @@
                         </div>
                         <div class="mb-3">
                             <div class="input-group">
-                                <span class="input-group-text">Описание задачи</span>
+                                <span class="input-group-text">Описание подзадачи</span>
                                 <textarea class="form-control" name='comment' aria-label="С текстовым полем"></textarea>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Дата начала задачи</label>
+                            <label class="form-label">Дата начала подзадачи</label>
                             <input type="date" class="form-control" value='{{date('Y-m-d')}}' name='fromDate'>
-                            <label class="form-label">Время начала задачи</label>
+                            <label class="form-label">Время начала подзадачи</label>
                             <input type="time" class="form-control" value='{{date("H:i:s")}}' name='fromTime'>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Дата закрытия задачи</label>
+                            <label class="form-label">Дата закрытия подзадачи</label>
                             <input type="date" class="form-control" value='{{date('Y-m-d', strtotime("+1 day"))}}' name='toDate'>
-                            <label class="form-label">Время закрытия задачи</label>
+                            <label class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" value='{{date('H:i:s')}}' name='toTime'>
                             <input type="text" style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['phase']}}' name='phaseID'>
                             <input type="text" name='projectID' style='visibility:hidden; height:0px' class="form-control" value='{{explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1]}}' name='phaseID'>
                         </div>
-                        <button type="submit" class="btn btn-primary">Создать задачу</button>
+                        <button type="submit" class="btn btn-primary">Создать подзадачи</button>
                     </form>
                 </div>
                 <div class="modal-footer">
