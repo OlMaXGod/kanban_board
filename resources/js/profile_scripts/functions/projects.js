@@ -18,8 +18,9 @@ export function loadingProjectData(){
 			id: idSelectProject
 		},
 		success: function(data){
-			let projectData = data['resultat'];
-			
+			let projectData = data['resultat'][0];
+			console.log(projectData);
+						
 			$("#exampleIdProject").val(projectData['id']);
 			$("#exampleInputNameProject").val(projectData['name']);
 			$("#exampleInputText").val(projectData['comment']);

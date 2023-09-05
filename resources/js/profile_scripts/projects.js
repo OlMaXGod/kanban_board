@@ -10,7 +10,9 @@ $("body").on("click", ".group-item-project", function(event){
 	loadingParticipants(idProject);
 	loadingParticipantsInvited(idProject, roleDefault);	
 });
-$("#changeNameProjectButton").click(loadingProjectData);
+$("#changeDataProjectButton").click(function(){
+	loadingProjectData();
+});
 $("#saveProjectButton").click(saveProjectInfo);
 $("#deleteModalButtonProject").click(function(){
 	let idProjectStr = $(".group-item-project.active").attr("id");
