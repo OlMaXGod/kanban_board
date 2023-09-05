@@ -6,7 +6,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">{{$participant->where('id', $_GET['participant'])->first()->subtask}}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" onclick='closeModal()'></button>
                 </div>
                 <div class="modal-body">
                 <form action="{{route('updateSubtask')}}" method="POST">
@@ -52,7 +52,7 @@
                     @if($phase->where('who_changed', Auth::user()->id)->first() != null)
                         <button type="button" class="btn btn-danger" onclick='deleteSubtask({{$_GET['participant']}})'>Удалить задачу</button>
                     @endif
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick='closeModal()'>Закрыть</button>
                 </div>
                 </div>
             </div>
@@ -61,6 +61,11 @@
         @if(!empty($_GET['participant']))
             <script>
                 $( "#subtaskInformationModal" ).click();
+
+                function closeModal(){
+                    window.location.href = '{{explode('?', url()->current())[0]}}';
+                    };
+
                 function deleteSubtask(projectId){
                     $.ajax({
                         url: '{{route('deleteSubtask')}}',         
@@ -88,7 +93,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Новая задача</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" onclick='closeModal()'></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{route('createSubtask')}}" method="POST">
@@ -139,7 +144,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick='closeModal()'>Закрыть</button>
                 </div>
                 </div>
             </div>
@@ -148,6 +153,9 @@
         @if(!empty($_GET['phase']))
             <script>
                 $( "#subtaskInformationModal" ).click();
+                function closeModal(){
+                    window.location.href = '{{explode('?', url()->current())[0]}}';
+                    };
             </script>
         @endif
     @endif
