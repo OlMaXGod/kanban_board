@@ -20,8 +20,16 @@ $("#addParticipantButton").click(function(){
 	addParticipantInProject(idProject);
 });
 $("#deleteModalButtonParticipant").click(function(){
+	let idProjectStr = $(".group-item-project.active").attr("id");
+	let idProject;
+	if (idProjectStr != null){
+		idProject = parseInt(idProjectStr.match(/\d+/));	
+	} else {
+		idProject = $("#participants_script").attr("urlPageWithId").split('/').pop();
+	}
+
 	let idParticipantStr = $(".group-item-participant.active").attr("id");
 	let idSelectParticipant = parseInt(idParticipantStr.match(/\d+/));
 
-	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'Участник')
+	clickButtonModalDelete(urlDeleteParticipant, idSelectParticipant, 'Участник', idProject)
 });
