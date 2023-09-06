@@ -3,7 +3,7 @@ import { loadingProjects } from './main.js'
 import errorHandling from './error_handling.js'
 import showToast from './toast.js'
 
-export default function clickButtonModalDelete(url, id, element){
+export default function clickButtonModalDelete(url, id, element, idProject){
 
 	$.ajax({
 		headers: {
@@ -18,13 +18,9 @@ export default function clickButtonModalDelete(url, id, element){
 			if (element == 'Проект') {
 				loadingProjects();
 				showToast(element+" удален");	
-			} else if (element == 'Участник') {		
-				let idProjectStr = $(".group-item-project.active").attr("id");
-				if (idProjectStr != null){
-					let idProject = parseInt(idProjectStr.match(/\d+/));		
-					loadingParticipants(idProject);
-					loadingParticipantsInvited(idProject);	
-				}
+			} else if (element == 'Участник') {			
+				loadingParticipants(idProject);
+				loadingParticipantsInvited(idProject);	
 				showToast(element+" удален");	
 			}
 		},

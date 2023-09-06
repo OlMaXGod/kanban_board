@@ -15,6 +15,7 @@
     @include('project_page.project_milestone_table.body')
     @include('modal_windows.update_stage')
     @include('modal_windows.create_stage')
+    @include('profile.modal_dialog_del_participant')
     @include('toasts.success_change_data')
     
     
@@ -27,6 +28,7 @@
     @yield('subtask_information', 'Не удалось получить модальное окно этапа') 
     @yield('modal_update_stage', 'Не удалось получить модальное окно этапа') 
     @yield('modal_create_stage', 'Не удалось получить модальное окно этапа') 
+    @yield('modal_dialog_del_participant', 'Не удалось получить модальное окно удаления участника') 
     @yield('toast_success_change_data', 'Не удалось получить оповещение')
     
     <script>
