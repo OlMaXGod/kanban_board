@@ -1,7 +1,14 @@
 @section("modal_invite_project")
 <?php $id_project = explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))]?>
-  @if($projectParticipants->where('participant_id',Auth::user()->id)->where('project_id', $id_project)->first()->entry_request === 1)
- <div class="modal fade" id="invite-project" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
+@if(!empty($projectParticipants->where('participant_id',Auth::user()->id)->where('project_id', $id_project)->first()->entry_request))
+@if(!empty($_GET['invite']) && $projectParticipants->where('participant_id',Auth::user()->id)->where('project_id', $id_project)->first()->entry_request === 1)
+    <script>
+      window.location.href = '{{explode('?', url()->current())[0]}}';
+    </script>
+  @endif
+  @endif
+
+<div class="modal fade" id="invite-project" tabindex="-1" aria-labelledby="exampleModalLabel" data-bs-backdrop="static" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -66,10 +73,5 @@
     
     </script>
 
-  @endif
-  @if(!empty($_GET['invite']) && $projectParticipants->where('participant_id',Auth::user()->id)->where('project_id', $id_project)->first()->entry_request === 0)
-    <script>
-      window.location.href = '{{explode('?', url()->current())[0]}}';
-    </script>
-  @endif
+
 @endsection
