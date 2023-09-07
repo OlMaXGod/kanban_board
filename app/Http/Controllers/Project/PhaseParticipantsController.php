@@ -48,16 +48,17 @@ class PhaseParticipantsController extends Controller
 
     public function updateSubtask(Request $request){
         
-        $participantSubtask = $response['participantSubtask'] = $request->input('participant');
+        
         $comment = $response['comment'] = $request->input('comment');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
         $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
-        $participantsID = $response['participantsID'] = $request->input('participantsID');
-     
-        $response['resultat'] = phase_participants::where('id', $participantsID)
+        $participantsID = $response['participantsID'] = $request->input('participant');
+        $phaseParticipantID = $response['phaseParticipantID'] = $request->input('phaseParticipantID');
+        
+        $response['resultat'] = phase_participants::where('id', $phaseParticipantID)
                 ->update([
                 
-                    'participant_id' => $participantSubtask,
+                    'participant_id' => $participantsID,
                     'comment' => $comment, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,

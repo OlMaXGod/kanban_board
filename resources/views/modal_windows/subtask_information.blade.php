@@ -14,15 +14,11 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Сотрудник</label>
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
-                                    <option selected value='{{Auth::user()->id}}'>
-                                        {{Auth::user()->name}}
-                                    </option>
+
                                     @foreach($projectParticipants as $key => $participants)
-                                        @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
-                                            <option>
+                                      <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
                                                 {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
-                                        @endif
                                     @endforeach
                                 </select>
                         </div>
@@ -34,17 +30,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Дата начала подзадачи</label>
-                            <input type="date" class="form-control" name='fromDate' value='{{date('Y-m-d', strtotime($participant->time_frome))}}'>
+                            <input type="date" class="form-control" name='fromDate' value='{{date('Y-m-d', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_frome))}}'>
                             <label for="exampleInputPassword1" class="form-label">Время начала подзадачи</label>
-                            <input type="time" class="form-control" name='fromTime' value='{{date('H:i:s', strtotime($participant->time_frome))}}'>
+                            <input type="time" class="form-control" name='fromTime' value='{{date('H:i:s', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_frome))}}'>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Дата закрытия подзадачи</label>
-                            <input type="date" class="form-control" name='toDate' value='{{date('Y-m-d', strtotime($participant->time_to))}}'>
+                            <input type="date" class="form-control" name='toDate' value='{{date('Y-m-d', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_to))}}'>
                             <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
-                            <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($participant->time_to))}}'>
+                            <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_to))}}'>
                         </div>
-                        <input type="text" name='participantsID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
+                        <input type="text" name='phaseParticipantID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
                         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                     </form>
                 </div>
