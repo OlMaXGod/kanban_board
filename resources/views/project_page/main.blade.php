@@ -38,10 +38,15 @@
     @include('modal_windows.create_stage')
     @include('profile.modal_dialog_del_participant')
     @include('toasts.success_change_data')
+    @include('modal_windows.invite_project')
     
     
 </head>
 <body style="background-color: #FFFACD;">
+@if(!empty($_GET['invite']))
+    @yield('modal_invite_project', 'Не удалось получить модальное окно инвайта')
+@endif
+@if(empty($_GET['invite']))
     @yield('header', 'Не удалось получить  шапку') 
     @yield('setting_menu', 'Не удалось получить настройки проекта') 
     @yield('project_milestone_table', 'Не удалось получить список этапов') 
@@ -64,5 +69,6 @@
     </script>
     <script urlPageWithId="{{url()->current()}}" id="load_project_page" type="module" src="/kanban_board/resources/js/project_page_scripts/main.js"></script>
     <script urlPageWithId="{{url()->current()}}" id="participants_script" type="module" src="/kanban_board/resources/js/profile_scripts/participants.js"></script>
+@endif
 </body>
 </html>
