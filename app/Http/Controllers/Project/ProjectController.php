@@ -188,7 +188,7 @@ class ProjectController extends Controller
     {
         date_default_timezone_set( 'Europe/Moscow' );
 
-        $projectId = $response['projectId'] = $request->input('participantsID');
+        $projectId = $response['projectId'] = $request->input('id');
         $projectName = $response['projectName'] = $request->input('name');
         $projectComment = $response['projectComment'] = $request->input('comment');
         $projectType = $response['projectType'] = $request->input('type');
