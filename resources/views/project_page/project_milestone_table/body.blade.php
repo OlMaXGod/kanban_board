@@ -23,7 +23,7 @@
                 @if($phase->id === $participant->phase_id)
                     <div style="margin-left: 5px;">
                         <a href='{{url()->current()."?&participant=".$participant->id}}'>
-                            <div class="p-0 bg-success bg-opacity-10 border border-primary border-start-0 rounded-end" style="overflow: hidden; margin-left:-9%; margin-top:-4%;width:200px; height:112%;  background-color:#00964b; ">
+                            <div class="p-0 border border-primary border-start-0 rounded-end {{$participant->class_color}}" style="overflow: hidden; margin-left:-9%; margin-top:-4%;width:200px; height:112%; ">
                                     <center > 
                                         <div class="badge text-wrap bg-primary " style="width: 80%; color: #211C18;">
                                         <label >Сотрудник: </label>

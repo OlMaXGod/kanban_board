@@ -21,6 +21,7 @@ class CreatePhaseParticipants extends Migration
             $table->bigInteger("project_id")->comment('Проект');
             $table->text("subtask")->comment('название подзадачи');
             $table->text("comment")->comment('описание подзадачи');
+            $table->text("status")->comment('0 - ожидание / 1 - принята в работу / 2 - закрыта');
             $table->bigInteger("participant_id")->comment('Участник проекта');
             $table->timestamp('time_frome')->nullable()->comment('Время начала');
             $table->timestamp('time_to')->nullable()->comment('Время завершения');

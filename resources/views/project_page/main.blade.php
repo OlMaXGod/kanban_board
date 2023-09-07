@@ -8,6 +8,27 @@
     <script src="../../resources/js/jquery.js"></script>
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <style type="text/css"> 
+        /* Стили для подзадач */
+        .subtask-color-0 {
+            background-color:#0d6dfd1e;
+        } 
+        .subtask-color-1 {
+            background-color:#516ff5b2;
+        } 
+        .subtask-color-2 {
+            background-color:#ffd000;
+        } 
+        .subtask-color-3 {
+            background-color:#52ce00;
+        } 
+        .subtask-color-4 {
+            background-color:#ff5050;
+        } 
+        .subtask-color-5 {
+            background-color:#ff0000;
+        } 
+    </style>
     <title>Главная страница</title>
     @include('header')
     @include('footer')

@@ -32,6 +32,8 @@ class UserController extends Controller
           
     public function update(Request $request){
 
+        date_default_timezone_set( 'Europe/Moscow' );
+
         $name = $response['name'] = $request->input('name');
         $phone = $response['phone'] = $request->input('phone');
         $email = $response['email'] = $request->input('email');
@@ -40,13 +42,15 @@ class UserController extends Controller
 
         $response['resultat'] = User::where('phone', '=', $phone_old)
                                     ->where('email', '=', $email_old)
-                                    ->update(['name' => $name, 'phone' => $phone, 'email' => $email]);
+                                    ->update(['updated_at' => date('Y-m-d H:i:s'), 'name' => $name, 'phone' => $phone, 'email' => $email]);
 
         return $response;
 
     }
           
     public function updatePassword(Request $request){
+
+        date_default_timezone_set( 'Europe/Moscow' );
         
         $phone = $response['phone'] = $request->input('phone');
         $email = $response['email'] = $request->input('email');
@@ -54,7 +58,7 @@ class UserController extends Controller
 
         $response['resultat'] = User::where('phone', '=', $phone)
                                     ->where('email', '=', $email)
-                                    ->update(['password' => Hash::make($newPassword)]);
+                                    ->update(['updated_at' => date('Y-m-d H:i:s'), 'password' => Hash::make($newPassword)]);
 
         return $response;
 

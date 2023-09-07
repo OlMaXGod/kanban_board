@@ -23,14 +23,29 @@ class ProjectController extends Controller
 
 
     public function show($projectId){
-     
         
-
         return view('project_page.main',[
             "project" => projects::where('id',$projectId)->first(),
             "users" =>User::all(),
             "projectParticipants" =>project_participants::where('project_id',$projectId)->get(),
-            "phase_participants" =>phase_participants::where('project_id',$projectId)->get(),
+            "phase_participants" =>phase_participants::where('project_id',$projectId)->selectRaw("*
+                , CASE
+                    WHEN TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0
+                        AND `status` = 1
+                        THEN 'subtask-color-1'
+                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) <= 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0 AND `status` = 0)
+                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) <= 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_to`) >= 0 AND `status` = 1)
+                        THEN 'subtask-color-2'
+                    WHEN `status` = 2
+                        THEN 'subtask-color-3'
+                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) < 0 AND TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= -24 AND `status` = 0)
+                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) < 0 AND TIMESTAMPDIFF(HOUR, NOW(), `time_to`) >= -24 AND `status` = 1)
+                        THEN 'subtask-color-4'
+                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) < -24 AND `status` = 0)
+                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) < -24 AND `status` = 1)
+                        THEN 'subtask-color-5'
+                    ELSE 'subtask-color-0'
+                END AS class_color")->get(),
             "project_phases" =>project_phase::where('project_id',$projectId)->get()
         ]);
 
@@ -41,7 +56,6 @@ class ProjectController extends Controller
         $projectId = $response['id_project'] = $request->input('id');
 
         $response['resultat'] = projects::find($projectId)->get();
-
 
         return $response;
 
@@ -87,6 +101,7 @@ class ProjectController extends Controller
     public function joinProject(Request $request)
     {
 
+        date_default_timezone_set( 'Europe/Moscow' );
 
         $type = $response['type'] = $request->input('type');
 
@@ -96,6 +111,8 @@ class ProjectController extends Controller
         
         $response['resultat'] = project_participants::insert(
             [
+                'updated_at' => date('Y-m-d H:i:s'), 
+                'created_at' => date('Y-m-d H:i:s'), 
                 'project_id' => $projectId, 
                 'participant_id' => $userId,
                 'role_id' => 3,
@@ -136,6 +153,7 @@ class ProjectController extends Controller
 
     public function createProject(Request $request)
     {
+        date_default_timezone_set( 'Europe/Moscow' );
 
         $projectName = $response['projectName'] = $request->input('name');
         $projectComment = $response['projectComment'] = $request->input('comment');
@@ -145,6 +163,8 @@ class ProjectController extends Controller
         
         $response['resultat'] = projects::create(
             [
+                'updated_at' => date('Y-m-d H:i:s'), 
+                'created_at' => date('Y-m-d H:i:s'), 
                 'name' => $projectName, 
                 'comment' => $projectComment,
                 'name' => $projectName, 
@@ -153,29 +173,25 @@ class ProjectController extends Controller
                 'access' => $projectAccess,
                 'who_changed' => auth()->user()->id,
             ]
-        );
-
-        
+        );       
 
         return redirect('/project-page/'.$response['resultat']->id);
-
-
-
 
     }
 
     public function updateProject(Request $request)
     {
+        date_default_timezone_set( 'Europe/Moscow' );
 
         $projectId = $response['projectId'] = $request->input('id');
         $projectName = $response['projectName'] = $request->input('name');
         $projectComment = $response['projectComment'] = $request->input('comment');
         $projectType = $response['projectType'] = $request->input('type');
-        $projectAccess = $response['projectAccess'] = $request->input('access');
-       
+        $projectAccess = $response['projectAccess'] = $request->input('access');       
         
         $response['resultat'] = projects::where("id", "=", $projectId)->update(
             [
+                'updated_at' => date('Y-m-d H:i:s'), 
                 'name' => $projectName, 
                 'comment' => $projectComment,
                 'name' => $projectName, 
