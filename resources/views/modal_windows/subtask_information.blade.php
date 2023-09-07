@@ -17,10 +17,10 @@
                                     <option selected value='{{Auth::user()->id}}'>
                                         {{Auth::user()->name}}
                                     </option>
-                                    @foreach($phase_participants as $key => $phase_participants)
-                                        @if($phase_participants->participant_id != $users->where('id', $participant->where('id', $_GET['participant'])->first()->participant_id)->first()->id)
+                                    @foreach($projectParticipants as $key => $participants)
+                                        @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
                                             <option>
-                                                {{$users->where('id', $participant->where('id', $phase_participants->participant_id)->first()->participant_id)->first()->name}}
+                                                {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
                                         @endif
                                     @endforeach
@@ -91,7 +91,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Новая задача</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Новая подзадача</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" onclick='closeModal()'></button>
                 </div>
                 <div class="modal-body">
@@ -109,14 +109,13 @@
                                     <option selected value='{{Auth::user()->id}}'>
                                         {{Auth::user()->name}}
                                     </option>
-                                    @foreach($phase_participants as $key => $phase_participants)
-
-                                        @if($phase_participants->participant_id != $users->where('id', $participant->where('project_id', explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1])->first()->participant_id)->first()->id)
-                                            <option value = '{{$users->where('id', $participant->where('id', $phase_participants->participant_id)->first()->participant_id)->first()->id}}'>
-                                                {{$users->where('id', $participant->where('id', $phase_participants->participant_id)->first()->participant_id)->first()->name}}
-                                            </option>
-                                        @endif
-                                    @endforeach
+                                        @foreach($projectParticipants as $key => $participants)
+                                            @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
+                                                <option>
+                                                    {{$users->where('id', $participants->participant_id)->first()->name}}
+                                                </option>
+                                            @endif
+                                        @endforeach
                                 </select>
                         </div>
                         <div class="mb-3">

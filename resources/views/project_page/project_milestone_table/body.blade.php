@@ -49,7 +49,7 @@
             @endforeach
             <a href='{{url()->current()."?&phase=".$phase->id}}' style='margin-left:4px;'>
                 <div class="p-0 bg-success bg-opacity-10 border border-primary border-start-0 rounded-end" style="overflow: hidden; margin-left:-9%; margin-top:-4%;width:200px; height:112%;  background-color:#00964b; ">
-                    <button type="button" class="btn btn-outline-primary" style="width: 100%; height:100%">Создать задачу</button>
+                    <button type="button" class="btn btn-outline-primary" style="width: 100%; height:100%">Создать подзадачу</button>
                 </div>
             </a>
         </div>
