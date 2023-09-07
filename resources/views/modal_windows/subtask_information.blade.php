@@ -44,6 +44,18 @@
                             <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($participant->time_to))}}'>
                         </div>
+                        <div class="mb-3">
+                            <label for="exampleInputStatus" class="form-label">Статус задачи</label>
+                            <select class="form-select" aria-label="Пример выбора по умолчанию" name='status'>
+                                @foreach($statusList as $key => $status)
+                                    @if($key == $participants->$status)
+                                        <option selected value={{$key}}>{{$status}} - {{$key}}</option>
+                                    @else
+                                        <option value={{$key}}>{{$status}} - {{$key}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="text" name='participantsID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
                         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                     </form>
@@ -137,6 +149,14 @@
                             <input type="time" class="form-control" value='{{date('H:i:s')}}' name='toTime'>
                             <input type="text" style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['phase']}}' name='phaseID'>
                             <input type="text" name='projectID' style='visibility:hidden; height:0px' class="form-control" value='{{explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1]}}' name='phaseID'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputStatus" class="form-label">Статус задачи</label>
+                            <select class="form-select" aria-label="Пример выбора по умолчанию" name='status'>
+                                <option value='0'>Ожидание</option>
+                                <option value='1'>В работе</option>
+                                <option value='2'>Закрыта</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Создать подзадачи</button>
                     </form>

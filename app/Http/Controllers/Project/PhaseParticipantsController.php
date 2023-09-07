@@ -21,10 +21,13 @@ class PhaseParticipantsController extends Controller
     }
 
     public function createSubtask(Request $request){
+
+        date_default_timezone_set( 'Europe/Moscow' );
         
         $nameSubtask = $response['nameSubtask'] = $request->input('name');
         $participantSubtask = $response['participantSubtask'] = $request->input('participant');
         $comment = $response['comment'] = $request->input('comment');
+        $status = $response['status'] = $request->input('status');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
         $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
         $phaseID = $response['phaseID'] = $request->input('phaseID');
@@ -32,9 +35,12 @@ class PhaseParticipantsController extends Controller
      
         $response['resultat'] = phase_participants::insert([
                 [
+                    'updated_at' => date('Y-m-d H:i:s'), 
+                    'created_at' => date('Y-m-d H:i:s'), 
                     'subtask' => $nameSubtask, 
                     'participant_id' => $participantSubtask,
                     'comment' => $comment, 
+                    'status' => $status, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,
                     'phase_id' => $phaseID,
@@ -48,8 +54,11 @@ class PhaseParticipantsController extends Controller
 
     public function updateSubtask(Request $request){
         
+        date_default_timezone_set( 'Europe/Moscow' );
+        
         $participantSubtask = $response['participantSubtask'] = $request->input('participant');
         $comment = $response['comment'] = $request->input('comment');
+        $status = $response['status'] = $request->input('status');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
         $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
         $participantsID = $response['participantsID'] = $request->input('participantsID');
@@ -57,8 +66,10 @@ class PhaseParticipantsController extends Controller
         $response['resultat'] = phase_participants::where('id', $participantsID)
                 ->update([
                 
+                    'updated_at' => date('Y-m-d H:i:s'), 
                     'participant_id' => $participantSubtask,
                     'comment' => $comment, 
+                    'status' => $status, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,
                 
@@ -81,6 +92,8 @@ class PhaseParticipantsController extends Controller
 
     public function updateTask(Request $request){
         
+        date_default_timezone_set( 'Europe/Moscow' );
+        
         $phaseID = $response['phaseID'] = $request->input('phaseID');
         $comment = $response['comment'] = $request->input('comment');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
@@ -90,6 +103,7 @@ class PhaseParticipantsController extends Controller
         $response['resultat'] = project_phase::where('id', $phaseID)
                 ->update([
                 
+                    'updated_at' => date('Y-m-d H:i:s'), 
                     'name' => $name,
                     'comment' => $comment, 
                     'time_frome' => $fromDate,
@@ -114,6 +128,8 @@ class PhaseParticipantsController extends Controller
 
     public function createTask(Request $request){
         
+        date_default_timezone_set( 'Europe/Moscow' );
+        
         $nameTask = $response['nametask'] = $request->input('name');
         $comment = $response['comment'] = $request->input('comment');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
@@ -122,6 +138,8 @@ class PhaseParticipantsController extends Controller
      
         $response['resultat'] = project_phase::insert([
                 [
+                    'updated_at' => date('Y-m-d H:i:s'), 
+                    'created_at' => date('Y-m-d H:i:s'), 
                     'name' => $nameTask,
                     'comment' => $comment, 
                     'time_frome' => $fromDate,
