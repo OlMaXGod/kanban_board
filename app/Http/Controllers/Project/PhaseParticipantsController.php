@@ -27,6 +27,7 @@ class PhaseParticipantsController extends Controller
         $nameSubtask = $response['nameSubtask'] = $request->input('name');
         $participantSubtask = $response['participantSubtask'] = $request->input('participant');
         $comment = $response['comment'] = $request->input('comment');
+        $status = $response['status'] = $request->input('status');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
         $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
         $phaseID = $response['phaseID'] = $request->input('phaseID');
@@ -39,7 +40,7 @@ class PhaseParticipantsController extends Controller
                     'subtask' => $nameSubtask, 
                     'participant_id' => $participantSubtask,
                     'comment' => $comment, 
-                    'status' => 0, 
+                    'status' => $status, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,
                     'phase_id' => $phaseID,
@@ -57,6 +58,7 @@ class PhaseParticipantsController extends Controller
         
         $participantSubtask = $response['participantSubtask'] = $request->input('participant');
         $comment = $response['comment'] = $request->input('comment');
+        $status = $response['status'] = $request->input('status');
         $fromDate = $response['fromDate'] = $request->input('fromDate')." ".$request->input('fromTime');
         $toDate = $response['toDate'] = $request->input('toDate')." ".$request->input('toTime');
         $participantsID = $response['participantsID'] = $request->input('participantsID');
@@ -67,6 +69,7 @@ class PhaseParticipantsController extends Controller
                     'updated_at' => date('Y-m-d H:i:s'), 
                     'participant_id' => $participantSubtask,
                     'comment' => $comment, 
+                    'status' => $status, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,
                 

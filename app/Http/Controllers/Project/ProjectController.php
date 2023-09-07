@@ -28,6 +28,11 @@ class ProjectController extends Controller
             "project" => projects::where('id',$projectId)->first(),
             "users" =>User::all(),
             "projectParticipants" =>project_participants::where('project_id',$projectId)->get(),
+            "statusList" =>[
+                "0" => "Ожидание",
+                "1" => "В работе",
+                "2" => "Закрыта"
+            ],
             "phase_participants" =>phase_participants::where('project_id',$projectId)->selectRaw("*
                 , CASE
                     WHEN TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0
