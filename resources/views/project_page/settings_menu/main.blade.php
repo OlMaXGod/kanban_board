@@ -30,7 +30,7 @@
             <div style='width:30%;'>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Ссылка на проект</label>
-                    <input type="text" class="form-control" id="projectURL" readonly value="{{url()->full()}}">
+                    <input type="text" class="form-control" id="projectURL" readonly value="{{url()->current().'?&invite=true'}}">
                 </div>
             </div>
             <div style='width:22%;padding: 8px;'>
