@@ -17,10 +17,10 @@
                                     <option selected value='{{Auth::user()->id}}'>
                                         {{Auth::user()->name}}
                                     </option>
-                                    @foreach($phase_participants as $key => $phase_participants)
-                                        @if($phase_participants->participant_id != $users->where('id', $participant->where('id', $_GET['participant'])->first()->participant_id)->first()->id)
+                                    @foreach($projectParticipants as $key => $participants)
+                                        @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
                                             <option>
-                                                {{$users->where('id', $participant->where('id', $phase_participants->participant_id)->first()->participant_id)->first()->name}}
+                                                {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
                                         @endif
                                     @endforeach

@@ -6,7 +6,8 @@ let idProject;
 $(document).ready(function(){
 	let roleDefault = 3;
 	let urlPageWithId = $("#load_project_page").attr("urlPageWithId");
-	idProject = urlPageWithId.split('/').pop();
+	
+	idProject = urlPageWithId.split('/').slice(-1);
 
 	loadingRoles();
 	loadingParticipants(idProject);
