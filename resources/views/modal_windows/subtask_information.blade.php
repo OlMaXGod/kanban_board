@@ -19,7 +19,7 @@
                                     </option>
                                     @foreach($projectParticipants as $key => $participants)
                                         @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
-                                            <option>
+                                            <option value='{{$participants->participant_id}}'>
                                                 {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
                                         @endif
@@ -48,10 +48,10 @@
                             <label for="exampleInputStatus" class="form-label">Статус задачи</label>
                             <select class="form-select" aria-label="Пример выбора по умолчанию" name='status'>
                                 @foreach($statusList as $key => $status)
-                                    @if($key == $participants->$status)
-                                        <option selected value={{$key}}>{{$status}} - {{$key}}</option>
+                                    @if($key == $participant->where('id', $_GET['participant'])->first()->status)
+                                        <option selected value={{$key}}>{{$status}}</option>
                                     @else
-                                        <option value={{$key}}>{{$status}} - {{$key}}</option>
+                                        <option value={{$key}}>{{$status}}</option>
                                     @endif
                                 @endforeach
                             </select>

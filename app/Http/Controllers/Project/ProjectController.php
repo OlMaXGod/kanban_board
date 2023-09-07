@@ -29,9 +29,9 @@ class ProjectController extends Controller
             "users" =>User::all(),
             "projectParticipants" =>project_participants::where('project_id',$projectId)->get(),
             "statusList" =>[
-                "0" => "Ожидание",
-                "1" => "В работе",
-                "2" => "Закрыта"
+                0 => "Ожидание",
+                1 => "В работе",
+                2 => "Закрыта"
             ],
             "phase_participants" =>phase_participants::where('project_id',$projectId)->selectRaw("*
                 , CASE
@@ -188,7 +188,7 @@ class ProjectController extends Controller
     {
         date_default_timezone_set( 'Europe/Moscow' );
 
-        $projectId = $response['projectId'] = $request->input('id');
+        $projectId = $response['projectId'] = $request->input('participantsID');
         $projectName = $response['projectName'] = $request->input('name');
         $projectComment = $response['projectComment'] = $request->input('comment');
         $projectType = $response['projectType'] = $request->input('type');
