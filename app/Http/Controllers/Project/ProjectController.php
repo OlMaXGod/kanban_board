@@ -38,16 +38,16 @@ class ProjectController extends Controller
                     WHEN TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0
                         AND `status` = 1
                         THEN 'subtask-color-1'
-                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) <= 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0 AND `status` = 0)
-                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) <= 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_to`) >= 0 AND `status` = 1)
+                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) < 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= 0 AND `status` = 0)
+                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) < 2 AND TIMESTAMPDIFF(HOUR, NOW(), `time_to`) >= 0 AND `status` = 1)
                         THEN 'subtask-color-2'
                     WHEN `status` = 2
                         THEN 'subtask-color-3'
                     WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) < 0 AND TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) >= -24 AND `status` = 0)
                         OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) < 0 AND TIMESTAMPDIFF(HOUR, NOW(), `time_to`) >= -24 AND `status` = 1)
                         THEN 'subtask-color-4'
-                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) < -24 AND `status` = 0)
-                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) < -24 AND `status` = 1)
+                    WHEN (TIMESTAMPDIFF(HOUR, NOW(), `time_frome`) <= -24 AND `status` = 0)
+                        OR (TIMESTAMPDIFF(HOUR, NOW(), `time_to`) <= -24 AND `status` = 1)
                         THEN 'subtask-color-5'
                     ELSE 'subtask-color-0'
                 END AS class_color")->get(),
