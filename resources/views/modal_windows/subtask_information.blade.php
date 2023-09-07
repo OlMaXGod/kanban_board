@@ -16,7 +16,8 @@
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
 
                                     @foreach($projectParticipants as $key => $participants)
-                                      <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
+                                        @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
+                                            <option>
                                                 {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
                                     @endforeach
@@ -40,7 +41,7 @@
                             <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_to))}}'>
                         </div>
-                        <input type="text" name='phaseParticipantID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
+                        <input type="text" name='participantsID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
                         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                     </form>
                 </div>
@@ -133,6 +134,14 @@
                             <input type="time" class="form-control" value='{{date('H:i:s')}}' name='toTime'>
                             <input type="text" style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['phase']}}' name='phaseID'>
                             <input type="text" name='projectID' style='visibility:hidden; height:0px' class="form-control" value='{{explode("/", explode('?', url()->current())[0])[count(explode("/", explode('?', url()->current())[0]))-1]}}' name='phaseID'>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputStatus" class="form-label">Статус задачи</label>
+                            <select class="form-select" aria-label="Пример выбора по умолчанию" name='status'>
+                                <option value='0'>Ожидание</option>
+                                <option value='1'>В работе</option>
+                                <option value='2'>Закрыта</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Создать подзадачи</button>
                     </form>

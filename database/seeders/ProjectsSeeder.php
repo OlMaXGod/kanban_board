@@ -16,9 +16,11 @@ class ProjectsSeeder extends Seeder
      */
     public function run()
     {
+        date_default_timezone_set( 'Europe/Moscow' );
+
         DB::table('projects')->insert([
-            'created_at' => date('Y-m-d h:i:s'),
-            'updated_at' => date('Y-m-d h:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
             'name' => str_random(10),
             'comment' => str_random(10),
             'type' => 1,
@@ -26,8 +28,8 @@ class ProjectsSeeder extends Seeder
             'who_changed' => 1,
         ]);
         DB::table('projects')->insert([
-            'created_at' => date('Y-m-d h:i:s'),
-            'updated_at' => date('Y-m-d h:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
             'name' => str_random(10),
             'comment' => str_random(10),
             'type' => 1,
@@ -35,8 +37,8 @@ class ProjectsSeeder extends Seeder
             'who_changed' => 1,
         ]);
         DB::table('projects')->insert([
-            'created_at' => date('Y-m-d h:i:s'),
-            'updated_at' => date('Y-m-d h:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
             'name' => str_random(10),
             'comment' => str_random(10),
             'type' => 1,
@@ -44,8 +46,8 @@ class ProjectsSeeder extends Seeder
             'who_changed' => 1,
         ]);
         DB::table('projects')->insert([
-            'created_at' => date('Y-m-d h:i:s'),
-            'updated_at' => date('Y-m-d h:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
             'name' => str_random(10),
             'comment' => str_random(10),
             'type' => 1,

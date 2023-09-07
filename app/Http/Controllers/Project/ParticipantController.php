@@ -16,10 +16,8 @@ class ParticipantController extends Controller
 
     public function index(Request $request)
     {        
-
         $id_participant = $response['id_participant'] = $request->input('id');
 
-        //$response['resultat'] = projects::find($projectId)->get();
         $responce['resultat']  = project_participants::where("id", "=", $id_participant)->get()->first();
 
         return $responce;
@@ -27,12 +25,14 @@ class ParticipantController extends Controller
 
     public function update(Request $request)
     {
+        date_default_timezone_set( 'Europe/Moscow' );
+        
         $participant_id = $response['id_participant'] = $request->input('id');
         $role_id = $response['id_role'] = $request->input('role');
         $comment = $response['comment'] = $request->input('comment');
         
         $response['resultat'] = project_participants::where("id", "=", $participant_id)
-            ->update(['role_id' => $role_id, 'comment' => $comment]);
+            ->update(['updated_at' => date('Y-m-d H:i:s'), 'role_id' => $role_id, 'comment' => $comment]);
 
         return $response;
     }
@@ -65,12 +65,14 @@ class ParticipantController extends Controller
 
     public function addParticipant(Request $request)
     {
+        date_default_timezone_set( 'Europe/Moscow' );
+
         $participant_id = $response['id_participant'] = $request->input('id');
         $role_id = $response['id_role'] = $request->input('role');
         $comment = $response['comment'] = $request->input('comment');
         
         $response['resultat'] = project_participants::where("id", "=", $participant_id)
-            ->update(['role_id' => $role_id, 'comment' => $comment, 'comment' => $comment, 'entry_request' => 0]);
+            ->update(['updated_at' => date('Y-m-d H:i:s'), 'role_id' => $role_id, 'comment' => $comment, 'comment' => $comment, 'entry_request' => 0]);
 
         return $response;
     }
