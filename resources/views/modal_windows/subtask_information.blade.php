@@ -16,7 +16,7 @@
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
 
                                     @foreach($projectParticipants as $key => $participants)
-                                        <option>
+                                        <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
                                                 {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
                                     @endforeach
@@ -40,7 +40,7 @@
                             <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_to))}}'>
                         </div>
-                        <input type="text" name='participantsID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' name='participantsID'>
+                        <input type="text" name='phaseParticipantID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' >
                         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                     </form>
                 </div>

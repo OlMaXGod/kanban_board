@@ -71,13 +71,12 @@ class PhaseParticipantsController extends Controller
                 
 
                     'participant_id' => $participantsID,
-
                     'updated_at' => date('Y-m-d H:i:s'), 
-
                     'comment' => $comment, 
                     'status' => $status, 
                     'time_frome' => $fromDate,
                     'time_to' => $toDate,
+                    'status' =>  1,
                 
                 ]);
 
