@@ -114,15 +114,10 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Сотрудник</label>
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
-                                    <option selected value='{{Auth::user()->id}}'>
-                                        {{Auth::user()->name}}
-                                    </option>
                                         @foreach($projectParticipants as $key => $participants)
-                                            @if($participants->participant_id != Auth::user()->id && $participants->project_id == explode('/', explode('?', url()->current())[0])[array_key_last(explode('/', explode('?', url()->current())[0]))])
-                                                <option>
-                                                    {{$users->where('id', $participants->participant_id)->first()->name}}
-                                                </option>
-                                            @endif
+                                        <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
+                                                {{$users->where('id', $participants->participant_id)->first()->name}}
+                                            </option>
                                         @endforeach
                                 </select>
                         </div>
