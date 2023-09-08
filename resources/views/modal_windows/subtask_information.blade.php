@@ -40,6 +40,18 @@
                             <label for="exampleInputPassword1" class="form-label">Время закрытия подзадачи</label>
                             <input type="time" class="form-control" name='toTime' value='{{date('H:i:s', strtotime($phase_participants->where('id', $_GET['participant'])->first()->time_to))}}'>
                         </div>
+                        <div class="mb-3">
+                            <label for="exampleInputStatus" class="form-label">Статус задачи</label>
+                            <select class="form-select" aria-label="Пример выбора по умолчанию" name='status'>
+                                @foreach($statusList as $key => $status)
+                                    @if($key == $participant->where('id', $_GET['participant'])->first()->status)
+                                        <option selected value={{$key}}>{{$status}}</option>
+                                    @else
+                                        <option value={{$key}}>{{$status}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="text" name='phaseParticipantID' style='visibility:hidden; height:0px' class="form-control" value='{{$_GET['participant']}}' >
                         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
                     </form>
