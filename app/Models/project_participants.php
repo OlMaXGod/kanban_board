@@ -18,6 +18,8 @@ class project_participants extends Model
      */
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ['updated_at','created_at','project_id','participant_id','role_id','comment','entry_request'];
+
     public function projects() {
         return $this->belongsTo('App\Models\projects', 'project_id');
     }

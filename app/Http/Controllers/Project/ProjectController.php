@@ -166,7 +166,7 @@ class ProjectController extends Controller
         $projectAccess = $response['projectAccess'] = $request->input('access');
        
         
-        $response['resultat'] = projects::create(
+        $response['resultatProject'] = projects::create(
             [
                 'updated_at' => date('Y-m-d H:i:s'), 
                 'created_at' => date('Y-m-d H:i:s'), 
@@ -178,9 +178,20 @@ class ProjectController extends Controller
                 'access' => $projectAccess,
                 'who_changed' => auth()->user()->id,
             ]
-        );       
+        );   
+        project_participants::create(
+            [
+                'updated_at' => date('Y-m-d H:i:s'), 
+                'created_at' => date('Y-m-d H:i:s'), 
+                'project_id' => $response['resultatProject']->id,
+                'participant_id' => auth()->user()->id, 
+                'role_id' => 1,
+                'comment' => "new",
+                'entry_request' => 0,
+            ]
+        );   
 
-        return redirect('/project-page/'.$response['resultat']->id);
+        return redirect('/project-page/'.$response['resultatProject']->id);
 
     }
 

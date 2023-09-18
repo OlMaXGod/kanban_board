@@ -18,6 +18,8 @@ class project_phase extends Model
      */
     protected $dates = ['deleted_at'];
 
+ 
+
     public function projects() {
         return $this->belongsTo('App\Models\projects', 'project_id');
     }

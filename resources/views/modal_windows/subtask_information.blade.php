@@ -16,9 +16,11 @@
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
 
                                     @foreach($projectParticipants as $key => $participants)
-                                        <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
-                                                {{$users->where('id', $participants->participant_id)->first()->name}}
+                                        @if($participants->entry_request === 0)
+                                            <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
+                                                    {{$users->where('id', $participants->participant_id)->first()->name}}
                                             </option>
+                                        @endif
                                     @endforeach
                                 </select>
                         </div>
@@ -115,9 +117,11 @@
                             <label for="exampleInputEmail1" class="form-label">Сотрудник</label>
                                 <select class="form-select" aria-label="Пример выбора по умолчанию" name='participant'>
                                         @foreach($projectParticipants as $key => $participants)
-                                        <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
-                                                {{$users->where('id', $participants->participant_id)->first()->name}}
-                                            </option>
+                                            @if($participants->entry_request === 0)
+                                                <option value="{{$users->where('id', $participants->participant_id)->first()->id}}">
+                                                        {{$users->where('id', $participants->participant_id)->first()->name}}
+                                                </option>
+                                            @endif
                                         @endforeach
                                 </select>
                         </div>
