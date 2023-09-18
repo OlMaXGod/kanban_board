@@ -48,9 +48,9 @@
         } 
     </style>
     @include('header')
-    @include('profile.modal_dialog_change')
-    @include('profile.modal_dialog_del_participant')
-    @include('profile.modal_dialog_del_project')
+    @include('modal_windows.modal_dialog_change')
+    @include('modal_windows.modal_dialog_del_participant')
+    @include('modal_windows.modal_dialog_del_project')
     @include('profile.body_profile')
     @include('profile.projects')
     @include('profile.participants')

@@ -36,7 +36,7 @@
     @include('project_page.project_milestone_table.body')
     @include('modal_windows.update_stage')
     @include('modal_windows.create_stage')
-    @include('profile.modal_dialog_del_participant')
+    @include('modal_windows.modal_dialog_del_participant')
     @include('toasts.success_change_data')
     @include('modal_windows.invite_project')
     

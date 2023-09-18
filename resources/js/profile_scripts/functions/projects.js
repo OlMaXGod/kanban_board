@@ -47,21 +47,24 @@ export function loadingParticipants(idProject) {
 		success: function(data){
 			let firstStep = true;		
 			let participants = data['resultat'];
+			let userId = $('#list-tab-participants').attr('id-user');
 
 			participants.forEach((participant) => {
-				if (firstStep){
-					$("#list-tab-participants").append(
-						"<a class='list-group-item list-group-item-action group-item-participant active' id='participant-"+participant.id+"-list'" +
-							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
-							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
-						);		
-					firstStep = false;
-				} else {
-					$("#list-tab-participants").append(
-						"<a class='list-group-item list-group-item-action group-item-participant' id='participant-"+participant.id+"-list'" +
-							"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
-							"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
-						);
+				if (userId != participant.participant_id) {
+					if (firstStep){
+						$("#list-tab-participants").append(
+							"<a class='list-group-item list-group-item-action group-item-participant active' id='participant-"+participant.id+"-list'" +
+								"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
+								"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
+							);		
+						firstStep = false;
+					} else {
+						$("#list-tab-participants").append(
+							"<a class='list-group-item list-group-item-action group-item-participant' id='participant-"+participant.id+"-list'" +
+								"data-bs-toggle='list' href='#participant-"+participant.id+"' role='tab'" +
+								"aria-controls='participant-"+participant.id+"'>"+participant.name+"</a>"
+							);
+					}
 				}
 			});
 			
@@ -113,21 +116,26 @@ export function loadingParticipantsInvited(idProject) {
 			let firstStep = true;		
 			let participants = data['resultat'];
 			let countInvited = participants.length;
+			let userId = $('#list-tab-ParticipantsInvited').attr('id-user');
 			
 			participants.forEach((participant) => {
-				if (firstStep){
-					$("#list-tab-ParticipantsInvited").append(
-						"<a class='list-group-item list-group-item-action group-item-ParticipantInvited active' id='ParticipantInvited-"+participant.id+"-list'" +
-							"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
-							"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
-						);		
-					firstStep = false;
+				if (userId != participant.participant_id) {
+					if (firstStep){
+						$("#list-tab-ParticipantsInvited").append(
+							"<a class='list-group-item list-group-item-action group-item-ParticipantInvited active' id='ParticipantInvited-"+participant.id+"-list'" +
+								"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
+								"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
+							);		
+						firstStep = false;
+					} else {
+						$("#list-tab-ParticipantsInvited").append(
+							"<a class='list-group-item list-group-item-action group-item-ParticipantInvited' id='ParticipantInvited-"+participant.id+"-list'" +
+								"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
+								"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
+							);
+					}
 				} else {
-					$("#list-tab-ParticipantsInvited").append(
-						"<a class='list-group-item list-group-item-action group-item-ParticipantInvited' id='ParticipantInvited-"+participant.id+"-list'" +
-							"data-bs-toggle='list' href='#ParticipantInvited-"+participant.id+"' role='tab'" +
-							"aria-controls='ParticipantInvited-"+participant.id+"'>"+participant.name+"</a>"
-						);
+					countInvited -= 1;
 				}
 			});
 

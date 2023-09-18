@@ -44,7 +44,7 @@ class ParticipantController extends Controller
         $response['resultat'] = project_participants::where('project_id', '=', $projectId)
             ->where('entry_request', '=', 0)
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->select('project_participants.id', 'users.name')
+            ->select('project_participants.id', 'users.name', 'project_participants.participant_id')
             ->get();
 
         return $response;
@@ -57,7 +57,7 @@ class ParticipantController extends Controller
         $response['resultat'] = project_participants::where('project_id', '=', $projectId)
             ->where('entry_request', '=', 1)
             ->join('users', 'users.id', '=', 'project_participants.participant_id')
-            ->select('project_participants.id', 'users.name')
+            ->select('project_participants.id', 'users.name', 'project_participants.participant_id')
             ->get();
 
         return $response;

@@ -65,6 +65,23 @@ function leaveProject(projectId){
 });
 }
 
+function deleteProjectClick(project){    
+    $('#'+project.id).addClass('selected-project');
+}
+
+$("#deleteModalButtonProject").click(function(){
+    $.ajax({
+        url: '{{route('delete.project')}}',         
+        method: 'delete',
+        data: {"_token": "{{ csrf_token() }}",
+            id: $(".selected-project")[0].value,
+        },    
+        success: function(data){  	    
+            location.reload();
+        }
+    });
+});
+
 function joinProject(projectId){
     $.ajax({
     url: '{{route('joinProject')}}',         

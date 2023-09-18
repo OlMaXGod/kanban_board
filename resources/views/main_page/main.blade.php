@@ -14,12 +14,15 @@
     @include('main_page.projects')
     @include('main_page.projectMenu.main')
     @include('modal_windows.create_project')
+    @include('modal_windows.modal_dialog_del_project')
 
     <title>Главная страница</title>
 </head>
 <body style="background-color: #FFFACD;">
 
      @yield('header', 'Не удалось получить список шапку') 
+     
+     @yield('modal_dialog_del_project', 'Не удалось получить модальное окно удаления проекта')
 
      @yield('projects', 'Не удалось получить список проектов') 
 

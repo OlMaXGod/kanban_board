@@ -9,7 +9,20 @@
                                                 <td>{{$project->type === 1 ? "Открытый" : "Закрытый"}}</td>
                                                 <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>      
                                                 
-                                                @if($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
+                                                @if($project->who_changed == Auth::user()->id)
+                                                    <td>
+                                                        <button type="button" class="btn btn-outline-danger" id="deleteProject-{{$project->id}}" onclick='deleteProjectClick(this)' value="{{$project->id}}"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">Удалить данный проект</button>
+                                                    </td>
+                                                    <td>
+                                                        <button 
+                                                            type="button" 
+                                                            id="leaveProject" 
+                                                            onclick="window.location.href = '{{ route('project_page', ['id' => $project->id]); }}';"
+                                                            style="width: 50px; height: 50px; border: none; background-image: url('project-icon.png'); background-size: cover;">
+                                                        </button>
+                                                    </td>
+                                                @elseif($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
                                                     <td>
                                                         <button type="button" class="btn btn-outline-danger" id="leaveProject" onclick='leaveProject(this)' value="{{$project->id}}">Покинуть данный проект</button>
                                                     </td>
@@ -40,7 +53,20 @@
                                                         <td>{{$project->name}}</td>
                                                         <td>{{$project->type === 1 ? "Открытый" : "Закрытый"}}</td>
                                                         <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>                  
-                                                        @if($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
+                                                        @if($project->who_changed == Auth::user()->id)
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-danger" id="deleteProject-{{$project->id}}" onclick='deleteProjectClick(this)' value="{{$project->id}}"
+                                                                    data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">Удалить данный проект</button>
+                                                            </td>
+                                                            <td>
+                                                                <button 
+                                                                    type="button" 
+                                                                    id="leaveProject" 
+                                                                    onclick="window.location.href = '{{ route('project_page', ['id' => $project->id]); }}';"
+                                                                    style="width: 50px; height: 50px; border: none; background-image: url('project-icon.png'); background-size: cover;">
+                                                                </button>
+                                                            </td>
+                                                        @elseif($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
                                                             <td>
                                                                 <button type="button" class="btn btn-outline-danger" id="leaveProject" onclick='leaveProject(this)' value="{{$project->id}}">Покинуть данный проект</button>
                                                             </td>
@@ -74,7 +100,20 @@
                                                         <td>{{$project->type === 1 ? "Открытый" : "Закрытый"}}</td>
                                                         <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>                  
                                                         
-                                                        @if($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
+                                                        @if($project->who_changed == Auth::user()->id)
+                                                            <td>
+                                                                <button type="button" class="btn btn-outline-danger" id="deleteProject-{{$project->id}}" onclick='deleteProjectClick(this)' value="{{$project->id}}"
+                                                                    data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">Удалить данный проект</button>
+                                                            </td>
+                                                            <td>
+                                                                <button 
+                                                                    type="button" 
+                                                                    id="leaveProject" 
+                                                                    onclick="window.location.href = '{{ route('project_page', ['id' => $project->id]); }}';"
+                                                                    style="width: 50px; height: 50px; border: none; background-image: url('project-icon.png'); background-size: cover;">
+                                                                </button>
+                                                            </td>
+                                                        @elseif($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
                                                             <td>
                                                                 <button type="button" class="btn btn-outline-danger" id="leaveProject" onclick='leaveProject(this)' value="{{$project->id}}">Покинуть данный проект</button>
                                                             </td>
@@ -108,7 +147,20 @@
                                                     <td>{{$project->type === 1 ? "Открытый" : "Закрытый"}}</td>
                                                     <td>{{$users->where('id', $project->who_changed)->first()->name}}</td>                  
 
-                                                    @if($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
+                                                    @if($project->who_changed == Auth::user()->id)
+                                                        <td>
+                                                            <button type="button" class="btn btn-outline-danger" id="deleteProject-{{$project->id}}" onclick='deleteProjectClick(this)' value="{{$project->id}}"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModalDeleteProject">Удалить данный проект</button>
+                                                        </td>
+                                                        <td>
+                                                            <button 
+                                                                type="button" 
+                                                                id="leaveProject" 
+                                                                onclick="window.location.href = '{{ route('project_page', ['id' => $project->id]); }}';"
+                                                                style="width: 50px; height: 50px; border: none; background-image: url('project-icon.png'); background-size: cover;">
+                                                            </button>
+                                                        </td>
+                                                    @elseif($projectParticipants->where('project_id',$project->id)->where('participant_id',Auth::user()->id)->first())
                                                         <td>
                                                             <button type="button" class="btn btn-outline-danger" id="leaveProject" onclick='leaveProject(this)' value="{{$project->id}}">Покинуть данный проект</button>
                                                         </td>
