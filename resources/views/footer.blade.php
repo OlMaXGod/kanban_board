@@ -1,6 +1,6 @@
 @section("footer")
 
-<div  style="background-color:#FFE4C4; padding: 10px; min-top:100%;">
+{{-- <div  style="background-color:#FFE4C4; padding: 10px; min-top:100%;">
     
 <ul class="nav justify-content-end" >
 
@@ -16,6 +16,6 @@
 
 </ul>
 
-</div>
+</div> --}}
 
 @endsection
